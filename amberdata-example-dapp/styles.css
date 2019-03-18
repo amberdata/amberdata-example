@@ -1,1 +1,214 @@
-[1;32mNo Api key found -- your free to commit![0m 😄 
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: .2px;
+}
+
+/* Remove outlines esp. those that chrome might potentially insert */
+*:focus {
+    outline: none;
+}
+
+body.noScroll { /* ...or body.dialogShowing */
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    background: #f9f9f9f9;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+p {
+    margin: 0;
+}
+
+.container {
+    margin: auto;
+    display: grid;
+    grid-template-rows: 100px auto auto;
+    grid-template-columns: 90%;
+    justify-content: center;
+    text-align: center;
+}
+
+#page-header {
+    color: #606060;
+    margin: 30px 30px 0 30px;
+}
+
+#page-header a {
+    display: inline-flex;
+    height: min-content;
+}
+
+#page-header > a:hover > .pointer {
+    transform: translateX(5px);
+}
+
+.pointer {
+    margin-left: 10px;
+    height: min-content;
+    cursor: pointer;
+    transition: transform 300ms ease-in-out;
+}
+
+.card {
+    margin-top: 30px;
+    background: rgb(54,37,175);
+    background: -moz-linear-gradient(90deg, rgba(54,37,175,1) 0%, rgba(190,105,213,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(54,37,175,1) 0%, rgba(190,105,213,1) 100%);
+    background: linear-gradient(90deg, rgba(54,37,175,1) 0%, rgba(190,105,213,1) 100%);
+    border-radius: 10px;
+    display: grid;
+    color: #fBfBfB;
+    align-items: center;
+    justify-items: center;
+    position: relative;
+    min-height: 200px;
+    border: 1px solid;
+    font-weight: 300;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.address-input input {
+    width: 100%;
+    height: 30px;
+    padding: 20px;
+    font-size: 4vw;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #F1F1F1;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+
+.address-input input:hover {
+    border-color: #0C60C7;
+}
+
+.address-input input:focus {
+    outline: none;
+}
+
+.data {
+    /*opacity: 0; TODO: Add loader */
+    /*transition: opacity 500ms ease-in-out;*/
+}
+
+#address-link {
+    align-self: end;
+}
+
+#address {
+    font-size: 3.5vw;
+}
+
+#address-type {
+    font-size: 8.5vw;
+    color: #ffffff;
+    letter-spacing: 2px;
+    font-weight: 400;
+}
+
+#date {
+    align-self: baseline;
+    font-size: 3.5vw;
+    color: #dadada;
+}
+
+#activity {
+    height: 10vh;
+}
+
+#activity .header {
+    text-align: left;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    padding-left: 15px;
+    color: #6e6e6e;
+    font-size: 4vw;
+}
+
+#activity .list-wrapper {
+    position: relative;
+    /*opacity: 0; TODO: add loading */
+    transition: opacity 500ms ease-in-out;
+}
+
+#activity .list-wrapper .list-overlay {
+    z-index: 1;
+    position: absolute;
+    height: 10px;
+    width: 100%;
+}
+
+.top {
+    background: linear-gradient(0deg, rgba(54,37,175,0) 0%, rgba(249,249,249,1) 100%);
+}
+
+.bottom {
+    background: linear-gradient(180deg, rgba(54,37,175,0) 0%, rgba(249,249,249,1) 100%);
+    bottom: 0;
+}
+
+#activity .list-wrapper .list {
+    max-height: 25vh;
+    overflow: scroll;
+    padding-top: 10px;
+    display: grid;
+    grid-row-gap: 10px;
+    padding-bottom: 10px;
+}
+
+#activity .entry {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    color: #222222;
+    padding: 5px;
+    font-size: 2.5vw;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #F1F1F1;
+}
+
+#activity .entry .item {
+    align-self: center;
+}
+
+#activity .entry .icon {
+    position: relative;
+    background: #D8D8D8;
+    border-radius: 5px;
+    height: 35px;
+    width: 35px;
+    display: flex;
+}
+
+#activity .entry .icon p {
+    margin: auto;
+    font-weight: bold;
+    font-size: 3vw;
+}
+
+#activity .entry .detail {
+    justify-self: baseline;
+}
+
+#activity .entry .hash {
+    justify-self: baseline;
+}
+
+#activity .entry .view {
+    justify-self: right;
+    margin-right: 5px;
+}
+
+#activity .entry .view a {
+    color: #0C60C7;
+}

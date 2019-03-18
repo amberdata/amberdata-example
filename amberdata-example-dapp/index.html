@@ -1,1 +1,89 @@
-[1;32mNo Api key found -- your free to commit![0m 😄 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Simple Wallet</title>
+    <link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+<div class="container">
+
+    <div id="page-header">
+        <!--TODO: Add link to repo-->
+
+        <a href="https://github.com/web3data/">
+            Build Your Own &mdash; View Repo
+            <div class="pointer"> > </div>
+        </a>
+    </div>
+    <div class="address-input">
+        <input id="address-input-field" type="text" placeholder="Enter Ethereum Address">
+    </div>
+    <div class="card">
+        <a id="address-link" href="https://amberdata.io" target="_blank">
+        <div id="address" class="data">
+
+        </div>
+        </a>
+        <div id="address-type" class="data">
+
+        </div>
+        <div id="date" class="data">
+            Updated: 12:08pm - 3/15/2019
+
+        </div>
+    </div>
+    <div id="activity">
+        <div class="header">
+            Activity
+        </div>
+        <div class="list-wrapper">
+            <div class="list-overlay top">
+
+            </div>
+            <div class="list">
+                <div class="entry">
+                    <div class="icon item">
+                        <p>TX</p>
+                    </div>
+                    <div class="detail item">
+                        Value: 0.00124
+                    </div>
+                    <div class="hash item">
+                        Hash: 0x390470...
+                        <!--5da0a9...-->
+                    </div>
+                    <div class="view item">
+                        <a href="https://amberdata.io">View ></a>
+                    </div>
+                </div>
+            </div>
+            <div class="txn-list-overlay bottom">
+
+            </div>
+            <template>
+                <div class="entry">
+                    <div class="icon">
+                        TXN
+                    </div>
+                    <div class="detail">
+                        Value: 0.00124
+                    </div>
+                    <div class="hash">
+                        Hash: 0x3904705da0a9...
+                    </div>
+                    <div class="view">
+                        <a href="https://amberdata.io">View ></a>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+        type="text/javascript"></script>
+<script src="index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</body>
+</html>
