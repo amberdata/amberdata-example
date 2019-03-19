@@ -13,15 +13,9 @@
 
         console.log('The DOM is ready');
         // The DOM is ready!
+
         await getAndDisplayData('0x0b44611b8ae632be05f24ffe64651f050402ae01')
 
-        /* Add scroll listener */
-        // TODO: Possibly remove
-        $('.txn-list-content').scroll(function() {
-            if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
-                log('Bottom reached!')
-            }
-        });
     });
 
     console.log('The DOM may not be ready');
@@ -70,7 +64,7 @@
     let getAddressBalance = async (address) => {
         return await axios({
             method:'get',
-            url: `https://web3api.io/api/v1/addresses/${address}/account-balances?page=0&size=1`,
+            url: `https://web3api.io/api/v1/addresses/${address}/account-balances/latest`,
             headers: {"x-api-key": "UAK000000000000000000000000demo0001"}
         })
     }
@@ -129,27 +123,6 @@
         }
     }
 
-    // let setBalanceOnHover = (balanceInUSD) => {
-    //     let balanceInETH
-    //     $('.balance')
-    //         .mouseenter(() => {
-    //             balanceInETH = $('.balance').text()
-    //             $('.balance').css('opacity','0')
-    //
-    //
-    //             setTimeout(()=>{
-    //                 setBalance(balanceInUSD)
-    //                 $('.balance').css('opacity','1')
-    //
-    //             }, 500)
-    //         })
-    //         .mouseleave(() => {
-    //             setBalance(balanceInETH)
-    //             $('.balance').css('transition-delay', '400ms')
-    //         })
-    // }
-
-
     let getAndDisplayData = async (address) => {
         if ( !isAddress(address) ) { return }
 
@@ -176,15 +149,6 @@
         } finally {
             setLoading(false)
         }
-
-        // let usdBalance= await ethToUSD(data)
-        // setBalanceOnHover(toStringUSD(usdBalance))
-
-         // 131.275
-
-        // let usd = parseFloat(toEth(data.records[0])) * price
-
-
     }
 
 
@@ -236,7 +200,7 @@
      * Checks if the given string is an address
      *
      * @method isAddress
-     * @param {String} address the given HEX adress
+     * @param {String} address the given HEX address
      * @return {Boolean}
      */
     let isAddress = function (address) {
