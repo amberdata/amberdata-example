@@ -8,7 +8,11 @@ Check out [the demo page](https://amberdata.github.io/amberdata-example-wallet/)
 git clone git@github.com:amberdata/amberdata-example-wallet.git
 ``
 
-### Build:
+### 1. Get API Key
+
+Go to [amberdata.io](https://amberdata.io/pricing) and click "Get started"
+
+### 2. Build:
 
 Building with Amberdata.io is as simple as a few axios request:
 
