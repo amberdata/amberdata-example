@@ -12,7 +12,15 @@ git clone git@github.com:amberdata/amberdata-example-dapp.git
 
 Building with Amberdata.io is as simple as a few axios request:
 
+```
+let config = {
+        headers: {"x-api-key": "UAK000000000000000000000000demo0001"}
+    }
 
+let getAddressInformation = (address) => axios.get(`https://web3api.io/api/v1/addresses/${address}/information`, config)
+
+```
+See source [here](https://github.com/amberdata/amberdata-example-dapp/blob/ae5062d9eafc96ab8d6f3d396f6e6b1d478c97dd/index.js#L23-L37)
 
 ## Resources
 
