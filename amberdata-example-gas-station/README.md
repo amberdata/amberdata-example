@@ -8,7 +8,11 @@ Check out [the demo page](https://amberdata.github.io/amberdata-example-gas-stat
 git clone git@github.com:amberdata/amberdata-example-gas-station.git
 ``
 
-### Build:
+### 1. Get API Key
+
+Go to [amberdata.io](https://amberdata.io/pricing) and click "Get started"
+
+### 2. Build:
 
 Building with Amberdata.io is as simple as a few axios request:
 ```js
@@ -16,7 +20,7 @@ let getGasPredictions = async () => {
     return await axios({
         method:'get',
         url: 'https://web3api.io/api/v1/transactions/gas/predictions',
-        headers: {"x-api-key": "UAK000000000000000000000000demo0001"}
+        headers: {"x-api-key": "YOUR_API_KEY_HERE"}
     })
 }
 ```
@@ -27,7 +31,7 @@ See source [here](https://github.com/amberdata/amberdata-example-gas-station/blo
         return await axios({
             method:'get',
             url: 'https://web3api.io/api/v1/transactions/gas/percentiles',
-            headers: {"x-api-key": "UAK000000000000000000000000demo0001"}
+            headers: {"x-api-key": "YOUR_API_KEY_HERE"}
         })
     }
 ```
