@@ -10,9 +10,7 @@
 
     // Listen for the jQuery ready event on the document
     $(async function () {
-        // TODO: REMOVE WHEN DONE - 0x0b44611b8ae632be05f24ffe64651f050402ae01
         await populateUI('0x06012c8cf97bead5deae237070f9587f8e7a266d')
-        // createInputListener()
     });
 
 
@@ -31,7 +29,6 @@
      */
     let getAddressInformation = (address) => axios.get(`${BASE_URL}addresses/${address}/information`, config)
     let getContractFunctions = (address) => axios.get(`${BASE_URL}contracts/${address}/abi`, config)
-
     let getAddressTransactions = (address) => axios.get(`${BASE_URL}addresses/${address}/transactions${FILTERS}`, config)
     let getAddressFunctions = (address) => axios.get(`${BASE_URL}addresses/${address}/functions${FILTERS}`, config)
     let getAddressLogs = (address) => axios.get(`${BASE_URL}addresses/${address}/logs${FILTERS}`, config)
@@ -105,20 +102,19 @@
     }
 
     const TRANSACTION = 0, FUNCTION = 1, LOG = 2
+
     /**
      * Updates the UI with all of the data
      * @param address the address to obtain data for
      */
     let populateUI = async (address) => {
+        if(!isAddress(address)) return
 
         let addressType = await getAddressType(address)
         setAddress(address)
         setAddressType(addressType)
         setAddresslink(address)
 
-        // ASK: About efficiency -- context why type is necessary
-        // ASK: About clarity
-        // TODO:COMMENT THOROUGHLY
         let responses = await axios.all([getAddressTransactions(address), getAddressFunctions(address), getAddressLogs(address)])
 
         // TODO: This is dangerous -- records might not exist
@@ -195,9 +191,44 @@
     /* Get's to the data we want. Makes things clearer.*/
     let extractData = (data) => data.data.payload
 
-    //TODO REMOVE WHEN DONE:
-    let l = (message) => console.log('I shouldn\'t be here if in prod\n\n', message)
+    /**
+     * Checks if the given string is an address
+     *
+     * @method isAddress
+     * @param {String} address the given HEX address
+     * @return {Boolean}
+     */
+    let isAddress = function (address) {
+        if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) {
+            // check if it has the basic requirements of an address
+            return false;
+        } else if (/^(0x)?[0-9a-f]{40}$/.test(address) || /^(0x)?[0-9A-F]{40}$/.test(address)) {
+            // If it's all small caps or all all caps, return true
+            return true;
+        } else {
+            // Otherwise check each case
+            return isChecksumAddress(address);
+        }
+    };
 
-    // TODO: add address check sum
+    /**
+     * Checks if the given string is a checksummed address
+     *
+     * @method isChecksumAddress
+     * @param {String} address the given HEX adress
+     * @return {Boolean}
+     */
+    let isChecksumAddress = function (address) {
+        // Check each case
+        address = address.replace('0x','');
+        var addressHash = sha3(address.toLowerCase());
+        for (var i = 0; i < 40; i++ ) {
+            // the nth letter should be uppercase if the nth digit of casemap is 1
+            if ((parseInt(addressHash[i], 16) > 7 && address[i].toUpperCase() !== address[i]) || (parseInt(addressHash[i], 16) <= 7 && address[i].toLowerCase() !== address[i])) {
+                return false;
+            }
+        }
+        return true;
+    };
 
 }));
