@@ -70,7 +70,7 @@ p {
     align-items: center;
     justify-items: center;
     position: relative;
-    min-height: 200px;
+    min-height: 220px;
     border: 1px solid;
     font-weight: 300;
     padding: 5px;
@@ -168,7 +168,7 @@ p {
 
 #activity .entry {
     display: grid;
-    grid-template-columns: repeat(4, auto);
+    grid-template-columns: 15% 1fr 1fr auto;
     color: #222222;
     padding: 5px;
     font-size: 2.5vw;
@@ -185,8 +185,8 @@ p {
     position: relative;
     background: #D8D8D8;
     border-radius: 5px;
-    height: 35px;
-    width: 35px;
+    height: 8vw;
+    width: 8vw;
     display: flex;
 }
 
@@ -211,4 +211,157 @@ p {
 
 #activity .entry .view a {
     color: #0C60C7;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .card {
+        min-height: 270px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .container {
+        grid-template-columns: 60%;
+    }
+
+    .card {
+        min-height: 320px;
+    }
+
+    .card-title {
+        font-size: 2.5vw;
+    }
+
+    #address-input-field {
+        font-size: 2vw;
+    }
+
+    #address {
+        font-size: 1.7vw;
+    }
+
+    #address-type {
+        font-size: 4.5vw;
+    }
+
+    #date {
+        font-size: 2vw;
+    }
+
+    #activity .header {
+        font-size: 2.5vw;
+    }
+
+    #activity .entry .icon {
+        height: 5.5vw;
+        width: 5.5vw;
+    }
+
+    #activity .entry .icon p {
+        font-size: 2vw;
+    }
+
+    #activity .entry {
+        font-size: 1.8vw;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1000px) {
+    .card {
+        min-height: 280px;
+    }
+}
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .container {
+        grid-template-columns: 60%;
+    }
+    .card {
+        min-height: 300px;
+    }
+    .card-title {
+        font-size: 2.5vw;
+    }
+    .card {
+        min-height: 330px;
+    }
+
+    #address-input-field {
+        font-size: 1.5vw;
+    }
+
+    #address {
+        font-size: 1.5vw;
+    }
+
+    #address-type {
+        font-size: 3.5vw;
+    }
+
+    #date {
+        font-size: 1.5vw;
+    }
+
+    #activity .header {
+        font-size: 1.7vw;
+    }
+
+    #activity .entry .icon {
+        height: 3.8vw;
+        width: 3.8vw;
+    }
+
+    #activity .entry .icon p {
+        font-size: 1.2vw;
+    }
+
+    #activity .entry {
+        font-size: 1.2vw;
+    }
+}
+
+@media (min-width: 1281px) {
+    .container {
+        grid-template-columns: 40%;
+    }
+
+    .card {
+        min-height: 330px;
+    }
+
+    #address-input-field {
+        font-size: 1vw;
+    }
+
+    #address {
+        font-size: 1.2vw;
+    }
+
+    #address-type {
+        font-size: 3vw;
+    }
+
+    #date {
+        font-size: 1vw;
+    }
+
+    #activity .header {
+        font-size: 1.7vw;
+    }
+
+    #activity .entry .icon {
+        height: 3.5vw;
+        width: 3.5vw;
+    }
+
+    #activity .entry .icon p {
+        font-size: 1vw;
+    }
+
+    #activity .entry {
+        font-size: 1vw;
+    }
 }
