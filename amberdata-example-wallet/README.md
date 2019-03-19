@@ -22,7 +22,7 @@ let getAddressBalance = async (address) => {
         return await axios({
             method:'get',
             url: `https://web3api.io/api/v1/addresses/${address}/account-balances?page=0&size=1`,
-            headers: {"x-api-key": "UAK000000000000000000000000demo0001"}
+            headers: {"x-api-key": "YOUR_API_KEY_HERE"}
         })
     }
 
@@ -30,7 +30,7 @@ let getAddressTransactions = async (address) => {
     return await axios({
         method:'get',
         url: `https://web3api.io/api/v1/addresses/${address}/transactions?page=0&size=10`,
-        headers: {"x-api-key": "UAK000000000000000000000000demo0001"}
+        headers: {"x-api-key": "YOUR_API_KEY_HERE"}
     })
 }
 ```
