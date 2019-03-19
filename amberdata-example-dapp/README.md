@@ -8,10 +8,11 @@ Check out [the demo page](https://amberdata.github.io/amberdata-example-dapp/)!
 git clone git@github.com:amberdata/amberdata-example-dapp.git
 ``
 
-1. Get API Key
+### 1. Get API Key
+
 Go to amberdata.io and click "Get started"
 
-2. Build:
+### 2. Build:
 
 Building with Amberdata.io is as simple as a few axios request:
 
