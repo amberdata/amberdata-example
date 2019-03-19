@@ -9,6 +9,8 @@ git clone git@github.com:amberdata/amberdata-example-gas-station.git
 ``
 
 ### Build:
+
+Building with Amberdata.io is as simple as a few axios request:
 ```js
 let getGasPredictions = async () => {
     return await axios({
@@ -18,7 +20,7 @@ let getGasPredictions = async () => {
     })
 }
 ```
-https://github.com/amberdata/amberdata-example-gas-station/blob/4480904388d816b2767d7cb4a98c3fccc34aaba8/index.js#L84-L90
+See source [here](https://github.com/amberdata/amberdata-example-gas-station/blob/4480904388d816b2767d7cb4a98c3fccc34aaba8/index.js#L84-L90).
 
 ```js
     let getGasPercentiles = async () => {
@@ -29,7 +31,7 @@ https://github.com/amberdata/amberdata-example-gas-station/blob/4480904388d816b2
         })
     }
 ```
-https://github.com/amberdata/amberdata-example-gas-station/blob/4480904388d816b2767d7cb4a98c3fccc34aaba8/index.js#L102-L109
+See source [here](https://github.com/amberdata/amberdata-example-gas-station/blob/4480904388d816b2767d7cb4a98c3fccc34aaba8/index.js#L102-L109).
 
 ## Resources
 
