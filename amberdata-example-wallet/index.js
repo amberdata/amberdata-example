@@ -16,6 +16,7 @@
         await getAndDisplayData('0x0b44611b8ae632be05f24ffe64651f050402ae01')
 
         /* Add scroll listener */
+        // TODO: Possibly remove
         $('.txn-list-content').scroll(function() {
             if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
                 log('Bottom reached!')
@@ -25,21 +26,11 @@
 
     console.log('The DOM may not be ready');
 
-    let round = (n, digits) => {
-        return Number.parseFloat(n).toFixed(digits)
-    }
+    let round = (n, digits) => Number.parseFloat(n).toFixed(digits)
+    let toEth = (wei) => wei / 1000000000000000000
 
-    let toEth = (wei) =>  {
-        return wei / 1000000000000000000
-    }
-
-    let setBalance = (balance) => {
-        $('#bal').text(balance)
-    }
-
-    let setAddress = (address) => {
-        $('.address').text(address)
-    }
+    let setBalance = (balance) => $('#bal').text(balance)
+    let setAddress = (address) => $('.address').text(address)
 
     let setDate = (unixTime) => {
         let date = new Date(unixTime)
@@ -71,7 +62,7 @@
         let data = await axios({
             method:'get',
             url: `https://web3api.io/api/v1/market/tickers/eth_usd/latest?exchange=${exchange}`,
-            headers: {"x-api-key": "<api-key>"}
+            headers: {"x-api-key": "UAK000000000000000000000000demo0001"}
         })
         return data.data.payload[exchange].mid
     }
@@ -80,15 +71,15 @@
         return await axios({
             method:'get',
             url: `https://web3api.io/api/v1/addresses/${address}/account-balances?page=0&size=1`,
-            headers: {"x-api-key": "<api-key>"}
+            headers: {"x-api-key": "UAK000000000000000000000000demo0001"}
         })
     }
 
-    let geAddressTransactions = async (address) => {
+    let getAddressTransactions = async (address) => {
         return await axios({
             method:'get',
             url: `https://web3api.io/api/v1/addresses/${address}/transactions?page=0&size=10`,
-            headers: {"x-api-key": "<api-key>"}
+            headers: {"x-api-key": "UAK000000000000000000000000demo0001"}
         })
     }
 
@@ -174,7 +165,7 @@
 
             setLoading(false)
 
-            let txnData = await geAddressTransactions(address)
+            let txnData = await getAddressTransactions(address)
 
             updateTransactionsList(extractData(txnData).records)
 
