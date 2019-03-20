@@ -98,7 +98,7 @@
 
     let updateActivitiesList = ({ activities, contractMethods = {} }) => {
         let entries = `${activities.map(entry => entryTemplate({...getEntryData(entry, contractMethods)})).join('')}`
-        $('#activity .list-wrapper .list').append(entries)
+        $('#activity .list').append(entries)
     }
 
     const TRANSACTION = 0, FUNCTION = 1, LOG = 2
