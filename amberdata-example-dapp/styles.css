@@ -142,6 +142,9 @@ p {
     display: grid;
     grid-row-gap: 10px;
     padding-bottom: 15vh;
+    position: relative;
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
 }
 
 #activity .entry {
@@ -189,6 +192,70 @@ p {
 
 #activity .entry .view a {
     color: #0C60C7;
+}
+
+.loader,
+.loader:before,
+.loader:after {
+    border-radius: 50%;
+    width: 2.5em;
+    height: 2.5em;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation: load7 1.8s infinite ease-in-out;
+    animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+    color: #99ccff;
+    font-size: 10px;
+    margin: 80px auto;
+    position: absolute;
+    right: 50%;
+    text-indent: -9999em;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+}
+
+.loader:before,
+.loader:after {
+    content: '';
+    position: absolute;
+    top: 0;
+}
+.loader:before {
+    left: -3.5em;
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+    color: #f26522;
+}
+.loader:after {
+    left: 3.5em;
+    color: #003366;
+}
+@-webkit-keyframes load7 {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40% {
+        box-shadow: 0 2.5em 0 0;
+    }
+}
+@keyframes load7 {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40% {
+        box-shadow: 0 2.5em 0 0;
+    }
 }
 
 @media (min-width: 320px) and (max-width: 480px) {

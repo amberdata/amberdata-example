@@ -114,6 +114,7 @@
         setAddress(address)
         setAddressType(addressType)
         setAddresslink(address)
+        setLoading(true, '')
 
         let responses = await axios.all([getAddressTransactions(address), getAddressFunctions(address), getAddressLogs(address)])
 
@@ -136,8 +137,10 @@
             })
 
             updateActivitiesList({ activities, contractMethods })
+            setLoading(false, '')
         } else {
             updateActivitiesList({ activities })
+            setLoading(false, '')
         }
 
     }
@@ -168,6 +171,18 @@
             await populateUI(textInput.value.toLowerCase());
         }, 500);
     };
+
+    let setLoading = (bool, section) => {
+        let loader = $('.loader')
+
+        loader.css('opacity', bool ? '1' : '0')
+
+        loader.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
+            function(e) {
+                loader.css('visibility', bool ? 'visible' : 'hidden')
+                $('#activity .list').css('opacity', bool ? '0': '1')
+            });
+    }
 
     let setAddress = (address) => $('#address').text(address)
 
