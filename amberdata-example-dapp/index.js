@@ -52,7 +52,7 @@
             if (a.timestamp < b.timestamp)
                 return 1
             return 0
-        }).slice(0, 50)
+        }).slice(0, 50) // Limit 50 results
 
     let entryTemplate = ({icon = '', detail = '', hash = '', link = ''}) =>
         `<div class="entry">
@@ -110,11 +110,11 @@
     let populateUI = async (address) => {
         if(!isAddress(address)) return
 
+        setLoading(true, '')
         let addressType = await getAddressType(address)
         setAddress(address)
         setAddressType(addressType)
         setAddresslink(address)
-        setLoading(true, '')
 
         let responses = await axios.all([getAddressTransactions(address), getAddressFunctions(address), getAddressLogs(address)])
 
@@ -147,30 +147,7 @@
 
 
 
-    /**
-     * Watches the input field and will initiate search after an
-     * address is entered.
-     */
 
-        // Get the input box
-    let textInput = document.getElementById('address-input-field');
-
-    // Init a timeout variable to be used below
-    let timeout = null;
-
-    // Listen for keystroke events
-    textInput.onkeyup = (e) => {
-
-        // Clear the timeout if it has already been set.
-        // This will prevent the previous task from executing
-        // if it has been less than <MILLISECONDS>
-        clearTimeout(timeout);
-
-        // Make a new timeout set to go off in 800ms
-        timeout = setTimeout(async () => {
-            await populateUI(textInput.value.toLowerCase());
-        }, 500);
-    };
 
     let setLoading = (bool, section) => {
         let loader = $('.loader')
