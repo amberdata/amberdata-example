@@ -72,7 +72,7 @@
     let getAddressTransactions = async (address) => {
         return await axios({
             method:'get',
-            url: `https://web3api.io/api/v1/addresses/${address}/transactions?page=0&size=10`,
+            url: `https://web3api.io/api/v1/addresses/${address}/transactions?page=0&size=30`,
             headers: {"x-api-key": "UAK000000000000000000000000demo0001"}
         })
     }
@@ -90,7 +90,7 @@
 
             });
         if (bool) {
-            $('.txn-list-content').empty();
+            $('.transactions-list').empty();
         }
         $('.transactions-list').css('opacity', bool ? '0': '1')
     }
@@ -170,7 +170,7 @@
             $(entry).find('.txn-value').text(`Value: ${eth} Ether`)
             $(entry).find('.txn-hash').text(`Hash: ${truncHash(hash)}`)
             $(entry).find('.txn-view').find('a').attr('href', `https://amberdata.io/transactions/${hash}`)
-            $('.txn-list-content').append(entry)
+            $('.transactions-list').append(entry)
         }
     }
 

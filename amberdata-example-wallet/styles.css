@@ -151,31 +151,10 @@ a {
     position: relative;
     opacity: 0;
     transition: opacity 500ms ease-in-out;
-}
-
-.txn-list-content {
-    max-height: 25vh;
-    overflow: scroll;
     padding-top: 10px;
     display: grid;
     grid-row-gap: 10px;
     padding-bottom: 10px;
-}
-
-.txn-list-overlay {
-    z-index: 1;
-    position: absolute;
-    height: 10px;
-    width: 100%;
-}
-
-.top {
-    background: linear-gradient(0deg, rgba(54, 37, 175, 0) 0%, rgba(249, 249, 249, 1) 100%);
-}
-
-.bottom {
-    background: linear-gradient(180deg, rgba(54, 37, 175, 0) 0%, rgba(249, 249, 249, 1) 100%);
-    bottom: 0;
 }
 
 .transaction-entry {
@@ -187,6 +166,7 @@ a {
     box-sizing: border-box;
     border-radius: 10px;
     border: 1px solid #F1F1F1;
+    background: #ffffff;
 }
 
 .txn-view a {
