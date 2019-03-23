@@ -9,9 +9,14 @@
     outline: none;
 }
 
+html, body {
+    overflow: hidden;
+}
+
 body.noScroll { /* ...or body.dialogShowing */
     overflow: hidden;
 }
+
 body {
     margin: 0;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -125,7 +130,6 @@ p {
     align-self: flex-end;
     height: 100%;
     justify-content: center;
-
 }
 
 #gas-percentiles .percent {
@@ -210,7 +214,6 @@ p {
     animation: sk-rotate 2.0s infinite linear;
     opacity: 0;
     transition: opacity 500ms ease-in-out;
-
 }
 
 .dot1, .dot2 {
