@@ -47,8 +47,7 @@
         let prices = Object.values(percentiles)
         let maxGasPrice = Math.max(...prices)
         // x * 92 / 100 + 8
-        let barHeights = prices.map(price => round((price / maxGasPrice * 100) * (92/100) + 8), 0);
-        return barHeights
+        return prices.map(price => round((price / maxGasPrice * 100) * (92/100) + 8), 0);
     }
 
     let setLoading = (bool) => {
