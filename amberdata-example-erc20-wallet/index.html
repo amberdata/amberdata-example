@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Simple Wallet</title>
+    <link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+<div class="container">
+
+    <div id="page-header">
+        <a id="logo"
+           href="https://github.com/amberdata/amberdata-example-erc20-wallet">
+            <!--<div class="logo"></div>-->
+            <img src="amberdataio_logo_color.svg" alt="">
+        </a>
+
+        <a id="repo-link"
+           href="https://github.com/amberdata/amberdata-example-erc20-wallet">
+            Build Your Own &mdash; View Repo
+            <div class="pointer"> ></div>
+        </a>
+    </div>
+    <div id="demo-name">ERC20 Wallet Demo</div>
+    <div class="address-input">
+        <input id="address-input-field" type="text"
+               placeholder="Enter Ethereum Address">
+    </div>
+    <div class="card">
+        <div class="title">
+            Token Holdings - Past 30 days
+        </div>
+        <div id="token-name" class="data">
+
+        </div>
+        <canvas id="holdings-chart"></canvas>
+    </div>
+    <div id="tokens">
+
+        <!--TODO: <div>LOADER GOES HERE</div>-->
+
+        <div class="list">
+        </div>
+
+    </div>
+    <div id="token-transfers">
+        <div class="header">
+            Token Transfers
+        </div>
+        <!--<div class="loader">Loading...</div>-->
+        <div class="list">
+
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+        type="text/javascript"></script>
+<script src="index.js"></script>
+<script src="vibrant.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+</body>
+</html>

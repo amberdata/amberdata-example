@@ -1,0 +1,280 @@
+/* - - - - - - - - - - - - - - - *
+ *     Generic page defaults
+ * - - - - - - - - - - - - - - - */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: .2px;
+}
+
+/* Remove outlines esp. those that chrome might potentially insert */
+*:focus {
+    outline: none;
+}
+
+body {
+    margin: 0;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    background: #f9f9f9;
+    color: #444444;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+p {
+    margin: 0;
+}
+
+.container {
+    margin: auto;
+    display: grid;
+    grid-template-rows: 80px auto auto auto;
+    grid-template-columns: 90%;
+    justify-content: center;
+    text-align: center;
+}
+
+/* - - - - - - - - - - - - - - - *
+ * Page header styles
+ * - - - - - - - - - - - - - - - */
+#page-header {
+    display: flex;
+    align-items: center;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+}
+
+#page-header #repo-link {
+    color: #606060;
+    font-size: 3vw;
+}
+
+#page-header #repo-link {
+    display: inline-flex;
+    height: min-content;
+}
+
+#page-header > #repo-link:hover > .pointer {
+    transform: translateX(5px);
+}
+
+
+#page-header #logo img {
+    width: 30vw;
+}
+
+.pointer {
+    margin-left: 10px;
+    height: min-content;
+    cursor: pointer;
+    transition: transform 300ms ease-in-out;
+}
+
+#demo-name {
+    color: #444444;
+    margin: 10px 0;
+    font-size: 3.8vw;
+}
+
+/* - - - - - - - - - - - - - - - *
+ * Address input
+ * - - - - - - - - - - - - - - - */
+
+/*ASK: cols or rows for small screes ( <= phones) */
+.address-input input {
+    width: 100%;
+    height: 30px;
+    padding: 20px;
+    font-size: 4vw;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #F1F1F1;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    margin-top: 10px;
+    background: #ffffff;
+}
+
+.address-input input:hover {
+    border-color: #0C60C7;
+}
+
+.address-input input:focus {
+    outline: none;
+}
+
+/* - - - - - - - - - - - - - - - *
+ * Content Card
+ * - contains token info & charts
+ * - - - - - - - - - - - - - - - */
+.card {
+    margin-top: 30px;
+    background: rgb(54,37,175);
+    background: -moz-linear-gradient(90deg, rgba(54,37,175,1) 0%, rgba(190,105,213,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(54,37,175,1) 0%, rgba(190,105,213,1) 100%);
+    background: linear-gradient(90deg, rgba(54,37,175,1) 0%, rgba(190,105,213,1) 100%);
+    border-radius: 10px;
+    display: grid;
+    color: #fBfBfB;
+    align-items: center;
+    justify-items: center;
+    position: relative;
+    min-height: 300px;
+    border: 1px solid;
+    font-weight: 300;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+/* - - - - - - - - - - - - - - - *
+ * Tokens list
+ * - - - - - - - - - - - - - - - */
+
+#tokens {
+    position: relative;
+    transition: opacity 500ms ease-in-out;
+}
+
+#tokens .list {
+    padding-top: 10px;
+    display: grid;
+    grid-row-gap: 10px;
+    padding-bottom: 5vh;
+    position: relative;
+    /*opacity: 0;  <-- TODO: add back */
+    transition: opacity 500ms ease-in-out;
+}
+
+#tokens .token {
+    display: grid;
+    grid-template-columns: 10% 1fr 1fr auto;
+    color: #222222;
+    padding: 5px;
+    font-size: 2.5vw;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #F1F1F1;
+    background: #ffffff;
+}
+
+#tokens .token .item {
+    align-self: center;
+    font-size: 3vw;
+}
+
+#tokens .selected {
+    border-color: #040053;
+}
+
+#tokens .token .logo img {
+    width: 100%;
+    border-radius: 5%;
+}
+
+/* TODO: display header items as cols on larger screens (tablet >= )*/
+
+/* - - - - - - - - - - - - - - - *
+ * Transfers list
+ * - - - - - - - - - - - - - - - */
+#token-transfers .header {
+    text-align: left;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    padding-left: 15px;
+    color: #6e6e6e;
+    font-size: 4vw;
+}
+
+#token-transfers .list {
+    padding-top: 10px;
+    display: grid;
+    grid-row-gap: 10px;
+    padding-bottom: 10px;
+}
+
+#token-transfers .transfer {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    color: #222222;
+    padding: 15px;
+    font-size: 2.5vw;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #F1F1F1;
+    background: #ffffff;
+}
+
+#token-transfers .transfer .amount {
+    justify-self: left;
+}
+
+#token-transfers .transfer .hash {
+    justify-self: left;
+}
+
+#token-transfers .transfer .view {
+    justify-self: right;
+}
+
+#token-transfers .transfer .view  a {
+    color: #0C60C7;
+}
+
+
+
+
+/* - - - - - - - - - - - - - - - *
+ *
+ * - - - - - - - - - - - - - - - */
+
+@media (min-width: 1281px) {
+
+    #page-header {
+        justify-content: space-between;
+    }
+
+    #page-header #logo img {
+        width: 15vw;
+    }
+
+    #page-header #repo-link {
+        font-size: 1vw;
+    }
+
+    .container {
+        grid-template-columns: 40%;
+    }
+    .card {
+        min-height: 300px;
+    }
+    .card .title {
+        font-size: 1.2vw;
+    }
+
+    .address-input input {
+        font-size: 1vw;
+    }
+
+    #demo-name {
+        font-size: 1.2vw;
+    }
+
+    #tokens .token .item {
+        font-size: 1vw;
+    }
+
+    #tokens .token .logo img {
+        width: 75%;
+        border-radius: 5%;
+    }
+
+    #token-transfers .header {
+        font-size: 1.2vw;
+    }
+
+    #token-transfers .transfer {
+        font-size: 1vw;
+    }
+}
