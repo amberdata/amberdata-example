@@ -14,8 +14,6 @@
         /* Loads up the UI with a default address */
         let {data, chart} = await populateUI('0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be')
 
-
-
     });
 
 
@@ -95,9 +93,6 @@
     let updateTransfersList = (transfers) => {
         let transferList = $('#token-transfers .list')
 
-        // Remove transfers
-        transferList.empty()
-
         let transferHtml = `${transfers.map(transfer => getTransferTemplate(transfer)).join('')}`
         transferList.append(transferHtml)
 
@@ -109,7 +104,8 @@
      */
     let populateUI = async (address) => {
         if (!isAddress(address)) return // Don't run unless valid ethereum address
-
+        setLoading(true, 'transfers')
+        setLoading(true, )
         // TODO: Must be CONCURRENT -: let [balances, transfers] = Promise.all([, ])
         let balances = extractData(await getCurrentTokenBalances(address))
         let sortedBalances = sortBalances(balances.records)
@@ -144,13 +140,41 @@
         /* Attach click handlers to tokens */
         createTokenListener(timeSeriesData, chart)
         tokenElement[0].click()
-
+        setLoading(false)
         let transfers = extractData(await getCurrentTokenTransfers(address))
         updateTransfersList(transfers.records.slice(0, 50))
-
+        setLoading(false, 'transfers')
         return {timeSeriesData, chart}
     }
 
+    let setLoading = (bool, section) => {
+        if(section === 'transfers') {
+            let loader = $('.loader')
+
+            loader.css('opacity', bool ? '1' : '0')
+
+            loader.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
+                function(e) {
+                    loader.css('visibility', bool ? 'visible' : 'hidden')
+                    $('#token-transfers .list').css('opacity', bool ? '0': '1')
+                });
+            if(bool === true) {
+                $('#token-transfers .list').empty()
+            }
+        } else {
+            let loader = $('.spinner')
+
+            loader.css('opacity', bool ? '1' : '0')
+
+            loader.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
+                function(e) {
+                    loader.css('visibility', bool ? 'visible' : 'hidden')
+                    $('.data').css('opacity', bool ? '0': '1')
+
+                });
+            $('#tokens .list').css('opacity', bool ? '0': '1')
+        }
+    }
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
     /*                      Charts.js methods                      */
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
