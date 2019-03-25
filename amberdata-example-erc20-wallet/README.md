@@ -1,5 +1,5 @@
 # amberdata-erc20-wallet
-Build your own wallet for Ethereum using Amberdata.io! Example code uses account transactions and account balance
+Build your own ERC20 Token wallet for Ethereum using Amberdata.io! Example code uses account transactions and account balance
 
 Check out [the demo page](https://amberdata.github.io/amberdata-erc20-wallet/)!
 
