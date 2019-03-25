@@ -85,19 +85,20 @@
                 icon: 'IM',
                 detail: `${truncHash(getMethodName(entry.input.slice(0,10), contractMethods),20)}`,
                 hash: truncHash(entry.transactionHash,10),
-                link: `${AMBERDATA_BASE_URL}functions/${entry.transactionHash}`
+                link: `${AMBERDATA_BASE_URL}transactions/${entry.transactionHash}`
             }
             case LOG: return {
                 icon: 'LOG',
                 detail: `Input: ${truncHash(entry.topics ? entry.topics[0] : entry.data[0], 10)}`,
                 hash: truncHash(entry.transactionHash,10),
-                link: `${AMBERDATA_BASE_URL}logs/${entry.transactionHash}`
+                link: `${AMBERDATA_BASE_URL}transactions/${entry.transactionHash}`
             }
         }
     }
 
     let updateActivitiesList = ({ activities, contractMethods = {} }) => {
         // TODO:L Might need to delete old entries here?
+        $('#activity .list').empty()
         let entries = `${activities.map(entry => entryTemplate({...getEntryData(entry, contractMethods)})).join('')}`
         $('#activity .list').append(entries)
     }
@@ -136,12 +137,16 @@
         let contractMethods = {}
         if (addressType === 'Contract') {
             let functions = extractData(await getContractFunctions(address))
-            functions.map( (func) => {
-                if('hexadecimalSignature' in func) {
-                    contractMethods[func.hexadecimalSignature] = func.textSignature
-                }
-            })
-
+            if (functions) {
+                functions.map( (func) => {
+                    if('hexadecimalSignature' in func) {
+                        contractMethods[func.hexadecimalSignature] = func.textSignature
+                    }
+                })
+            } else {
+                updateActivitiesList({ activities })
+                setLoading(false, 'activity')
+            }
             updateActivitiesList({ activities, contractMethods })
             setLoading(false, 'activity')
         } else {
