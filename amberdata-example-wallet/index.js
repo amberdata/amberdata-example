@@ -40,10 +40,10 @@
         if (data.totalRecords < 1) {
             setBalance('0 Ether')
         } else {
-            let balanceWei  = data.records[0].value
+            let balanceWei  = data.value
             let balanceEth = round(toEth(balanceWei), 4)
             setBalance(`${balanceEth} Ether`)
-            setDate(data.records[0].timestamp)
+            setDate(data.timestamp)
         }
 
     }
@@ -131,9 +131,10 @@
 
         try {
 
-            let balanceData = await getAddressBalance(address)
-            balanceData = extractData(balanceData)
-            balanceData['address'] = address
+            let balanceData = extractData(await getAddressBalance(address))
+
+            console.log(balanceData)
+
             updateBalanceUI(balanceData)
 
             setLoading(false)
@@ -183,7 +184,7 @@
     let timeout = null;
 
     // Listen for keystroke events
-    textInput.onkeyup = function (e) {
+    textInput.onkeyup = (e) => {
 
         // Clear the timeout if it has already been set.
         // This will prevent the previous task from executing
@@ -226,8 +227,8 @@
     let isChecksumAddress = function (address) {
         // Check each case
         address = address.replace('0x','');
-        var addressHash = sha3(address.toLowerCase());
-        for (var i = 0; i < 40; i++ ) {
+        let addressHash = sha3(address.toLowerCase());
+        for (let i = 0; i < 40; i++ ) {
             // the nth letter should be uppercase if the nth digit of casemap is 1
             if ((parseInt(addressHash[i], 16) > 7 && address[i].toUpperCase() !== address[i]) || (parseInt(addressHash[i], 16) <= 7 && address[i].toLowerCase() !== address[i])) {
                 return false;
