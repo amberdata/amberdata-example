@@ -22,7 +22,10 @@ let config = {
     }
 
 let getAddressInformation = (address) => axios.get(`https://web3api.io/api/v1/addresses/${address}/information`, config)
-
+let getContractFunctions = (address) => axios.get(`https://web3api.io/api/v1/contracts/${address}/functions`, config)
+    let getAddressTransactions = (address) => axios.get(`https://web3api.io/api/v1/addresses/${address}/transactions?page=0&size=50`, config)
+    let getAddressFunctions = (address) => axios.get(`https://web3api.io/api/v1/addresses/${address}/functions?page=0&size=50`, config)
+    let getAddressLogs = (address) => axios.get(`https://web3api.io/api/v1/addresses/${address}/logs?page=0&size=50`, config)
 ```
 See source [here](https://github.com/amberdata/amberdata-example-dapp/blob/ae5062d9eafc96ab8d6f3d396f6e6b1d478c97dd/index.js#L23-L37)
 

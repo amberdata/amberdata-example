@@ -28,7 +28,7 @@
      * @param address
      */
     let getAddressInformation = (address) => axios.get(`${BASE_URL}addresses/${address}/information`, config)
-    let getContractFunctions = (address) => axios.get(`${BASE_URL}contracts/${address}/abi`, config)
+    let getContractFunctions = (address) => axios.get(`${BASE_URL}contracts/${address}/functions`, config)
     let getAddressTransactions = (address) => axios.get(`${BASE_URL}addresses/${address}/transactions${FILTERS}`, config)
     let getAddressFunctions = (address) => axios.get(`${BASE_URL}addresses/${address}/functions${FILTERS}`, config)
     let getAddressLogs = (address) => axios.get(`${BASE_URL}addresses/${address}/logs${FILTERS}`, config)
@@ -66,7 +66,7 @@
                 Hash: ${truncHash(hash, 10)}
             </div>
             <div class="view item">
-                <a href="https://amberdata.io/${link}" target="_blank">View ></a>
+                <a href="${link}" target="_blank">View ></a>
             </div>
          </div>`
 
@@ -97,6 +97,7 @@
     }
 
     let updateActivitiesList = ({ activities, contractMethods = {} }) => {
+        // TODO:L Might need to delete old entries here?
         let entries = `${activities.map(entry => entryTemplate({...getEntryData(entry, contractMethods)})).join('')}`
         $('#activity .list').append(entries)
     }
@@ -110,13 +111,18 @@
     let populateUI = async (address) => {
         if(!isAddress(address)) return
 
-        setLoading(true, '')
+        setLoading(true, 'card')
+        setLoading(true, 'activity')
         let addressType = await getAddressType(address)
         setAddress(address)
         setAddressType(addressType)
         setAddresslink(address)
 
-        let responses = await axios.all([getAddressTransactions(address), getAddressFunctions(address), getAddressLogs(address)])
+        setLoading(false, 'card')
+
+        let responses = await Promise.all([getAddressTransactions(address), getAddressFunctions(address), getAddressLogs(address)])
+        // 0xf4faea455575354d2699bc209b0a65ca99f69982
+        responses = responses.filter(result => !(result instanceof Error));
 
         // TODO: This is dangerous -- records might not exist
         let data = responses.map( (resp) => extractData(resp).records)
@@ -137,28 +143,56 @@
             })
 
             updateActivitiesList({ activities, contractMethods })
-            setLoading(false, '')
+            setLoading(false, 'activity')
         } else {
             updateActivitiesList({ activities })
-            setLoading(false, '')
+            setLoading(false, 'activity')
         }
 
     }
 
+    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+    /*                          Listeners                          */
+    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+    /* Text Input listener
+     * Watches the input field and will initiate search after an
+     * address is entered.
+     */
+    let textInput = document.getElementById('address-input-field');
+    let timeout = null; // Init a timeout variable to be used below
+    textInput.onkeyup = (e) => {  // Listen for keystroke events
 
+        // Clear the timeout if it has already been set.
+        // This will prevent the previous task from executing
+        // if it has been less than <MILLISECONDS>
+        clearTimeout(timeout);
 
-
+        // Make a new timeout set to go off in 800ms
+        timeout = setTimeout(async () => {
+            await populateUI(textInput.value.toLowerCase());
+        }, 500);
+    };
 
     let setLoading = (bool, section) => {
-        let loader = $('.loader')
+        if(section === 'card') {
+            let loader = $('.spinner')
+            loader.css('opacity', bool ? '1' : '0')
+            loader.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
+                (e) => {
+                    loader.css('visibility', bool ? 'visible' : 'hidden')
+                    $('.data').css('opacity', bool ? '0': '1')
+                });
+        } else {
+            let loader = $('.loader')
 
-        loader.css('opacity', bool ? '1' : '0')
+            loader.css('opacity', bool ? '1' : '0')
 
-        loader.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
-            function(e) {
-                loader.css('visibility', bool ? 'visible' : 'hidden')
-                $('#activity .list').css('opacity', bool ? '0': '1')
-            });
+            loader.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
+                (e) => {
+                    loader.css('visibility', bool ? 'visible' : 'hidden')
+                    $('#activity .list').css('opacity', bool ? '0': '1')
+                });
+        }
     }
 
     let setAddress = (address) => $('#address').text(address)
