@@ -27,7 +27,7 @@ let getCurrentTokenTransfers = (address) => axios.get(`https://web3api.io/api/v1
 
 ```
 
-See source [here](https://github.com/amberdata/).
+See source [here](https://github.com/amberdata/amberdata-erc20-wallet/blob/b63753e2c1be710f966005481abdba9a1b71d2e8/index.js#L30-L41).
 
 ## Resources
 
