@@ -501,19 +501,19 @@ p {
     }
 
     #page-header #logo img {
-        width: 30vw;
+        width: 20vw;
     }
 
     #page-header #repo-link {
-        font-size: 2vw;
+        font-size: 1.4vw;
     }
 
     #demo-name {
-        font-size: 2.5vw;
+        font-size: 1.8vw;
     }
 
     .container {
-        grid-template-columns: 80%;
+        grid-template-columns: 60%;
     }
 
     .card {
@@ -521,15 +521,15 @@ p {
     }
 
     .card .title {
-        font-size: 3vw;
+        font-size: 1.8vw;
     }
 
     .address-input input {
-        font-size: 2.8vw;
+        font-size: 1.5vw;
     }
 
     #tokens .token .item {
-        font-size: 2vw;
+        font-size: 1.5vw;
     }
 
     #tokens .token .logo img {
@@ -538,11 +538,11 @@ p {
     }
 
     #token-transfers .header {
-        font-size: 2.5vw;
+        font-size: 1.5vw;
     }
 
     #token-transfers .transfer {
-        font-size: 2vw;
+        font-size: 1.2vw;
     }
 }
 
