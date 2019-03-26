@@ -8,10 +8,10 @@
 *:focus {
     outline: none;
 }
-
+/*  BAD!!!!! I can't scroll, which cuts off bottom panel
 html, body {
     overflow: hidden;
-}
+} */
 
 body.noScroll { /* ...or body.dialogShowing */
     overflow: hidden;
