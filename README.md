@@ -5,6 +5,7 @@
 To clone this repository, run the following command:
 
     git clone https://github.com/amberdata/amberdata-example
+    cd amberdata-example
 
 Then/Or, to get the latest updates:
 
