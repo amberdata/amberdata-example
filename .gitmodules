@@ -1,0 +1,9 @@
+[submodule "amberdata-example-wallet"]
+	path = amberdata-example-wallet
+	url = https://github.com/amberdata/amberdata-example-wallet
+[submodule "amberdata-example-dapp"]
+	path = amberdata-example-dapp
+	url = https://github.com/amberdata/amberdata-example-dapp
+[submodule "amberdata-example-gas-station"]
+	path = amberdata-example-gas-station
+	url = https://github.com/amberdata/amberdata-example-gas-station
