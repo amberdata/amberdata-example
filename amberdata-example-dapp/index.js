@@ -182,21 +182,18 @@
         if(section === 'card') {
             let loader = $('.spinner')
             loader.css('opacity', bool ? '1' : '0')
-            loader.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
-                (e) => {
-                    loader.css('visibility', bool ? 'visible' : 'hidden')
-                    $('.data').css('opacity', bool ? '0': '1')
-                });
+
+            loader.css('visibility', bool ? 'visible' : 'hidden')
+            $('.data').css('opacity', bool ? '0': '1')
+
         } else {
             let loader = $('.loader')
 
             loader.css('opacity', bool ? '1' : '0')
 
-            loader.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
-                (e) => {
-                    loader.css('visibility', bool ? 'visible' : 'hidden')
-                    $('#activity .list').css('opacity', bool ? '0': '1')
-                });
+            loader.css('visibility', bool ? 'visible' : 'hidden')
+            $('#activity .list').css('opacity', bool ? '0': '1')
+
         }
     }
 
