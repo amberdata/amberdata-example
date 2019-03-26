@@ -131,8 +131,14 @@ p {
 
 .data {
     width: 100%;
+    /*height: 100%;*/
     opacity: 0;
     transition: opacity 500ms ease-in-out;
+}
+
+.data #holdings-chart {
+    /*height: 500px;*/
+    /*width: 100%;*/
 }
 
 /* - - - - - - - - - - - - - - - *
@@ -207,7 +213,7 @@ p {
     display: grid;
     grid-template-columns: 1fr 1fr auto;
     color: #222222;
-    padding: 15px;
+    padding: 20px;
     font-size: 2.5vw;
     box-sizing: border-box;
     border-radius: 10px;
@@ -337,7 +343,8 @@ p {
 .loader {
     color: #99ccff;
     font-size: 10px;
-    margin: 80px auto;
+    /*margin: 80px auto;*/
+    margin: -20px auto 80px auto;
     position: absolute;
     right: 50%;
     text-indent: -9999em;
@@ -391,6 +398,153 @@ p {
 /* - - - - - - - - - - - - - - - *
  *        Media Queries
  * - - - - - - - - - - - - - - - */
+@media (min-width: 768px) and (max-width: 1000px) {
+    #page-header {
+        justify-content: space-between;
+    }
+
+    #page-header #logo img {
+        width: 25vw;
+    }
+
+    #page-header #repo-link {
+        font-size: 1.5vw;
+    }
+
+    #demo-name {
+        font-size: 2vw;
+    }
+
+    .container {
+        grid-template-columns: 70%;
+    }
+
+    .card {
+        min-height: 280px;
+    }
+
+    .card .title {
+        font-size: 2vw;
+    }
+
+    .address-input input {
+        font-size: 2vw;
+    }
+
+    #tokens .token .item {
+        font-size: 1.5vw;
+    }
+
+    #tokens .token .logo img {
+        width: 75%;
+        border-radius: 5%;
+    }
+
+    #token-transfers .header {
+        font-size: 2vw;
+    }
+
+    #token-transfers .transfer {
+        font-size: 1.5vw;
+    }
+}
+
+@media (min-width: 1000px) and (max-width: 1024px) {
+    #page-header {
+        justify-content: space-around;
+    }
+    #page-header #logo img {
+        width: 25vw;
+    }
+
+    #page-header #repo-link {
+        font-size: 1.5vw;
+    }
+
+    #demo-name {
+        font-size: 2vw;
+    }
+
+    .container {
+        grid-template-columns: 80%;
+    }
+
+    .card .title {
+        font-size: 2vw;
+    }
+
+    .address-input input {
+        font-size: 1.5vw;
+    }
+
+    #tokens .token .item {
+        font-size: 1.5vw;
+    }
+
+    #tokens .token .logo img {
+        width: 75%;
+        border-radius: 5%;
+    }
+
+    #token-transfers .header {
+        font-size: 2vw;
+    }
+
+    #token-transfers .transfer {
+        font-size: 1.5vw;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+    #page-header {
+        justify-content: space-between;
+    }
+
+    #page-header #logo img {
+        width: 30vw;
+    }
+
+    #page-header #repo-link {
+        font-size: 2vw;
+    }
+
+    #demo-name {
+        font-size: 2.5vw;
+    }
+
+    .container {
+        grid-template-columns: 80%;
+    }
+
+    .card {
+        min-height: 500px;
+    }
+
+    .card .title {
+        font-size: 3vw;
+    }
+
+    .address-input input {
+        font-size: 2.8vw;
+    }
+
+    #tokens .token .item {
+        font-size: 2vw;
+    }
+
+    #tokens .token .logo img {
+        width: 75%;
+        border-radius: 5%;
+    }
+
+    #token-transfers .header {
+        font-size: 2.5vw;
+    }
+
+    #token-transfers .transfer {
+        font-size: 2vw;
+    }
+}
 
 @media (min-width: 1281px) {
 
@@ -438,6 +592,6 @@ p {
     }
 
     #token-transfers .transfer {
-        font-size: 1vw;
+        font-size: 0.9vw;
     }
 }

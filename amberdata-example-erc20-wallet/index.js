@@ -10,9 +10,9 @@
 
     // Listen for the jQuery ready event on the document
     $(async function () {
-
+        
         /* Loads up the UI with a default address */
-        let {data, chart} = await populateUI('0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be')
+        await populateUI('0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be')
 
     });
 
@@ -133,18 +133,18 @@
         let tokenElement = $("#tokens .list .token")
         let tokenAddress = tokenElement.data('address')
         let tokenName = tokenElement.data('name')
-        let chart = instantiateChart(data[tokenAddress], tokenName)
 
-        console.log(chart)
-
+        let deviceWidth = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+        console.log(deviceWidth)
+        instantiateChart(data[tokenAddress], deviceWidth)
         /* Attach click handlers to tokens */
-        createTokenListener(timeSeriesData, chart)
+        createTokenListener(timeSeriesData)
         tokenElement[0].click()
         setLoading(false)
         let transfers = extractData(await getCurrentTokenTransfers(address))
         updateTransfersList(transfers.records.slice(0, 50))
         setLoading(false, 'transfers')
-        return {timeSeriesData, chart}
+        return {timeSeriesData}
     }
 
     let setLoading = (bool, section) => {
@@ -178,26 +178,28 @@
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
     /*                      Charts.js methods                      */
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-    let updateChart = async (chart, data, tokenName) => {
-        chart.data.datasets[0].data = data
-        chart.data.datasets[0].label = tokenName
+    let updateChart = async (data, tokenName) => {
+        window.chart.data.datasets[0].data = data
+        window.chart.data.datasets[0].label = tokenName
         let imgSrc = $(`*[data-name="${tokenName}"] .logo img`).attr("src")
         let vibrant = await Vibrant.from(imgSrc).getPalette();
-        console.log(vibrant)
+
         let vibRgb = vibrant.Vibrant || vibrant.LightVibrant || vibrant.DarkVibrant || vibrant.Muted || vibrant.LightMuted || vibrant.DarkMuted
         let muteRgb = vibrant.Muted || vibrant.LightMuted  || vibrant.DarkMuted || vibrant.DarkVibrant || vibrant.LightVibrant || vibrant.Vibrant
 
-        chart.data.datasets[0].borderColor = `rgba(${vibRgb.get()[0]}, ${vibRgb.get()[1]}, ${vibRgb.get()[2]}, 1)`
-        chart.data.datasets[0].backgroundColor = `rgba(${muteRgb.get()[0]}, ${muteRgb.get()[1]}, ${muteRgb.get()[2]}, 0.2)`
+        window.chart.data.datasets[0].borderColor = `rgba(${vibRgb.get()[0]}, ${vibRgb.get()[1]}, ${vibRgb.get()[2]}, 1)`
+        window.chart.data.datasets[0].backgroundColor = `rgba(${muteRgb.get()[0]}, ${muteRgb.get()[1]}, ${muteRgb.get()[2]}, 0.2)`
 
-
-        chart.update();
+        window.chart.update();
     }
 
-    let instantiateChart = (data) => {
+    let instantiateChart = (data, deviceWidth) => {
+        if (window.chart) {
+            window.chart.destroy()
+        }
         Chart.defaults.global.defaultFontColor = 'white';
         let ctx = $('#holdings-chart')
-        return new Chart(ctx, {
+        window.chart = new Chart(ctx, {
             type: 'line',
             data: {
                 datasets: [{
@@ -209,6 +211,9 @@
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: deviceWidth > 1000,
+                aspectRatio: (deviceWidth > 1000 ? 2 : 1),
                 title: {
                     display: true,
                     text: ''
@@ -247,17 +252,17 @@
                     intersect: false,
                     mode: 'index',
                     backgroundColor: 'rgba(0, 0, 0, 1)',
-                    callbacks: {
-                        label: (tooltipItem, data) => {
-                            let label = data.datasets[tooltipItem.datasetIndex].label || '';
-
-                            if (label) {
-                                label += ': ';
-                            }
-                            label += round(tooltipItem.yLabel, 2);
-                            return label;
-                        }
-                    }
+                    // callbacks: {
+                    //     label: (tooltipItem, data) => {
+                    //         let label = data.datasets[tooltipItem.datasetIndex].label || '';
+                    //
+                    //         if (label) {
+                    //             label += ': ';
+                    //         }
+                    //         label += round(tooltipItem.yLabel, 2);
+                    //         return label;
+                    //     }
+                    // }
                 }
             }
         });
@@ -293,7 +298,7 @@
      * @param chart reference to the chart.js instance
      * @return {void | jQuery}
      */
-    let createTokenListener = (histHoldings, chart) =>
+    let createTokenListener = (histHoldings) =>
     $("#tokens .list .token").click(function () {
         if(!$(this).is($('.selected'))) {
             $(this).siblings('.selected').toggleClass('selected')
@@ -303,7 +308,7 @@
             console.log('selected token: ', tokenAddress)
             //TODO: Error handling
             console.log('selected tokens data: ', histHoldings[tokenAddress])
-            updateChart(chart, histHoldings[tokenAddress], tokenName)
+            updateChart(histHoldings[tokenAddress], tokenName)
         }
     });
 
