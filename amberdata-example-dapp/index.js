@@ -10,7 +10,7 @@
 
     // Listen for the jQuery ready event on the document
     $(async function () {
-        await populateUI('0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be')
+        await populateUI('0x744d70fdbe2ba4cf95131626614a1763df805b9e')
     });
 
 
