@@ -251,18 +251,7 @@
                 tooltips: {
                     intersect: false,
                     mode: 'index',
-                    backgroundColor: 'rgba(0, 0, 0, 1)',
-                    // callbacks: {
-                    //     label: (tooltipItem, data) => {
-                    //         let label = data.datasets[tooltipItem.datasetIndex].label || '';
-                    //
-                    //         if (label) {
-                    //             label += ': ';
-                    //         }
-                    //         label += round(tooltipItem.yLabel, 2);
-                    //         return label;
-                    //     }
-                    // }
+                    backgroundColor: 'rgba(0, 0, 0, 1)'
                 }
             }
         });

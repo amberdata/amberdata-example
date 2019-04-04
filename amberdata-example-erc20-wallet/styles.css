@@ -41,11 +41,11 @@ p {
  * Page header styles
  * - - - - - - - - - - - - - - - */
 #page-header {
-    display: flex;
-    align-items: center;
-    flex-flow: row nowrap;
-    justify-content: space-evenly;
-}
+     display: flex;
+     align-items: center;
+     flex-flow: row nowrap;
+     justify-content: space-evenly;
+ }
 
 #page-header #repo-link {
     color: #606060;
