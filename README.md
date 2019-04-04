@@ -9,7 +9,7 @@ To clone this repository, run the following command:
 
 Then/Or, to get the latest updates:
 
-    git pull && git submodule update --init --recursive
+    git pull && git submodule update --init --recursive --remote
 
 ## Adding new submodules
 
