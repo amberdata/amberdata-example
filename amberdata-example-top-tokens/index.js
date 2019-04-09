@@ -20,7 +20,6 @@
 
     /* Base url for all requests */
     const BASE_URL = 'https://web3api.io/api/v1'
-    const FILTERS = '?page=0&size=50'
 
     /* Demo key - Get your API Key at amberdata.io/pricing
     * and place yours here! */
