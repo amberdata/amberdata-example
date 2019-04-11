@@ -10,3 +10,6 @@
 [submodule "amberdata-example-erc20-wallet"]
 	path = amberdata-example-erc20-wallet
 	url = https://github.com/amberdata/amberdata-example-erc20-wallet
+[submodule "amberdata-example-top-tokens"]
+	path = amberdata-example-top-tokens
+	url = git@github.com:amberdata/amberdata-example-top-tokens.git
