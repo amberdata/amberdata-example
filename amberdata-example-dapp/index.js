@@ -27,7 +27,7 @@
      * get method.
      * @param address
      */
-    let getAddressInformation = (address) => axios.get(`${BASE_URL}addresses/${address}/information`, config)
+    let getAddressInformation = (address) => axios.get(`${BASE_URL}addresses/${address}/metadata`, config)
     let getContractFunctions = (address) => axios.get(`${BASE_URL}contracts/${address}/functions`, config)
     let getAddressTransactions = (address) => axios.get(`${BASE_URL}addresses/${address}/transactions${FILTERS}`, config)
     let getAddressFunctions = (address) => axios.get(`${BASE_URL}addresses/${address}/functions${FILTERS}`, config)
