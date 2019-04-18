@@ -13,3 +13,6 @@
 [submodule "amberdata-example-top-tokens"]
 	path = amberdata-example-top-tokens
 	url = git@github.com:amberdata/amberdata-example-top-tokens.git
+[submodule "amberdata-example-websockets"]
+	path = amberdata-example-websockets
+	url = https://github.com/amberdata/amberdata-example-websockets
