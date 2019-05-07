@@ -126,11 +126,11 @@
         responses = responses.filter(result => !(result instanceof Error));
 
         // TODO: This is dangerous -- records might not exist
-        let data = responses.map( (resp) => extractData(resp).records)
-
+        let data = responses.map( (resp) => extractData(resp))
+        console.log(data)
         data[TRANSACTION].map( (txn) => txn['type'] = TRANSACTION)
-        data[FUNCTION].map( (txn) => txn['type'] = FUNCTION)
-        data[LOG].map( (txn) => txn['type'] = LOG)
+        data[FUNCTION].records.map( (txn) => txn['type'] = FUNCTION)
+        data[LOG].records.map( (txn) => txn['type'] = LOG)
 
         let activities = buildActivityFeed([].concat.apply([], data))
 
