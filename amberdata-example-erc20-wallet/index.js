@@ -79,7 +79,7 @@
 
     const getPrice = (transfer) => {
         if (transfer.price && transfer.price.amount) {
-            return  transfer.price.amount.total ? transfer.price.amount.total : '-'
+            return  transfer.price.amount.total ? round(transfer.price.amount.total, 2) : '-'
         } else {
             return ' - '
         }
@@ -94,7 +94,7 @@
                 Amount: ${round(getAmount(transfer), 2)}
             </div>
             <div class="price">
-                Price:  $${round(getPrice(transfer), 2)}
+                Price:  $${getPrice(transfer)}
             </div>
             <div class="view">
                 <a href="https://amberdata.io/transactions/${transfer.transactionHash}" target="_blank">View ></a>
