@@ -86,7 +86,7 @@
                 Hash:  ${truncHash(transfer.transactionHash)}
             </div>
             <div class="view">
-                <a href="https://amberdata.io/transactions${transfer.transactionHash}" target="_blank">View ></a>
+                <a href="https://amberdata.io/transactions/${transfer.transactionHash}" target="_blank">View ></a>
             </div>
         </div>`
 
@@ -135,7 +135,7 @@
         let tokenName = tokenElement.data('name')
 
         let deviceWidth = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-        console.log(deviceWidth)
+
         instantiateChart(data[tokenAddress], deviceWidth)
         /* Attach click handlers to tokens */
         createTokenListener(timeSeriesData)
