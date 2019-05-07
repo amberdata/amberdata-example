@@ -80,6 +80,8 @@
     const getPrice = (transfer) => {
         if (transfer.price && transfer.price.amount) {
             return  transfer.price.amount.total ? transfer.price.amount.total : '-'
+        } else {
+            return ' - '
         }
     }
 
