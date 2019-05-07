@@ -132,7 +132,7 @@
         try {
 
             let balanceData = extractData(await getAddressBalance(address))
-
+            balanceData.address = address
             console.log(balanceData)
 
             updateBalanceUI(balanceData)
@@ -141,7 +141,7 @@
 
             let txnData = await getAddressTransactions(address)
 
-            updateTransactionsList(extractData(txnData).records)
+            updateTransactionsList(extractData(txnData))
 
         } catch (err) {
             log(err)
