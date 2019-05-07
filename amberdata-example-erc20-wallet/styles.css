@@ -211,7 +211,7 @@ p {
 
 #token-transfers .transfer {
     display: grid;
-    grid-template-columns: 1fr 1fr auto;
+    grid-template-columns: 1fr 1fr 1fr auto;
     color: #222222;
     padding: 20px;
     font-size: 2.5vw;
@@ -222,8 +222,11 @@ p {
     position: relative;
 }
 
-#token-transfers .transfer .amount {
+#token-transfers .transfer .name {
     justify-self: left;
+}
+
+#token-transfers .transfer .amount {
 }
 
 #token-transfers .transfer .hash {

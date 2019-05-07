@@ -37,7 +37,7 @@
      * @param address
      */
     let getCurrentTokenBalances = (address) => axios.get(`${BASE_URL}addresses/${address}/tokens`, config)
-    let getCurrentTokenTransfers = (address) => axios.get(`${BASE_URL}tokens/${address}/transfers${FILTERS}`, config)
+    let getCurrentTokenTransfers = (address) => axios.get(`${BASE_URL}tokens/${address}/transfers${FILTERS}&includePrice=true`, config)
     let getHistoricalTokenBalances = (address, tokenAddress) => axios.get(`${BASE_URL}tokens/${tokenAddress}/holders/historical?timeFrame=30d&holderAddresses=${address}`, config)
 
 
@@ -77,13 +77,22 @@
         }
     }
 
+    const getPrice = (transfer) => {
+        if (transfer.price && transfer.price.amount) {
+            return  transfer.price.amount.total ? transfer.price.amount.total : '-'
+        }
+    }
+
     let getTransferTemplate = (transfer) =>
         `<div class="transfer">
+            <div class="name">
+                Token: ${transfer.name}
+            </div>
             <div class="amount">
                 Amount: ${round(getAmount(transfer), 2)}
             </div>
-            <div class="hash">
-                Hash:  ${truncHash(transfer.transactionHash)}
+            <div class="price">
+                Price:  $${round(getPrice(transfer), 2)}
             </div>
             <div class="view">
                 <a href="https://amberdata.io/transactions/${transfer.transactionHash}" target="_blank">View ></a>
@@ -118,7 +127,7 @@
         const responses = await Promise.all(sortedBalances.map((token) => getHistoricalTokenBalances(token.holder, token.address)))
 
         let data = responses.map((response) => extractData(response).data)
-
+        
         let timeSeriesData = {}
         for(let i = 0; i < data.length; i++) {
             timeSeriesData[sortedBalances[i].address] = data[i].map((token) => {
@@ -142,6 +151,7 @@
         tokenElement[0].click()
         setLoading(false)
         let transfers = extractData(await getCurrentTokenTransfers(address))
+        console.log(transfers)
         updateTransfersList(transfers.records.slice(0, 50))
         setLoading(false, 'transfers')
         return {timeSeriesData}
