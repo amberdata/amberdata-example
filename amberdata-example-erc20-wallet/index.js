@@ -10,7 +10,7 @@
 
     // Listen for the jQuery ready event on the document
     $(async function () {
-        
+
         /* Loads up the UI with a default address */
         await populateUI('0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be')
 
@@ -37,7 +37,7 @@
      * @param address
      */
     let getCurrentTokenBalances = (address) => axios.get(`${BASE_URL}addresses/${address}/tokens`, config)
-    let getCurrentTokenTransfers = (address) => axios.get(`${BASE_URL}tokens/${address}/transfers${FILTERS}&includePrice=true`, config)
+    let getCurrentTokenTransfers = (address) => axios.get(`${BASE_URL}addresses/${address}/token-transfers${FILTERS}&includePrice=true`, config)
     let getHistoricalTokenBalances = (address, tokenAddress) => axios.get(`${BASE_URL}tokens/${tokenAddress}/holders/historical?timeFrame=30d&holderAddresses=${address}`, config)
 
 
@@ -129,7 +129,7 @@
         const responses = await Promise.all(sortedBalances.map((token) => getHistoricalTokenBalances(token.holder, token.address)))
 
         let data = responses.map((response) => extractData(response).data)
-        
+
         let timeSeriesData = {}
         for(let i = 0; i < data.length; i++) {
             timeSeriesData[sortedBalances[i].address] = data[i].map((token) => {
