@@ -97,7 +97,10 @@
     }
 
     let updateActivitiesList = ({ activities, contractMethods = {} }) => {
+
+
         // TODO:L Might need to delete old entries here?
+
         $('#activity .list').empty()
         let entries = `${activities.map(entry => entryTemplate({...getEntryData(entry, contractMethods)})).join('')}`
         $('#activity .list').append(entries)
@@ -126,13 +129,13 @@
         responses = responses.filter(result => !(result instanceof Error));
 
         // TODO: This is dangerous -- records might not exist
-        let data = responses.map( (resp) => extractData(resp))
-        console.log(data)
-        data[TRANSACTION].map( (txn) => txn['type'] = TRANSACTION)
-        data[FUNCTION].records.map( (txn) => txn['type'] = FUNCTION)
-        data[LOG].records.map( (txn) => txn['type'] = LOG)
+        const data = responses.map( (resp) => extractData(resp).records)
 
-        let activities = buildActivityFeed([].concat.apply([], data))
+        data[TRANSACTION].map( (txn) => txn['type'] = TRANSACTION)
+        data[FUNCTION].map( (txn) => txn['type'] = FUNCTION)
+        data[LOG].map( (txn) => txn['type'] = LOG)
+
+        const activities = buildActivityFeed([].concat.apply([], data))
 
         let contractMethods = {}
         if (addressType === 'Contract') {
