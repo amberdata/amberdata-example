@@ -10,9 +10,11 @@
 
     // Listen for the jQuery ready event on the document
     $(async function () {
-
+        const queryParam = window.location.search.replace('?','')
+        console.log(isAddress(queryParam))
+        let address = isAddress(queryParam) ? queryParam : '0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be'
         /* Loads up the UI with a default address */
-        await populateUI('0x3f5ce5fbfe3e9af3971dd833d26ba9b5c936f0be')
+        await populateUI(address)
 
     });
 
@@ -150,7 +152,7 @@
         instantiateChart(data[tokenAddress], deviceWidth)
         /* Attach click handlers to tokens */
         createTokenListener(timeSeriesData)
-        tokenElement[0].click()
+        tokenElement[1].click()
         setLoading(false)
         let transfers = extractData(await getCurrentTokenTransfers(address))
         console.log(transfers)
