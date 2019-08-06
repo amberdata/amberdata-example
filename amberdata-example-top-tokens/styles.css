@@ -310,7 +310,7 @@ p {
     }
 
     #data-table .column-names {
-        font-size: .8vw;
+        font-size: 1vw;
     }
 
     #data-table {
@@ -319,7 +319,7 @@ p {
         min-height: unset;
     }
     #data-table .entry {
-        font-size: .8vw;
+        font-size: 1vw;
     }
     #powered-by {
         width: 20%;
