@@ -1,9 +1,17 @@
+body {
+  background: #f9f9f9
+}
 .card-detail small {
   text-transform: uppercase;
 }
 
+.controls {
+  margin-bottom: 25px;
+}
+
 .column .column-headers {
   box-shadow: none;
+  background: transparent;
   margin-bottom: 0;
 }
 
@@ -13,25 +21,69 @@
   padding: 15px;
 }
 
+.activity-feed {
+  padding-top: 5vh;
+}
+
 .entry {
     -webkit-animation-name: animation;
     -webkit-animation-duration: 1s;
     -webkit-animation-timing-function: ease-in-out;
     -webkit-animation-iteration-count: 1;
-
-
     animation-name: animation;
     animation-duration: 1s;
     animation-timing-function: ease-in-out;
     animation-iteration-count: 1;
+    background-color: #ffffff;
+    transition: 200ms;
+}
+.entry a {
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+.entry:hover {
+  background-color: #eeeeee;
+  cursor: pointer;
+}
+
+.amount-container {
+  display: flex;
+  align-items: center;
+}
+.blockchain-logo {
+  width: 16px;
+}
+.amount {
+  padding-left: 30px;
+  font-size: 20px;
+}
+.txn-details {
+  grid-template-rows: 1fr 1fr;
+}
+.hash p {
+  text-align: right;
+}
+
+.txn-details-sub {
+  display: flex;
+  justify-content: flex-end;
+}
+.timestamp {
+  color: #a7a7a7;
+}
+
+.blocknumber {
+  color: #a7a7a7;
+  padding-right: 15px;
 }
 
 @-webkit-keyframes animation {
-    0%     {background-color:red;}
+    0%     {background-color: #e1f2ff;}
     100.0%  {background-color:#ffffff;}
 }
 
 @keyframes animation {
-    0%     {background-color:red;}
+    0%     {background-color: #e1f2ff;}
     100.0%  {background-color:#ffffff;}
 }
