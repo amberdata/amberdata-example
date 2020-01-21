@@ -11,18 +11,31 @@
     // Listen for the jQuery ready event on the document
     $(async function () {
       config.thresholdValue = parseInt($('#threshold').val())
+      config.blockchainId = $("select[data-name='blockchain']").val()
+      const symbol = blockchainSymbol[config.blockchainId]
+
+      $('#currency-indicator').text(symbol)
+      config.w3d = new Web3Data(config.apiKey)
+
+      getPrice(config.blockchainId)
       initWebSockets()
     })
+
+    const TWEET_TEXT = "Check out this large transaction I discovered using @Amberdataio&#39;s API!"
 
     const config = {
       _apiKey: 'UAK000000000000000000000000demo0001',
       thresholdSign: '>',
       thresholdValue: 10,
+      thresholdCurrency: 'eth',
       blockchainId: '',
       isLive: true,
+      priceUSD: 0,
       set blockchain(blockchainId) {
+        getPrice(blockchainId, this.blockchainId)
         this.blockchainId = blockchainId
         initWebSockets()
+
       },
       get blockchain() {
         return this.blockchainId
@@ -36,24 +49,48 @@
       }
     }
 
-    const insertTransaction = (type, hash, amount, block, time, blockchainId) => {
+    const QUOTE_USD = {quote: 'usd'}
+
+    const getPrice = async (newBlockchainId, prevBlockchainId = '' ) => {
+      if(config.w3d && config.w3d.websocket && config.w3d.websocket.connected) {
+        config.w3d.off({eventName: 'market:prices', filters: { pair: blockchainBase[prevBlockchainId] + '_usd'}})
+      } else {
+        config.w3d.connect()
+      }
+
+      const w3d = config.w3d
+
+      const [priceData] = await w3d.market.getPrices(blockchainBase[newBlockchainId], QUOTE_USD).then( price => Object.values(price))
+      config.priceUSD = priceData.price
+
+      w3d.on({eventName: 'market:prices', filters: { pair: blockchainBase[newBlockchainId] + '_usd'}}, ({price}) => {
+        config.priceUSD = price > 0 ? price : config.priceUSD
+        console.log(config.priceUSD)
+      })
+    }
+
+    const insertTransaction = (type, hash, amount, block, time, blockchainId, valueUsd) => {
       $(`#${type}-txns`).prepend(`
         <div class="box entry">
-          <a target="_blank" href="https://amberdata.io/transactions/${hash}">
-            <div class="columns">
+          <div class="columns" >
               <div class="amount-container column is-4">
                 <img class="blockchain-logo" src="assets/${blockchainLogos[blockchainId]}">
-                <div class="amount">${blockchainSymbol[blockchainId]} ${amount}</div>
-              </div>
-              <div class="column is-8 txn-details">
-                <div class="hash"><p>${hash.slice(0,30)}...</p></div>
-                <div class="txn-details-sub">
-                  <div class="blocknumber">${block ? '❒ '+block : ''}</div>
-                  <div class="timestamp">${time || '-'}</div>
+                <div class="amount">
+                  <div class="amount_digital-asset">${blockchainSymbol[blockchainId]} ${amount}</div>
+                  <div class="amount_usd">${valueUsd}</div>
                 </div>
               </div>
-            </div>
-          </a>
+              <div class="column is-8 txn-details">
+                <div class="hash"><a target="_blank" href="https://amberdata.io/transactions/${hash}" >${hash.slice(0,15)}...</a></div>
+                <div class="txn-details-sub">
+                  <div class="blocknumber">${block ? '❒ '+ new Intl.NumberFormat().format(block) : ''}</div>
+                  <div class="timestamp">${time || '-'}</div>
+                </div>
+                <div class="links">
+                  <a target="_blank" href="https://twitter.com/intent/tweet?text=${encodeURI(TWEET_TEXT + `\n\nhttps://amberdata.io/transactions/${hash}`)}"><img src="assets/twit.png" alt=""></a>
+                </div>
+              </div>
+          </div>
         </div>
         `)
     }
@@ -84,29 +121,34 @@
       web3data.on({eventName: 'transactions'}, txn => {
         if(!config.isLive) return // If the app is paused don't insert new txns
         const txnValue = toBaseDenom[txn.blockchainId](txn.value)
-        if( meetsThreshold(txnValue, config.thresholdValue, config.thresholdSign) ) {
+        const value = config.thresholdCurrency === 'usd' ? txnValue * config.priceUSD : txnValue
+
+        console.log({value, txnValue, ...config.thresholdSign});
+        if( meetsThreshold(value, config.thresholdValue, config.thresholdSign) ) {
           insertTransaction(
             'confirmed',
             txn.hash,
             round(txnValue, 2),
             txn.blockNumber,
             txn.timestamp ? (new Date(txn.timestamp) ).toLocaleString() : null,
-            txn.blockchainId
+            txn.blockchainId,
+            formatter.format(txnValue * config.priceUSD)
           )
         }
       })
       web3data.on({eventName: 'pending_transactions'}, txn => {
         if(!config.isLive) return // If the app is paused don't insert new txns
         const txnValue = toBaseDenom[txn.blockchainId](txn.value)
-
-        if( meetsThreshold(txnValue, config.thresholdValue, config.thresholdSign) ) {
+        const value = config.thresholdCurrency === 'usd' ? txnValue * config.priceUSD : txnValue
+        if( meetsThreshold(value, config.thresholdValue, config.thresholdSign) ) {
           insertTransaction(
             'pending',
             txn.hash,
             round(txnValue, 2),
             txn.blockNumber,
             txn.timestamp ? (new Date(txn.timestamp) ).toLocaleString() : null,
-            txn.blockchainId
+            txn.blockchainId,
+            formatter.format(txnValue * config.priceUSD)
           )
         }
       })
@@ -123,7 +165,6 @@
       timeout = setTimeout(async () => {
 
         // Execute the task here after 500ms
-        // TODO: check that value is number regex
         config[$(this).data("name")] = $(this).val()
 
       }, 500)
@@ -136,6 +177,7 @@
       config[name] = optionValue
       if(name === 'blockchain') {
         $('#currency-indicator').text(blockchainSymbol[optionValue])
+        $("select[data-name='thresholdCurrency'] option:first-child").text(blockchainSymbol[optionValue])
       }
     })
 
@@ -156,6 +198,11 @@
     })
 
     /* Helpers */
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2
+    })
 
     // Converts values from lowest to base denomination
     const toBaseDenom = {
@@ -176,6 +223,12 @@
       '1c9c969065fcd1cf': 'Ξ',
       '408fa195a34b533de9ad9889f076045e': '₿',
       'f94be61fd9f4fa684f992ddfd4e92272': 'Ł'
+    }
+
+    const blockchainBase = {
+      '1c9c969065fcd1cf': 'eth',
+      '408fa195a34b533de9ad9889f076045e': 'btc',
+      'f94be61fd9f4fa684f992ddfd4e92272': 'ltc'
     }
 
     const round = (n, digits) => Number.parseFloat(n).toFixed(digits)

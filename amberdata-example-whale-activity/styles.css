@@ -18,10 +18,10 @@ a {
 
 #repo-link {
   font-size: 3vw;
-  display: grid;
-  grid-template-columns: auto auto;
-  grid-column-gap: 5px;
-  align-items: center;
+  display: flex;
+  position: absolute;
+  right: 15px;
+  top: 15px;
 }
 
 #github-logo {
@@ -64,39 +64,80 @@ a {
     animation-iteration-count: 1;
     background-color: #ffffff;
     transition: 200ms;
+    padding: 5px 15px;
 }
+
 .entry a {
   color: inherit;
   cursor: pointer;
   text-decoration: none;
 }
+
+.entry .columns {
+  margin: 0;
+}
+
 .entry:hover {
   background-color: #eeeeee;
-  cursor: pointer;
+}
+
+.entry .links {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.entry .links a img {
+  width: 15px;
+  margin-left: 10px;
+}
+
+.entry .links a img {
+  align-self: flex-end;
 }
 
 .amount-container {
   display: flex;
   align-items: center;
 }
+
 .blockchain-logo {
   width: 16px;
 }
+
 .amount {
   padding-left: 30px;
-  font-size: 20px;
+  display: flex;
+  padding-left: 30px;
+  display: flex;
+  flex-flow: column;
+  align-items: baseline;
 }
+
+.amount .amount_digital-asset {
+    font-size: 20px;
+}
+
+.amount .amount_usd {
+    font-size: 12px;
+    opacity: .6;
+}
+
 .txn-details {
   grid-template-rows: 1fr 1fr;
+  padding: 0.75rem 0;
 }
-.hash p {
+.hash {
   text-align: right;
+}
+.hash a {
+  text-decoration: underline;
 }
 
 .txn-details-sub {
   display: flex;
   justify-content: flex-end;
 }
+
 .timestamp {
   color: #a7a7a7;
 }
@@ -114,4 +155,24 @@ a {
 @keyframes animation {
     0%     {background-color: #e1f2ff;}
     100.0%  {background-color:#ffffff;}
+}
+
+/* - - - - - - - - - - - - - - - *
+ *        Media Queries
+ * - - - - - - - - - - - - - - - */
+@media (min-width: 1025px) {
+  #repo-link {
+    font-size: 1.5vw;
+  }
+  #repo-link #github-logo {
+    width: 18px;
+  }
+}
+@media (min-width: 1281px) {
+  #repo-link {
+    font-size: 1vw;
+  }
+  #repo-link #github-logo {
+      width: 15px;
+  }
 }
