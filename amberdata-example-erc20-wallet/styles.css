@@ -1,0 +1,600 @@
+/* - - - - - - - - - - - - - - - *
+ *     Generic page defaults
+ * - - - - - - - - - - - - - - - */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: .2px;
+}
+
+/* Remove outlines esp. those that chrome might potentially insert */
+*:focus {
+    outline: none;
+}
+
+body {
+    margin: 0;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    background: #f9f9f9;
+    color: #444444;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+p {
+    margin: 0;
+}
+
+.container {
+    margin: auto;
+    display: grid;
+    grid-template-rows: 80px auto auto auto;
+    grid-template-columns: 90%;
+    justify-content: center;
+    text-align: center;
+}
+
+/* - - - - - - - - - - - - - - - *
+ * Page header styles
+ * - - - - - - - - - - - - - - - */
+#page-header {
+     display: flex;
+     align-items: center;
+     flex-flow: row nowrap;
+     justify-content: space-evenly;
+ }
+
+#page-header #repo-link {
+    color: #606060;
+    font-size: 3vw;
+}
+
+#page-header #repo-link {
+    display: inline-flex;
+    height: min-content;
+}
+
+#page-header > #repo-link:hover > .pointer {
+    transform: translateX(5px);
+}
+
+
+#page-header #logo img {
+    width: 30vw;
+}
+
+.pointer {
+    margin-left: 10px;
+    height: min-content;
+    cursor: pointer;
+    transition: transform 300ms ease-in-out;
+}
+
+#demo-name {
+    color: #444444;
+    margin: 10px 0;
+    font-size: 3.8vw;
+}
+
+/* - - - - - - - - - - - - - - - *
+ * Address input
+ * - - - - - - - - - - - - - - - */
+
+/*ASK: cols or rows for small screes ( <= phones) */
+.address-input input {
+    width: 100%;
+    height: 30px;
+    padding: 20px;
+    font-size: 4vw;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #F1F1F1;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    margin-top: 10px;
+    background: #ffffff;
+}
+
+.address-input input:hover {
+    border-color: #0C60C7;
+}
+
+.address-input input:focus {
+    outline: none;
+}
+
+/* - - - - - - - - - - - - - - - *
+ * Content Card
+ * - contains token info & charts
+ * - - - - - - - - - - - - - - - */
+.card {
+    margin-top: 30px;
+    background: rgb(54,37,175);
+    background: -moz-linear-gradient(90deg, rgba(54,37,175,1) 0%, rgba(190,105,213,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(54,37,175,1) 0%, rgba(190,105,213,1) 100%);
+    background: linear-gradient(90deg, rgba(54,37,175,1) 0%, rgba(190,105,213,1) 100%);
+    border-radius: 10px;
+    display: grid;
+    grid-template-rows: 30px auto;
+    color: #fBfBfB;
+    align-items: center;
+    justify-items: center;
+    position: relative;
+    min-height: 300px;
+    border: 1px solid;
+    font-weight: 300;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.data {
+    width: 100%;
+    /*height: 100%;*/
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+}
+
+.data #holdings-chart {
+    /*height: 500px;*/
+    /*width: 100%;*/
+}
+
+/* - - - - - - - - - - - - - - - *
+ * Tokens list
+ * - - - - - - - - - - - - - - - */
+
+#tokens {
+    position: relative;
+    transition: opacity 500ms ease-in-out;
+}
+
+#tokens .list {
+    padding-top: 10px;
+    display: grid;
+    grid-row-gap: 10px;
+    padding-bottom: 5vh;
+    position: relative;
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+}
+
+#tokens .token {
+    display: grid;
+    grid-template-columns: 10% 1fr 1fr auto;
+    color: #222222;
+    padding: 5px;
+    font-size: 2.5vw;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #F1F1F1;
+    background: #ffffff;
+}
+
+#tokens .token .item {
+    align-self: center;
+    font-size: 3vw;
+}
+
+#tokens .selected {
+    border-color: #040053;
+}
+
+#tokens .token .logo img {
+    width: 100%;
+    border-radius: 5%;
+}
+
+/* TODO: display header items as cols on larger screens (tablet >= )*/
+
+/* - - - - - - - - - - - - - - - *
+ * Transfers list
+ * - - - - - - - - - - - - - - - */
+#token-transfers .header {
+    text-align: left;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    padding-left: 15px;
+    color: #6e6e6e;
+    font-size: 4vw;
+}
+
+#token-transfers .list {
+    padding-top: 10px;
+    display: grid;
+    grid-row-gap: 10px;
+    padding-bottom: 10px;
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+}
+
+#token-transfers .transfer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    color: #222222;
+    padding: 20px;
+    font-size: 2.5vw;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #F1F1F1;
+    background: #ffffff;
+    position: relative;
+}
+
+#token-transfers .transfer .name {
+    justify-self: left;
+}
+
+#token-transfers .transfer .amount {
+}
+
+#token-transfers .transfer .hash {
+    justify-self: left;
+}
+
+#token-transfers .transfer .view {
+    justify-self: right;
+}
+
+#token-transfers .transfer .view  a {
+    color: #0C60C7;
+}
+
+/* - - - - - - - - - - - - - - - *
+ *          Loader
+ * - - - - - - - - - - - - - - - */
+.spinner {
+    color: #ffffff;
+    font-size: 80px;
+    text-indent: -9999em;
+    overflow: hidden;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    margin: 50px auto;
+    position: absolute;
+    transition: opacity 500ms ease-in-out;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation: spin6 1.7s infinite ease, round 1.7s infinite ease;
+    animation: spin6 1.7s infinite ease, round 1.7s infinite ease;
+}
+
+@-webkit-keyframes spin6 {
+    0% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+    5%,
+    95% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+    10%,
+    59% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+    }
+    20% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
+    }
+    38% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
+    }
+    100% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+}
+
+@keyframes spin6 {
+    0% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+    5%,
+    95% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+    10%,
+    59% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+    }
+    20% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
+    }
+    38% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
+    }
+    100% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+}
+
+@-webkit-keyframes round {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes round {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+.loader,
+.loader:before,
+.loader:after {
+    border-radius: 50%;
+    width: 2.5em;
+    height: 2.5em;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation: load7 1.8s infinite ease-in-out;
+    animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+    color: #99ccff;
+    font-size: 10px;
+    /*margin: 80px auto;*/
+    margin: -20px auto 80px auto;
+    position: absolute;
+    right: 50%;
+    text-indent: -9999em;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+}
+
+.loader:before,
+.loader:after {
+    content: '';
+    position: absolute;
+    top: 0;
+}
+.loader:before {
+    left: -3.5em;
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+    color: #f26522;
+}
+.loader:after {
+    left: 3.5em;
+    color: #003366;
+}
+@-webkit-keyframes load7 {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40% {
+        box-shadow: 0 2.5em 0 0;
+    }
+}
+@keyframes load7 {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40% {
+        box-shadow: 0 2.5em 0 0;
+    }
+}
+
+
+/* - - - - - - - - - - - - - - - *
+ *        Media Queries
+ * - - - - - - - - - - - - - - - */
+@media (min-width: 768px) and (max-width: 1000px) {
+    #page-header {
+        justify-content: space-between;
+    }
+
+    #page-header #logo img {
+        width: 25vw;
+    }
+
+    #page-header #repo-link {
+        font-size: 1.5vw;
+    }
+
+    #demo-name {
+        font-size: 2vw;
+    }
+
+    .container {
+        grid-template-columns: 70%;
+    }
+
+    .card {
+        min-height: 280px;
+    }
+
+    .card .title {
+        font-size: 2vw;
+    }
+
+    .address-input input {
+        font-size: 2vw;
+    }
+
+    #tokens .token .item {
+        font-size: 1.5vw;
+    }
+
+    #tokens .token .logo img {
+        width: 75%;
+        border-radius: 5%;
+    }
+
+    #token-transfers .header {
+        font-size: 2vw;
+    }
+
+    #token-transfers .transfer {
+        font-size: 1.5vw;
+    }
+}
+
+@media (min-width: 1000px) and (max-width: 1024px) {
+    #page-header {
+        justify-content: space-around;
+    }
+    #page-header #logo img {
+        width: 25vw;
+    }
+
+    #page-header #repo-link {
+        font-size: 1.5vw;
+    }
+
+    #demo-name {
+        font-size: 2vw;
+    }
+
+    .container {
+        grid-template-columns: 80%;
+    }
+
+    .card .title {
+        font-size: 2vw;
+    }
+
+    .address-input input {
+        font-size: 1.5vw;
+    }
+
+    #tokens .token .item {
+        font-size: 1.5vw;
+    }
+
+    #tokens .token .logo img {
+        width: 75%;
+        border-radius: 5%;
+    }
+
+    #token-transfers .header {
+        font-size: 2vw;
+    }
+
+    #token-transfers .transfer {
+        font-size: 1.5vw;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+    #page-header {
+        justify-content: space-between;
+    }
+
+    #page-header #logo img {
+        width: 20vw;
+    }
+
+    #page-header #repo-link {
+        font-size: 1.4vw;
+    }
+
+    #demo-name {
+        font-size: 1.8vw;
+    }
+
+    .container {
+        grid-template-columns: 60%;
+    }
+
+    .card {
+        min-height: 500px;
+    }
+
+    .card .title {
+        font-size: 1.8vw;
+    }
+
+    .address-input input {
+        font-size: 1.5vw;
+    }
+
+    #tokens .token .item {
+        font-size: 1.5vw;
+    }
+
+    #tokens .token .logo img {
+        width: 75%;
+        border-radius: 5%;
+    }
+
+    #token-transfers .header {
+        font-size: 1.5vw;
+    }
+
+    #token-transfers .transfer {
+        font-size: 1.2vw;
+    }
+}
+
+@media (min-width: 1281px) {
+
+    #page-header {
+        justify-content: space-between;
+    }
+
+    #page-header #logo img {
+        width: 15vw;
+    }
+
+    #page-header #repo-link {
+        font-size: 1vw;
+    }
+
+    .container {
+        grid-template-columns: 40%;
+    }
+    .card {
+        min-height: 380px;
+    }
+    .card .title {
+        font-size: 1.2vw;
+    }
+
+    .address-input input {
+        font-size: 1vw;
+    }
+
+    #demo-name {
+        font-size: 1.2vw;
+    }
+
+    #tokens .token .item {
+        font-size: 1vw;
+    }
+
+    #tokens .token .logo img {
+        width: 75%;
+        border-radius: 5%;
+    }
+
+    #token-transfers .header {
+        font-size: 1.2vw;
+    }
+
+    #token-transfers .transfer {
+        font-size: 0.9vw;
+    }
+}
