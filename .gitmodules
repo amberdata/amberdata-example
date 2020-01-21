@@ -4,9 +4,6 @@
 [submodule "amberdata-example-gas-station"]
 	path = amberdata-example-gas-station
 	url = https://github.com/amberdata/amberdata-example-gas-station
-[submodule "amberdata-example-erc20-wallet"]
-	path = amberdata-example-erc20-wallet
-	url = https://github.com/amberdata/amberdata-example-erc20-wallet
 [submodule "amberdata-example-websockets"]
 	path = amberdata-example-websockets
 	url = https://github.com/amberdata/amberdata-example-websockets
