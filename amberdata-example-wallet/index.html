@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Simple Wallet</title>
+    <link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+<div class="container">
+
+    <div class="header">
+
+	<a href="https://github.com/amberdata/amberdata-example-wallet" target="_blank">
+            Build Your Own &mdash; View Repo
+            <div class="pointer"> > </div>
+        </a>
+    </div>
+    <div class="address-input">
+        <input id="address-input-field" type="text" placeholder="Enter Ethereum Address">
+    </div>
+    <div class="data-window">
+        <div class="data address">
+
+        </div>
+        <div id="bal" class="data balance">
+
+        </div>
+        <div class="data date">
+
+        </div>
+        <div class="loader"></div>
+    </div>
+    <div class="transactions">
+        <div class="transactions-header">
+            Transactions
+        </div>
+        <div class="transactions-list">
+
+        </div>
+        <template>
+            <div class="transaction-entry">
+                <div class="txn-value">
+                    Value: 0.00124
+                </div>
+                <div class="txn-hash">
+                    Hash: 0x3904705da0a9...
+                </div>
+                <div class="txn-view">
+                    <a href="https://amberdata.io" target="_blank">View ></a>
+                </div>
+            </div>
+        </template>
+    </div>
+</div>
+<script src="assets/jquery.min.js"
+        type="text/javascript"></script>
+<script src="assets/axios.min.js"></script>
+<script src="index.js"></script>
+
+</body>
+</html>
