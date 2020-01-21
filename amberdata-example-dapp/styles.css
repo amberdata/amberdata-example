@@ -1,0 +1,506 @@
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: .2px;
+}
+
+/* Remove outlines esp. those that chrome might potentially insert */
+*:focus {
+    outline: none;
+}
+
+body {
+    margin: 0;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    background: #f9f9f9f9;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+p {
+    margin: 0;
+}
+
+.container {
+    margin: auto;
+    display: grid;
+    grid-template-rows: 100px auto auto;
+    grid-template-columns: 90%;
+    justify-content: center;
+    text-align: center;
+}
+
+#page-header {
+    color: #606060;
+    margin: 30px 30px 0 30px;
+}
+
+#page-header a {
+    display: inline-flex;
+    height: min-content;
+}
+
+#page-header > a:hover > .pointer {
+    transform: translateX(5px);
+}
+
+.pointer {
+    margin-left: 10px;
+    height: min-content;
+    cursor: pointer;
+    transition: transform 300ms ease-in-out;
+}
+
+.address-input input {
+    width: 100%;
+    height: 30px;
+    padding: 20px;
+    font-size: 4vw;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #F1F1F1;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+
+.address-input input:hover {
+    border-color: #0C60C7;
+}
+
+.address-input input:focus {
+    outline: none;
+}
+
+.card {
+    margin-top: 30px;
+    background: rgb(54,37,175);
+    background: -moz-linear-gradient(90deg, rgba(54,37,175,1) 0%, rgba(190,105,213,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(54,37,175,1) 0%, rgba(190,105,213,1) 100%);
+    background: linear-gradient(90deg, rgba(54,37,175,1) 0%, rgba(190,105,213,1) 100%);
+    border-radius: 10px;
+    display: grid;
+    color: #fBfBfB;
+    align-items: center;
+    justify-items: center;
+    position: relative;
+    min-height: 220px;
+    border: 1px solid;
+    font-weight: 300;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.data {
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+}
+
+#address-link {
+    align-self: end;
+}
+
+#address {
+    font-size: 3.5vw;
+}
+
+#address-type {
+    font-size: 8.5vw;
+    color: #ffffff;
+    letter-spacing: 2px;
+    font-weight: 400;
+}
+
+#date {
+    align-self: baseline;
+    font-size: 3.5vw;
+    color: #dadada;
+}
+
+#activity {
+    height: 10vh;
+}
+
+#activity .header {
+    text-align: left;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    padding-left: 15px;
+    color: #6e6e6e;
+    font-size: 4vw;
+}
+
+#activity {
+    position: relative;
+    /*opacity: 0; TODO: add loading */
+    transition: opacity 500ms ease-in-out;
+}
+
+#activity .list {
+    padding-top: 10px;
+    display: grid;
+    grid-row-gap: 10px;
+    padding-bottom: 15vh;
+    position: relative;
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+}
+
+#activity .entry {
+    display: grid;
+    grid-template-columns: 15% 1fr 1fr auto;
+    color: #222222;
+    padding: 5px;
+    font-size: 2.5vw;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #F1F1F1;
+    background: #ffffff;
+}
+
+#activity .entry .item {
+    align-self: center;
+}
+
+#activity .entry .icon {
+    position: relative;
+    background: #D8D8D8;
+    border-radius: 5px;
+    height: 8vw;
+    width: 8vw;
+    display: flex;
+}
+
+#activity .entry .icon p {
+    margin: auto;
+    font-weight: bold;
+    font-size: 3vw;
+}
+
+#activity .entry .detail {
+    justify-self: baseline;
+}
+
+#activity .entry .hash {
+    justify-self: baseline;
+}
+
+#activity .entry .view {
+    justify-self: right;
+    margin-right: 5px;
+}
+
+#activity .entry .view a {
+    color: #0C60C7;
+}
+
+/* - - - - - - - - - - - - - - - *
+ *          Loaders
+ * - - - - - - - - - - - - - - - */
+
+.loader,
+.loader:before,
+.loader:after {
+    border-radius: 50%;
+    width: 2.5em;
+    height: 2.5em;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation: load7 1.8s infinite ease-in-out;
+    animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+    color: #99ccff;
+    font-size: 10px;
+    margin: 80px auto;
+    position: absolute;
+    right: 50%;
+    text-indent: -9999em;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+}
+
+.loader:before,
+.loader:after {
+    content: '';
+    position: absolute;
+    top: 0;
+}
+.loader:before {
+    left: -3.5em;
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+    color: #f26522;
+}
+.loader:after {
+    left: 3.5em;
+    color: #003366;
+}
+@-webkit-keyframes load7 {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40% {
+        box-shadow: 0 2.5em 0 0;
+    }
+}
+@keyframes load7 {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40% {
+        box-shadow: 0 2.5em 0 0;
+    }
+}
+
+.spinner {
+    color: #ffffff;
+    font-size: 80px;
+    text-indent: -9999em;
+    overflow: hidden;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    margin: 50px auto;
+    position: absolute;
+    transition: opacity 500ms ease-in-out;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation: spin6 1.7s infinite ease, round 1.7s infinite ease;
+    animation: spin6 1.7s infinite ease, round 1.7s infinite ease;
+}
+
+@-webkit-keyframes spin6 {
+    0% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+    5%,
+    95% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+    10%,
+    59% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+    }
+    20% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
+    }
+    38% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
+    }
+    100% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+}
+
+@keyframes spin6 {
+    0% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+    5%,
+    95% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+    10%,
+    59% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+    }
+    20% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em, -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, -0.749em -0.34em 0 -0.477em;
+    }
+    38% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em, -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, -0.82em -0.09em 0 -0.477em;
+    }
+    100% {
+        box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+}
+
+@-webkit-keyframes round {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes round {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .card {
+        min-height: 270px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .container {
+        grid-template-columns: 60%;
+    }
+
+    .card {
+        min-height: 320px;
+    }
+
+    .card-title {
+        font-size: 2.5vw;
+    }
+
+    #address-input-field {
+        font-size: 2vw;
+    }
+
+    #address {
+        font-size: 1.7vw;
+    }
+
+    #address-type {
+        font-size: 4.5vw;
+    }
+
+    #date {
+        font-size: 2vw;
+    }
+
+    #activity .header {
+        font-size: 2.5vw;
+    }
+
+    #activity .entry .icon {
+        height: 5.5vw;
+        width: 5.5vw;
+    }
+
+    #activity .entry .icon p {
+        font-size: 2vw;
+    }
+
+    #activity .entry {
+        font-size: 1.8vw;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1000px) {
+    .card {
+        min-height: 280px;
+    }
+}
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .container {
+        grid-template-columns: 60%;
+    }
+    .card {
+        min-height: 300px;
+    }
+    .card-title {
+        font-size: 2.5vw;
+    }
+    .card {
+        min-height: 330px;
+    }
+
+    #address-input-field {
+        font-size: 1.5vw;
+    }
+
+    #address {
+        font-size: 1.5vw;
+    }
+
+    #address-type {
+        font-size: 3.5vw;
+    }
+
+    #date {
+        font-size: 1.5vw;
+    }
+
+    #activity .header {
+        font-size: 1.7vw;
+    }
+
+    #activity .entry .icon {
+        height: 3.8vw;
+        width: 3.8vw;
+    }
+
+    #activity .entry .icon p {
+        font-size: 1.2vw;
+    }
+
+    #activity .entry {
+        font-size: 1.2vw;
+    }
+}
+
+@media (min-width: 1281px) {
+    .container {
+        grid-template-columns: 40%;
+    }
+
+    .card {
+        min-height: 330px;
+    }
+
+    #address-input-field {
+        font-size: 1vw;
+    }
+
+    #address {
+        font-size: 1.2vw;
+    }
+
+    #address-type {
+        font-size: 3vw;
+    }
+
+    #date {
+        font-size: 1vw;
+    }
+
+    #activity .header {
+        font-size: 1.2vw;
+    }
+
+    #activity .entry .icon {
+        height: 2.5vw;
+        width: 2.5vw;
+    }
+
+    #activity .entry .icon p {
+        font-size: .8vw;
+    }
+
+    #activity .entry {
+        font-size: .8vw;
+    }
+}
