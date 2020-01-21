@@ -1,6 +1,34 @@
-body {
-  background: #f9f9f9
+/* - - - - - - - - - - - - - - - *
+*     Generic page defaults
+* - - - - - - - - - - - - - - - */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: .2px;
 }
+
+body {
+  background: #f9f9f9;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#repo-link {
+  font-size: 3vw;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-column-gap: 5px;
+  align-items: center;
+}
+
+#github-logo {
+    width: 12px;
+    fill: #717376;
+}
+
 .card-detail small {
   text-transform: uppercase;
 }
