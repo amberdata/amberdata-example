@@ -3,39 +3,57 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <title>Whale Activty</title>
+    <title>Whale Activity</title>
     <link rel="stylesheet" href="assets/bulma.css" type="text/css">
     <link rel="stylesheet" href="styles.css" type="text/css">
+
 </head>
 <body>
-  <a id="repo-link"
-     target="_blank"
-     href="https://github.com/amberdata/amberdata-example/tree/master/amberdata-example-whale-activity">
-      <svg id="github-logo", xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 32C132.3 32 32 134.9 32 261.7c0 101.5 64.2 187.5 153.2 217.9 1.4.3 2.6.4 3.8.4 8.3 0 11.5-6.1 11.5-11.4 0-5.5-.2-19.9-.3-39.1-8.4 1.9-15.9 2.7-22.6 2.7-43.1 0-52.9-33.5-52.9-33.5-10.2-26.5-24.9-33.6-24.9-33.6-19.5-13.7-.1-14.1 1.4-14.1h.1c22.5 2 34.3 23.8 34.3 23.8 11.2 19.6 26.2 25.1 39.6 25.1 10.5 0 20-3.4 25.6-6 2-14.8 7.8-24.9 14.2-30.7-49.7-5.8-102-25.5-102-113.5 0-25.1 8.7-45.6 23-61.6-2.3-5.8-10-29.2 2.2-60.8 0 0 1.6-.5 5-.5 8.1 0 26.4 3.1 56.6 24.1 17.9-5.1 37-7.6 56.1-7.7 19 .1 38.2 2.6 56.1 7.7 30.2-21 48.5-24.1 56.6-24.1 3.4 0 5 .5 5 .5 12.2 31.6 4.5 55 2.2 60.8 14.3 16.1 23 36.6 23 61.6 0 88.2-52.4 107.6-102.3 113.3 8 7.1 15.2 21.1 15.2 42.5 0 30.7-.3 55.5-.3 63 0 5.4 3.1 11.5 11.4 11.5 1.2 0 2.6-.1 4-.4C415.9 449.2 480 363.1 480 261.7 480 134.9 379.7 32 256 32z"/></svg>
-      <div>View Repo</div>
-  </a>
+
   <section class="section">
-    <!-- <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="Check out this large transaction I discovered using @Amberdataio&#39;s API!" data-via="Amberdataio" data-hashtags="ethereum" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
-    <!-- <a href="https://twitter.com/intent/tweet?text=Check+out+this+large+transaction+I+discovered+using+@Amberdataio&#39;s+API!">Tweet</a> -->
     <div class="container has-text-centered">
-      <h1 class="title">Whale Activity</h1>
-      <h2 class="subtitle">
-        Filter large transactions with ease! 💨
-      </h2>
-      <div class="columns">
 
+      <!-- Columns hold page header -->
+      <div class="columns is-vcentered">
+        <div class="column  has-text-left">
+          <h1 class="title">Whale Activity</h1>
+          <h2 class="subtitle">
+            Watch blockchain value movement filtered to any threshold. You can filter to thresholds for the digital asset amount (Example: Ether) or to the traded value total (Example: $ USD). Use this example code to build transaction events into your application!
+          </h2>
+        </div>
+        <!-- Spacer -->
+        <div class="column is-2"></div>
+        <!-- Spacer -->
+        <div class="column has-text-right">
+          <div class="columns is-vcentered">
+              <div class="column is-half">
+                  <a target="_blank" href="https://amberdata.io">
+                    <img id="powered-by" src="assets/amberdata_logo_color_pwrd.svg">
+                  </a>
+              </div>
+              <div class="column is-half">
+                <a id="repo-link"
+                   target="_blank"
+                   href="https://github.com/amberdata/amberdata-example/tree/master/amberdata-example-whale-activity">
+                    <svg id="github-logo", xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 32C132.3 32 32 134.9 32 261.7c0 101.5 64.2 187.5 153.2 217.9 1.4.3 2.6.4 3.8.4 8.3 0 11.5-6.1 11.5-11.4 0-5.5-.2-19.9-.3-39.1-8.4 1.9-15.9 2.7-22.6 2.7-43.1 0-52.9-33.5-52.9-33.5-10.2-26.5-24.9-33.6-24.9-33.6-19.5-13.7-.1-14.1 1.4-14.1h.1c22.5 2 34.3 23.8 34.3 23.8 11.2 19.6 26.2 25.1 39.6 25.1 10.5 0 20-3.4 25.6-6 2-14.8 7.8-24.9 14.2-30.7-49.7-5.8-102-25.5-102-113.5 0-25.1 8.7-45.6 23-61.6-2.3-5.8-10-29.2 2.2-60.8 0 0 1.6-.5 5-.5 8.1 0 26.4 3.1 56.6 24.1 17.9-5.1 37-7.6 56.1-7.7 19 .1 38.2 2.6 56.1 7.7 30.2-21 48.5-24.1 56.6-24.1 3.4 0 5 .5 5 .5 12.2 31.6 4.5 55 2.2 60.8 14.3 16.1 23 36.6 23 61.6 0 88.2-52.4 107.6-102.3 113.3 8 7.1 15.2 21.1 15.2 42.5 0 30.7-.3 55.5-.3 63 0 5.4 3.1 11.5 11.4 11.5 1.2 0 2.6-.1 4-.4C415.9 449.2 480 363.1 480 261.7 480 134.9 379.7 32 256 32z"/></svg>
+                    <div>View Repo</div>
+                </a>
+              </div>
+          </div>
+        </div>
+      </div>
+      <!-- / Columns hold page header -->
 
-        <div class="column">
-
-          <div class="columns">
-            <div class="column is-3">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters-fullhd">
+          <div class="columns is-centered">
+            <div class="column is-3-fullhd">
               <div class="field">
                 <div class="control">
                   <input data-name="apiKey" id="api-key" class="input" type="password" placeholder="API Key">
                 </div>
               </div>
             </div>
-
             <div class="column is-3">
               <div class="field has-addons">
                 <div class="control">
@@ -66,8 +84,7 @@
                 </div>
               </div>
             </div>
-
-            <div class="column is-2">
+            <div class="column is-2-fullhd">
               <div class="field">
                 <!-- Blockchain Select Input -->
                 <div class="control">
@@ -81,7 +98,7 @@
                 </div>
               </div>
             </div>
-            <div class="column">
+            <div class="column is-2-fullhd">
               <div class="field">
                 <div class="control">
                   <div class="buttons has-addons">
@@ -91,7 +108,7 @@
                 </div>
               </div>
             </div>
-            <div class="column">
+            <div class="column is-1-fullhd">
               <div class="field">
                 <div class="control">
                   <button id="clear-button" class="button">Clear</button>
@@ -99,51 +116,39 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column">
+
 
           <!-- Columns hold the real-time activity feed of large transactions  -->
           <div class="columns activity-feed">
             <div class="column">
 
               <h1 class="title is-4">Pending Transactions</h1>
-              <!-- <div class="column-headers box">
-                <div class="columns">
-                  <div class="column">Hash</div>
-                  <div class="column">Amount</div>
-                  <div class="column">Height</div>
-                  <div class="column">Time</div>
-                </div>
-              </div> -->
+
               <div id="pending-txns" class="txn-feed">
+                <div class="spinner">
+                  <div class="double-bounce1"></div>
+                  <div class="double-bounce2"></div>
+                </div>
               </div>
             </div>
             <div  class="column">
               <h1 class="title is-4">Confirmed Transactions</h1>
 
               <div id="confirmed-txns" class="txn-feed">
-                <!-- <div class="box entry">
-                  <div class="columns">
-                    <div class="amount-container column is-4">
-                      <img class="blockchain-logo" src="assets/ethereum.svg">
-                      <div class="amount">192.02</div>
-                    </div>
-                    <div class="column is-8 txn-details">
-                      <div class="hash"><p>0x721afcfc9aa5bcf3d89ece777f545d5f4...</p></div>
-                      <div class="txn-details-sub">
-                        <div class="timestamp">2:35pm - 01/17/20</div>
-                        <div class="block">9,301,483</div>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-
-
-
+                <div class="spinner">
+                  <div class="double-bounce1"></div>
+                  <div class="double-bounce2"></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <img id="powered-by" src="assets/amberdata_logo_color_pwrd.svg">
+
     </div>
 
   </section>

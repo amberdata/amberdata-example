@@ -49,6 +49,8 @@
       }
     }
 
+    let hasLoader = true;
+
     const QUOTE_USD = {quote: 'usd'}
 
     const getPrice = async (newBlockchainId, prevBlockchainId = '' ) => {
@@ -65,11 +67,11 @@
 
       w3d.on({eventName: 'market:prices', filters: { pair: blockchainBase[newBlockchainId] + '_usd'}}, ({price}) => {
         config.priceUSD = price > 0 ? price : config.priceUSD
-        console.log(config.priceUSD)
       })
     }
 
     const insertTransaction = (type, hash, amount, block, time, blockchainId, valueUsd) => {
+      clearLoader(type)
       $(`#${type}-txns`).prepend(`
         <div class="box entry">
           <div class="columns" >
@@ -99,6 +101,13 @@
       ['pending', 'confirmed'].map(type => $(`#${type}-txns`).empty())
     }
 
+    const clearLoader = (type) => {
+      const spinner = $(`#${type}-txns .spinner`)
+      if(!spinner.prop('hidden')) {
+        spinner.prop('hidden', true)
+      }
+    }
+
     const meetsThreshold = (value, thresholdValue, thresholdSign) => {
       switch (thresholdSign) {
         case '>': return value >  thresholdValue
@@ -123,7 +132,7 @@
         const txnValue = toBaseDenom[txn.blockchainId](txn.value)
         const value = config.thresholdCurrency === 'usd' ? txnValue * config.priceUSD : txnValue
 
-        console.log({value, txnValue, ...config.thresholdSign});
+
         if( meetsThreshold(value, config.thresholdValue, config.thresholdSign) ) {
           insertTransaction(
             'confirmed',
@@ -136,7 +145,9 @@
           )
         }
       })
+      const pendingTxns = {}
       web3data.on({eventName: 'pending_transactions'}, txn => {
+        if(txn.hash in pendingTxns) return
         if(!config.isLive) return // If the app is paused don't insert new txns
         const txnValue = toBaseDenom[txn.blockchainId](txn.value)
         const value = config.thresholdCurrency === 'usd' ? txnValue * config.priceUSD : txnValue
@@ -178,6 +189,7 @@
       if(name === 'blockchain') {
         $('#currency-indicator').text(blockchainSymbol[optionValue])
         $("select[data-name='thresholdCurrency'] option:first-child").text(blockchainSymbol[optionValue])
+        clearTransactions()
       }
     })
 

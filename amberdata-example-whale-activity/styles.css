@@ -9,6 +9,7 @@
 
 body {
   background: #f9f9f9;
+  min-height: 100vh;
 }
 
 a {
@@ -19,14 +20,20 @@ a {
 #repo-link {
   font-size: 3vw;
   display: flex;
-  position: absolute;
-  right: 15px;
-  top: 15px;
+}
+
+#repo-link div {
+  margin-left: 10px;
 }
 
 #github-logo {
     width: 12px;
     fill: #717376;
+}
+
+#powered-by {
+  width: 80%;
+  margin: auto;
 }
 
 .card-detail small {
@@ -41,12 +48,6 @@ a {
   box-shadow: none;
   background: transparent;
   margin-bottom: 0;
-}
-
-.txn-feed {
-  overflow-y: scroll;
-  height: 60vh;
-  padding: 15px;
 }
 
 .activity-feed {
@@ -107,8 +108,6 @@ a {
 .amount {
   padding-left: 30px;
   display: flex;
-  padding-left: 30px;
-  display: flex;
   flex-flow: column;
   align-items: baseline;
 }
@@ -157,6 +156,48 @@ a {
     100.0%  {background-color:#ffffff;}
 }
 
+.spinner {
+  width: 40px;
+  height: 40px;
+
+  position: relative;
+  margin: 100px auto;
+}
+
+.double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #333;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+  animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+  0%, 100% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}
+
 /* - - - - - - - - - - - - - - - *
  *        Media Queries
  * - - - - - - - - - - - - - - - */
@@ -170,9 +211,9 @@ a {
 }
 @media (min-width: 1281px) {
   #repo-link {
-    font-size: 1vw;
+    font-size: 1.5vw;
   }
   #repo-link #github-logo {
-      width: 15px;
+      width: 25px;
   }
 }
