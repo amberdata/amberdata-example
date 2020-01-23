@@ -1,11 +1,12 @@
 # amberdata-example-gas-station
 Build your own Ethereum Gas Station using Amberdata.io API!
 
-Check out [the demo page](https://amberdata.github.io/amberdata-example-gas-station/)!
+Check out [the demo page](https://amberdata.github.io/amberdata-example/amberdata-example-gas-station/)!
 
 ### Clone:
 ``
-git clone git@github.com:amberdata/amberdata-example-gas-station.git
+git clone git@github.com:amberdata/amberdata-example.git
+cd amberdata-example-gas-station
 ``
 
 ### 1. Get API Key
@@ -24,7 +25,7 @@ let getGasPredictions = async () => {
     })
 }
 ```
-See source [here](https://github.com/amberdata/amberdata-example-gas-station/blob/4480904388d816b2767d7cb4a98c3fccc34aaba8/index.js#L84-L90).
+See source [here](https://github.com/amberdata/amberdata-example/blob/ed8bf65c1e52af04cf1b83aede6b237abbd81801/amberdata-example-gas-station/index.js#L83-L89).
 
 ```js
     let getGasPercentiles = async () => {
@@ -35,7 +36,7 @@ See source [here](https://github.com/amberdata/amberdata-example-gas-station/blo
         })
     }
 ```
-See source [here](https://github.com/amberdata/amberdata-example-gas-station/blob/4480904388d816b2767d7cb4a98c3fccc34aaba8/index.js#L102-L109).
+See source [here](https://github.com/amberdata/amberdata-example/blob/ed8bf65c1e52af04cf1b83aede6b237abbd81801/amberdata-example-gas-station/index.js#L101-L108).
 
 ## Resources
 
