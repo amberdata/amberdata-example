@@ -1,12 +1,13 @@
 # amberdata-example-websockets
 Build your own websocket event stream for Ethereum using Amberdata.io! Example code uses [Amberdata's Websockets](https://docs.amberdata.io/reference#connection)
 
-Check out [the demo page](https://amberdata.github.io/amberdata-example-websockets/)!
+Check out [the demo page](https://amberdata.github.io/amberdata-example/amberdata-example-websockets/)!
 
 ### Clone:
-``
+```bash
 git clone git@github.com:amberdata/amberdata-example-websockets.git
-``
+cd amberdata-example-websockets
+```
 
 ### 1. Get API Key
 
@@ -33,7 +34,7 @@ socket.addEventListener('open', function (event) {
 socket.addEventListener('message', responseHandler);
 ```
 
-See source [here](https://github.com/amberdata/amberdata-example-websockets/blob/f20723472788d07e4b135bd840e32a90dd4566b5/index.js#L41-L61).
+See source [here](https://github.com/amberdata/amberdata-example/blob/0c63f4a0a1ea54d8744bf79b39eee58fd0eea34e/amberdata-example-websockets/index.js#L35-L60).
 
 ## Resources
 
