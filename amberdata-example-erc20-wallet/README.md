@@ -5,7 +5,8 @@ Check out [the demo page](https://amberdata.github.io/amberdata-example/amberdat
 
 ### Clone:
 ``
-git clone git@github.com:amberdata/amberdata-example-erc20-wallet.git
+git clone git@github.com:amberdata/amberdata-example.git
+cd amberdata-example-erc20-wallet
 ``
 
 ### 1. Get API Key
