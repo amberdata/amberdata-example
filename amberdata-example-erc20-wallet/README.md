@@ -1,7 +1,7 @@
 # amberdata-example-erc20-wallet
 Build your own ERC20 Token wallet for Ethereum using Amberdata.io! Example code uses account transactions and account balance
 
-Check out [the demo page](https://amberdata.github.io/amberdata-example-erc20-wallet/)!
+Check out [the demo page](https://amberdata.github.io/amberdata-example/amberdata-example-erc20-wallet/)!
 
 ### Clone:
 ``
@@ -27,7 +27,7 @@ let getCurrentTokenTransfers = (address) => axios.get(`https://web3api.io/api/v1
 
 ```
 
-See source [here](https://github.com/amberdata/amberdata-example-erc20-wallet/blob/b63753e2c1be710f966005481abdba9a1b71d2e8/index.js#L30-L41).
+See source [here](https://github.com/amberdata/amberdata-example/blob/a12c27d251da45ded68d5a1e16787bfb79f05f16/amberdata-example-erc20-wallet/index.js#L30-L43).
 
 ## Resources
 
