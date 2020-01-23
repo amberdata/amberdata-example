@@ -4,9 +4,10 @@ Build your first dApp for Ethereum using Amberdata.io API! Utilize ABI, logs, in
 Check out [the demo page](https://amberdata.github.io/amberdata-example/amberdata-example-dapp/)!
 
 ### Clone:
-``
-git clone git@github.com:amberdata/amberdata-example-dapp.git
-``
+```bash
+git clone git@github.com:amberdata/amberdata-example.git
+cd amberdata-example-dapp
+```
 
 ### 1. Get API Key
 
