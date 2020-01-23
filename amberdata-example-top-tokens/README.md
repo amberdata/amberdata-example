@@ -1,11 +1,12 @@
 # amberdata-example-top-tokens
 Build your own tokens ranking list for Ethereum using Amberdata.io! Example code uses token rankings endpoint
 
-Check out [the demo page](https://amberdata.github.io/amberdata-example-top-tokens/)!
+Check out [the demo page](https://amberdata.github.io/amberdata-example/amberdata-example-top-tokens/)!
 
 ### Clone:
 ``
-git clone git@github.com:amberdata/amberdata-example-top-tokens.git
+git clone git@github.com:amberdata/amberdata-example.git
+cd amberdata-example-top-token
 ``
 
 ### 1. Get API Key
@@ -28,7 +29,7 @@ let getTopNFTs = () => axios.get(`https://web3api.io/api/v1/tokens/rankings?sort
 
 ```
 
-See source [here](https://github.com/amberdata/amberdata-example-top-tokens/blob/2f7b34a92e48c680061f4b9bd6ec4d46907db069/index.js#L27-L38).
+See source [here](https://github.com/amberdata/amberdata-example/blob/594317ec03f2276969d14f7e4b628859184a02f2/amberdata-example-top-tokens/index.js#L26-L37).
 
 ## Resources
 
