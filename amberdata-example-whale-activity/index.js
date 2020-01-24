@@ -83,13 +83,13 @@
                 </div>
               </div>
               <div class="column is-8 txn-details">
-                <div class="hash"><a target="_blank" href="https://amberdata.io/transactions/${hash}" >${hash.slice(0,15)}...</a></div>
+                <div class="hash"><a target="_blank" href="${blockchainLink[blockchainId]}${hash}">${hash.slice(0,15)}...</a></div>
                 <div class="txn-details-sub">
                   <div class="blocknumber">${block ? '❒ '+ new Intl.NumberFormat().format(block) : ''}</div>
                   <div class="timestamp">${time || '-'}</div>
                 </div>
                 <div class="links">
-                  <a target="_blank" href="https://twitter.com/intent/tweet?text=${encodeURI(TWEET_TEXT + `\n\nhttps://amberdata.io/transactions/${hash}`)}"><img src="assets/twit.png" alt=""></a>
+                  <a target="_blank" href="https://twitter.com/intent/tweet?text=${encodeURI(TWEET_TEXT + '\n\n' + blockchainLink[blockchainId] + hash) }"><img src="assets/twit.png" alt=""></a>
                 </div>
               </div>
           </div>
@@ -241,6 +241,12 @@
       '1c9c969065fcd1cf': 'eth',
       '408fa195a34b533de9ad9889f076045e': 'btc',
       'f94be61fd9f4fa684f992ddfd4e92272': 'ltc'
+    }
+
+    const blockchainLink = {
+      '1c9c969065fcd1cf': 'https://amberdata.io/transactions/',
+      '408fa195a34b533de9ad9889f076045e': 'https://www.blockchain.com/btc/tx/',
+      'f94be61fd9f4fa684f992ddfd4e92272': 'https://blockchair.com/litecoin/transaction/'
     }
 
     const round = (n, digits) => Number.parseFloat(n).toFixed(digits)
