@@ -1,12 +1,13 @@
 # amberdata-example-wallet
 Build your own wallet for Ethereum using Amberdata.io! Example code uses account transactions and account balance
 
-Check out [the demo page](https://amberdata.github.io/amberdata-example-wallet/)!
+Check out [the demo page](https://amberdata.github.io/amberdata-example/amberdata-example-wallet/)!
 
 ### Clone:
-``
-git clone git@github.com:amberdata/amberdata-example-wallet.git
-``
+```bash
+git clone git@github.com:amberdata/amberdata-example.git
+cd amberdata-example-wallet
+```
 
 ### 1. Get API Key
 
@@ -35,7 +36,7 @@ let getAddressTransactions = async (address) => {
 }
 ```
 
-See source [here](https://github.com/amberdata/amberdata-example-wallet/blob/45a7c2f6de403569656b4ea35fa26668ea252c97/index.js#L70-L84).
+See source [here](https://github.com/amberdata/amberdata-example/blob/a1ee54f291a478087a335ed131b8da987b82f6d3/amberdata-example-wallet/index.js#L54-L64).
 
 ## Resources
 
