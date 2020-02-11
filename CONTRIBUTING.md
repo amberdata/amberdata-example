@@ -8,7 +8,7 @@ Of course feel free to make your own issues if you think something needs to adde
 
 Please ensure that all tests pass before submitting changes. Most projects have a full test suite that are automatically run as part of the default phase of the npm lifecycle (`npm install`).
 
-They can also be run individually: unit tests with `npm test`.
+They can also be run individually: unit tests with `npm run test`.
 
 We follow the default Airbnb code formatting style, please make sure to follow and adhere to these conventions when submitting code.
 
