@@ -11,7 +11,7 @@ To clone this repository, run the following command:
 ## Examples:
 
 - [Whale Activity](./amberdata-example-whale-activity)
-- [Market Data](./amberdata-example-marketdata)
+- [Market Data](./amberdata-example-marketdepth)
 - [Websockets](./amberdata-example-websockets)
 - [Ethereum dApp](./amberdata-example-dapp)
 - [Ethereum ERC20 Wallet](./amberdata-example-erc20-wallet)
