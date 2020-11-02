@@ -244,9 +244,9 @@
     }
 
     const blockchainLink = {
-      '1c9c969065fcd1cf': 'https://amberdata.io/transactions/',
-      '408fa195a34b533de9ad9889f076045e': 'https://www.blockchain.com/btc/tx/',
-      'f94be61fd9f4fa684f992ddfd4e92272': 'https://blockchair.com/litecoin/transaction/'
+      '1c9c969065fcd1cf': 'https://amberdata.io/dashboards/?hash=',
+      '408fa195a34b533de9ad9889f076045e': 'https://amberdata.io/dashboards/?hash=',
+      'f94be61fd9f4fa684f992ddfd4e92272': 'https://amberdata.io/dashboards/?hash='
     }
 
     const round = (n, digits) => Number.parseFloat(n).toFixed(digits)
