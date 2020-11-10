@@ -20,7 +20,7 @@ Building with Amberdata.io is as simple as a few axios request:
 let getGasPredictions = async () => {
     return await axios({
         method:'get',
-        url: 'https://web3api.io/api/v1/transactions/gas/predictions',
+        url: 'https://web3api.io/api/v2/transactions/gas/predictions',
         headers: {"x-api-key": "YOUR_API_KEY_HERE"}
     })
 }
@@ -31,7 +31,7 @@ See source [here](https://github.com/amberdata/amberdata-example/blob/ed8bf65c1e
     let getGasPercentiles = async () => {
         return await axios({
             method:'get',
-            url: 'https://web3api.io/api/v1/transactions/gas/percentiles',
+            url: 'https://web3api.io/api/v2/transactions/gas/percentiles',
             headers: {"x-api-key": "YOUR_API_KEY_HERE"}
         })
     }

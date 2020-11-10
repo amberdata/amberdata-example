@@ -22,11 +22,11 @@ let config = {
         headers: {"x-api-key": "YOUR_API_KEY_HERE"}
     }
 
-let getAddressInformation = (address) => axios.get(`https://web3api.io/api/v1/addresses/${address}/information`, config)
-let getContractFunctions = (address) => axios.get(`https://web3api.io/api/v1/contracts/${address}/functions`, config)
-    let getAddressTransactions = (address) => axios.get(`https://web3api.io/api/v1/addresses/${address}/transactions?page=0&size=50`, config)
-    let getAddressFunctions = (address) => axios.get(`https://web3api.io/api/v1/addresses/${address}/functions?page=0&size=50`, config)
-    let getAddressLogs = (address) => axios.get(`https://web3api.io/api/v1/addresses/${address}/logs?page=0&size=50`, config)
+let getAddressInformation = (address) => axios.get(`https://web3api.io/api/v2/addresses/${address}/information`, config)
+let getContractFunctions = (address) => axios.get(`https://web3api.io/api/v2/contracts/${address}/functions`, config)
+    let getAddressTransactions = (address) => axios.get(`https://web3api.io/api/v2/addresses/${address}/transactions?page=0&size=50`, config)
+    let getAddressFunctions = (address) => axios.get(`https://web3api.io/api/v2/addresses/${address}/functions?page=0&size=50`, config)
+    let getAddressLogs = (address) => axios.get(`https://web3api.io/api/v2/addresses/${address}/logs?page=0&size=50`, config)
 ```
 See source [here](https://github.com/amberdata/amberdata-example/blob/5060c4193d9cc551e23f9374d4661fa1b0c3a6a4/amberdata-example-dapp/index.js#L21-L37)
 

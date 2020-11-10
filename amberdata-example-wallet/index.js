@@ -56,11 +56,11 @@
         }
 
         const getAddressBalance = async (address) => {
-            return await axios.get(`https://web3api.io/api/v1/addresses/${address}/account-balances/latest`, config)
+            return await axios.get(`https://web3api.io/api/v2/addresses/${address}/account-balances/latest`, config)
         }
 
         const getAddressTransactions = async (address) => {
-            return await axios.get(`https://web3api.io/api/v1/addresses/${address}/transactions?page=0&size=30`, config)
+            return await axios.get(`https://web3api.io/api/v2/addresses/${address}/transactions?page=0&size=30`, config)
         }
 
         let setLoading = (bool) => {

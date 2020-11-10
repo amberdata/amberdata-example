@@ -39,7 +39,7 @@
         initWebSockets(new DataHandler(window.data), api_key)
     }
 
-    const getHistoricalOHLCV = (pair, api_key) => axios.get(`https://web3api.io/api/v1/market/ohlcv/${pair}/historical`, {
+    const getHistoricalOHLCV = (pair, api_key) => axios.get(`https://web3api.io/api/v2/market/ohlcv/${pair}/historical`, {
         headers: {"x-api-key": api_key}
     })
 
@@ -320,7 +320,7 @@
                 "key": "x-api-key",
                 "value": api_key
             }];
-            chart.dataSource.url = `https://web3api.io/api/v1/market/orders/eth_btc?exchange=gdax&timestamp=${new Date().getTime() - 3600000.00}`;
+            chart.dataSource.url = `https://web3api.io/api/v2/market/orders/eth_btc?exchange=gdax&timestamp=${new Date().getTime() - 3600000.00}`;
             chart.dataSource.adapter.add("parsedData", function(data) {
 
                 // Function to process (sort and calculate cumulative volume)

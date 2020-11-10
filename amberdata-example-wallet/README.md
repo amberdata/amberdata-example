@@ -22,7 +22,7 @@ Building with Amberdata.io is as simple as a few axios request:
 let getAddressBalance = async (address) => {
         return await axios({
             method:'get',
-            url: `https://web3api.io/api/v1/addresses/${address}/account-balances?page=0&size=1`,
+            url: `https://web3api.io/api/v2/addresses/${address}/account-balances?page=0&size=1`,
             headers: {"x-api-key": "YOUR_API_KEY_HERE"}
         })
     }
@@ -30,7 +30,7 @@ let getAddressBalance = async (address) => {
 let getAddressTransactions = async (address) => {
     return await axios({
         method:'get',
-        url: `https://web3api.io/api/v1/addresses/${address}/transactions?page=0&size=10`,
+        url: `https://web3api.io/api/v2/addresses/${address}/transactions?page=0&size=10`,
         headers: {"x-api-key": "YOUR_API_KEY_HERE"}
     })
 }

@@ -23,9 +23,9 @@ let config = {
         headers: {"x-api-key": "YOUR_API_KEY_HERE"}
     }
 
-let getTopTokensMarketCap = () => axios.get(`https://web3api.io/api/v1/tokens/rankings?direction=descending&sortType=marketCap&timeInterval=d`, config)
-let getTopTokensChangeInPrice = () => axios.get(`https://web3api.io/api/v1/tokens/rankings?direction=descending&sortType=changeInPrice&timeInterval=d`, config)
-let getTopNFTs = () => axios.get(`https://web3api.io/api/v1/tokens/rankings?sortType=transactionVolume&type=erc721&timeInterval=d`, config)
+let getTopTokensMarketCap = () => axios.get(`https://web3api.io/api/v2/tokens/rankings?direction=descending&sortType=marketCap&timeInterval=d`, config)
+let getTopTokensChangeInPrice = () => axios.get(`https://web3api.io/api/v2/tokens/rankings?direction=descending&sortType=changeInPrice&timeInterval=d`, config)
+let getTopNFTs = () => axios.get(`https://web3api.io/api/v2/tokens/rankings?sortType=transactionVolume&type=erc721&timeInterval=d`, config)
 
 ```
 

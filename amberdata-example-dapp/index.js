@@ -15,7 +15,7 @@
 
 
     /* Base url for all requests */
-    const BASE_URL = 'https://web3api.io/api/v1/'
+    const BASE_URL = 'https://web3api.io/api/v2/'
     const FILTERS = '?page=0&size=50'
 
     let config = {

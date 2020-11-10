@@ -19,7 +19,7 @@ Building with Amberdata.io is as simple as a few a few lines of code:
 For Historical OHLCV -
 ```js
 let config = {headers: {"x-api-key": "YOUR_API_KEY_HERE"}};
-const getHistoricalOHLCV = (pair) => axios.get(`https://web3api.io/api/v1/market/ohlcv/${pair}/historical`, config);
+const getHistoricalOHLCV = (pair) => axios.get(`https://web3api.io/api/v2/market/ohlcv/${pair}/historical`, config);
 ```
 See source [here](https://github.com/amberdata/amberdata-example-marketdata/blob/a22e2d3edee890567386b0804c104218f237a483/index.js#L37).
 

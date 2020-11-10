@@ -83,7 +83,7 @@
     let getGasPredictions = async () => {
         return await axios({
             method:'get',
-            url: 'https://web3api.io/api/v1/transactions/gas/predictions',
+            url: 'https://web3api.io/api/v2/transactions/gas/predictions',
             headers: {"x-api-key": "UAK000000000000000000000000demo0001"}
         })
     }
@@ -102,7 +102,7 @@
         // TODO: Handle response errors
         return await axios({
             method:'get',
-            url: 'https://web3api.io/api/v1/transactions/gas/percentiles',
+            url: 'https://web3api.io/api/v2/transactions/gas/percentiles',
             headers: {"x-api-key": "UAK000000000000000000000000demo0001"}
         })
     }

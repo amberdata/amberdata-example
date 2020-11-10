@@ -23,8 +23,8 @@ let config = {
         headers: {"x-api-key": "YOUR_API_KEY_HERE"}
     }
 
-let getAddressInformation = (address) => axios.get(`https://web3api.io/api/v1/addresses/${address}/tokens`, config)
-let getCurrentTokenTransfers = (address) => axios.get(`https://web3api.io/api/v1/tokens/${address}/transfers?page=0&size=50`, config)
+let getAddressInformation = (address) => axios.get(`https://web3api.io/api/v2/addresses/${address}/tokens`, config)
+let getCurrentTokenTransfers = (address) => axios.get(`https://web3api.io/api/v2/tokens/${address}/transfers?page=0&size=50`, config)
 
 ```
 
