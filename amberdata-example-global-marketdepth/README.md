@@ -1,12 +1,12 @@
-# amberdata-example-global-marketdata
+# amberdata-example-marketdata
 Build your own websocket event stream for crypto market data using Amberdata.io! Example code uses [Amberdata's Websockets](https://docs.amberdata.io/reference#connection)
 
-Check out [the demo page](https://amberdata.github.io/amberdata-example-global-marketdata/)!
+Check out [the demo page](https://amberdata.github.io/amberdata-example-marketdata/)!
 
 ### Clone:
-```
-git clone git@github.com:amberdata/amberdata-example.git
-```
+``
+git clone git@github.com:amberdata/amberdata-example-marketdata.git
+``
 
 ### 1. Get API Key
 
@@ -21,9 +21,9 @@ For Historical OHLCV -
 let config = {headers: {"x-api-key": "YOUR_API_KEY_HERE"}};
 const getHistoricalOHLCV = (pair) => axios.get(`https://web3api.io/api/v2/market/ohlcv/${pair}/historical`, config);
 ```
-See source [here](https://github.com/amberdata/amberdata-example).
+See source [here](https://github.com/amberdata/amberdata-example-marketdata/blob/a22e2d3edee890567386b0804c104218f237a483/index.js#L37).
 
-For live Global order book updates -
+For live order book updates -
 ```js
 // Create WebSocket connection.
 const socket = new WebSocket('wss://ws.web3api.io?x-api-key=YOUR_API_KEY_HERE');
@@ -31,7 +31,7 @@ const socket = new WebSocket('wss://ws.web3api.io?x-api-key=YOUR_API_KEY_HERE');
 // Connection opened
 socket.addEventListener('open', function (event) {
     console.log('Connection opened - ', event);
-    socket.send(`{"jsonrpc":"2.0","id":0,"method":"subscribe","params":["market:orders",{"pair":"eth_btc"}]}`);
+    socket.send(`{"jsonrpc":"2.0","id":0,"method":"subscribe","params":["market:orders",{"pair":"eth_btc","exchange":"gdax"}]}`);
 });
 
 // Listen for messages
@@ -46,3 +46,4 @@ See source [here](https://github.com/amberdata/amberdata-example-marketdata/blob
 ## Licensing
 
 This project is licensed under the [Apache Licence 2.0](./LICENSE).
+

@@ -1,0 +1,233 @@
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: .2px;
+}
+
+/* Remove outlines esp. those that chrome might potentially insert */
+*:focus {
+    outline: none;
+}
+
+body.noScroll { /* ...or body.dialogShowing */
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    background: #f9f9f9f9;
+    text-align: center;
+    position: relative;
+    height: 100vh;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 300ms ease-in-out;
+}
+
+a:hover {
+    opacity: .7;
+}
+
+#overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    background: grey;
+    z-index: 1000;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: 10% 1fr;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    margin: auto;
+    padding: 15px;
+    row-gap: 15px;
+    position: relative;
+}
+
+.container h2 {
+    margin: auto;
+    font-weight: 300;
+}
+
+.title {
+    color: #606060;
+    text-align: center;
+    font-size: 3.5vw;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+.title img {
+    margin-top: 30px;
+}
+
+
+/* - - - - - - - - - - - - - - - *
+ *         Page header
+ * - - - - - - - - - - - - - - - */
+#page-header {
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    justify-content: space-evenly;
+    padding: 15px;
+    height: 15vh;
+}
+
+#page-header #demo-title {
+    font-size: 3vw;
+    color: #444444;
+}
+
+#page-header #demo-title b {
+    font-weight: 300;
+}
+
+
+#page-header #repo-link {
+    font-size: 1.5vw;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 5px;
+    align-items: center;
+    color: #606060;
+    font-weight: 300;
+    margin-top: 10px;
+}
+
+#page-header #github-logo {
+    width: 30px;
+    fill: #606060;
+}
+
+#pwrd-by {
+    margin-top: 10px;
+}
+
+/* - - - - - - - - - - - - - - - *
+ * Address input
+ * - - - - - - - - - - - - - - - */
+.api-key-input {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    padding: 20px;
+}
+.api-key-input input {
+    width: 100%;
+    height: 30px;
+    padding: 20px;
+    font-size: 4vw;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 1px solid #F1F1F1;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    margin-top: 10px;
+    background: #ffffff;
+    text-align: center;
+    transition: border-color 250ms ease;
+}
+.api-key-input div {
+    padding: 10px;
+    font-size: .9vw;
+}
+.api-key-input input:hover {
+    border-color: #F26724;
+}
+
+.api-key-input input:focus {
+    outline: none;
+}
+
+
+#chart--ohlcv {
+    width:100%;
+    height:500px;
+}
+
+#chart--depth {
+    width: 100%;
+    height: 500px;
+}
+
+.loader {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    display: flex;
+    flex-flow: row-reverse;
+    align-items: center;
+    transition: opacity 300ms ease-in-out;
+    position: absolute;
+    opacity: 0;
+    z-index: 1001;
+    color: white;
+}
+
+#bug {
+    z-index: 10;
+    width: 125px;
+    height: 125px;
+}
+
+#orange-dot {
+    animation: bounce 800ms;
+    transform: translateY(0px);
+    animation-iteration-count: infinite;
+    transform-origin: center;
+    position: absolute;
+}
+
+@keyframes bounce {
+    0% {transform: translateY(0px) scaleY(.9);
+        -webkit-animation-timing-function: ease-in;
+    }
+    40% {}
+    50% {transform: translateY(-150px);
+        height: 140px;
+        -webkit-animation-timing-function: ease-out;
+    }
+    53% {transform: translateY(-160px);
+        height: 140px;
+        -webkit-animation-timing-function: ease-out;
+    }
+    55% {transform: translateY(-170px) scaleY(1);
+        -webkit-animation-timing-function: ease-in;}
+    60% {transform: translateY(-160px);
+        -webkit-animation-timing-function: ease-out;}
+    65% {transform: translateY(-130px);
+        -webkit-animation-timing-function: ease-out;}
+    95% {
+        transform: translateY(0px) scaleY(.9);
+        -webkit-animation-timing-function: ease-in;
+    }
+    100% {transform: translateY(0px) scaleY(.9);
+        -webkit-animation-timing-function: ease-in;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .api-key-input {
+        width: 50%;
+    }
+    .api-key-input input {
+        font-size: 2vw;
+    }
+}
+
+
+@media screen and (min-width: 1100px) {
+    .api-key-input {
+        width: 30%;
+    }
+    .api-key-input input {
+        font-size: 1vw;
+    }
+}
