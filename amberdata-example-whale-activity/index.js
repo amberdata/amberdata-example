@@ -54,18 +54,19 @@
     const QUOTE_USD = {quote: 'usd'}
 
     const getPrice = async (newBlockchainId, prevBlockchainId = '' ) => {
+      const pair = blockchainBase[prevBlockchainId] + '_usd'
       if(config.w3d && config.w3d.websocket && config.w3d.websocket.connected) {
-        config.w3d.off({eventName: 'market:prices', filters: { pair: blockchainBase[prevBlockchainId] + '_usd'}})
+        config.w3d.off({eventName: 'market:prices', filters: { pair }})
       } else {
         config.w3d.connect()
       }
 
       const w3d = config.w3d
 
-      const [priceData] = await w3d.market.getPrices(blockchainBase[newBlockchainId], QUOTE_USD).then( price => Object.values(price))
-      config.priceUSD = priceData.price
+      const priceData = await w3d.market.getPrices(pair).then(i => i.price)
+      config.priceUSD = priceData
 
-      w3d.on({eventName: 'market:prices', filters: { pair: blockchainBase[newBlockchainId] + '_usd'}}, ({price}) => {
+      w3d.on({eventName: 'market:prices', filters: { pair }}, ({price}) => {
         config.priceUSD = price > 0 ? price : config.priceUSD
       })
     }
