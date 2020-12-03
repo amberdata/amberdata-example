@@ -54,9 +54,9 @@
     const QUOTE_USD = {quote: 'usd'}
 
     const getPrice = async (newBlockchainId, prevBlockchainId = '' ) => {
-      const pair = blockchainBase[prevBlockchainId] + '_usd'
+      const pair = blockchainBase[newBlockchainId] + '_usd'
       if(config.w3d && config.w3d.websocket && config.w3d.websocket.connected) {
-        config.w3d.off({eventName: 'market:prices', filters: { pair }})
+        config.w3d.off({eventName: 'market:prices', filters: { pair: blockchainBase[prevBlockchainId] + '_usd' }})
       } else {
         config.w3d.connect()
       }
