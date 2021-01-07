@@ -1,49 +1,30 @@
-# amberdata-example-marketdata
-Build your own websocket event stream for crypto market data using Amberdata.io! Example code uses [Amberdata's Websockets](https://docs.amberdata.io/reference#connection)
+## `Vite 2.x + Vue 3.x + Tailwind 2.x` starter ⚡
 
-Check out [the demo page](https://amberdata.github.io/amberdata-example-marketdata/)!
+This starter template also includes:
 
-### Clone:
-``
-git clone git@github.com:amberdata/amberdata-example-marketdata.git
-``
+- [Vue Router 4.x](https://github.com/vuejs/vue-router-next)
+- [Inter var font](https://github.com/rsms/inter) (self hosted, woff2, version 3.15)
+- First-party plugins needed for Tailwind UI. Uncomment them in `tailwind.config.js` to enable.
+  * [@tailwindcss/forms](https://github.com/tailwindlabs/tailwindcss-forms)
+  * [@tailwindcss/typography](https://github.com/tailwindlabs/tailwindcss-typography)
+  * [@tailwindcss/line-clamp](https://github.com/tailwindlabs/tailwindcss-line-clamp)
+  * [@tailwindcss/aspect-ratio](https://github.com/tailwindlabs/tailwindcss-aspect-ratio)
 
-### 1. Get API Key
+### Getting Started 🚀
 
-Go to [amberdata.io](https://amberdata.io/pricing) and click "Get started"
-
-### 2. Build:
-
-Building with Amberdata.io is as simple as a few a few lines of code:
-
-For Historical OHLCV -
-```js
-let config = {headers: {"x-api-key": "YOUR_API_KEY_HERE"}};
-const getHistoricalOHLCV = (pair) => axios.get(`https://web3api.io/api/v2/market/ohlcv/${pair}/historical`, config);
+npm:
+```sh
+npm install
+npm run dev
+npm run build
 ```
-See source [here](https://github.com/amberdata/amberdata-example-marketdata/blob/a22e2d3edee890567386b0804c104218f237a483/index.js#L37).
-
-For live order book updates -
-```js
-// Create WebSocket connection.
-const socket = new WebSocket('wss://ws.web3api.io?x-api-key=YOUR_API_KEY_HERE');
-
-// Connection opened
-socket.addEventListener('open', function (event) {
-    console.log('Connection opened - ', event);
-    socket.send(`{"jsonrpc":"2.0","id":0,"method":"subscribe","params":["market:orders",{"pair":"eth_btc","exchange":"gdax"}]}`);
-});
-
-// Listen for messages
-socket.addEventListener('message', responseHandler);
+yarn:
+```sh
+yarn
+yarn dev
+yarn build
 ```
-See source [here](https://github.com/amberdata/amberdata-example-marketdata/blob/a22e2d3edee890567386b0804c104218f237a483/index.js#L52).
 
-## Resources
-
-- [Contributing](./CONTRIBUTING.md)
-
-## Licensing
-
-This project is licensed under the [Apache Licence 2.0](./LICENSE).
-
+### Bonus
+- [vue-tailwindcss-cdn](https://github.com/web2033/vue-tailwindcss-cdn) (a single HTML file with CDN links)
+- [CodePen Template](https://codepen.io/web2033/pen/QWNbwxY) with a similar stack (Vue 3.x + Tailwind 2.x + Inter var font)
