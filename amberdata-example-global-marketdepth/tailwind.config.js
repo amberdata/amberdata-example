@@ -12,6 +12,12 @@ module.exports = {
         display: ['Roboto Mono', 'Menlo', 'monospace'],
         body: ['Roboto Mono', 'Menlo', 'monospace'],
       },
+      fontSize: {
+        '4xs': '.25rem',
+        '3xs': '.33rem',
+        '2xs': '.5rem',
+        '1xs': '.65rem',
+      },
       colors: {
         gray: {
           '50': '#f8f9f9',
@@ -38,6 +44,7 @@ module.exports = {
           '700': '#0e923e',
           '800': '#117339',
           '900': '#115d32',
+          '1000': '#062413', // rgb(6, 36, 19)
         },
         cerise: { // short
           '50': '#fdf9f9',
@@ -50,6 +57,7 @@ module.exports = {
           '700': '#e8093a', // main
           '800': '#b5183f',
           '900': '#901431',
+          '1000': '#22050B', // rgb(34, 5, 11)
         },
         pine: {
           '50': '#eff8f8',

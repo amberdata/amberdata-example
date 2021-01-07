@@ -391,6 +391,11 @@ estree-walker@^2.0.1:
   resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-2.0.2.tgz#52f010178c2a4c117a7757cfe942adb7d2da4cac"
   integrity sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==
 
+fancy-canvas@0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/fancy-canvas/-/fancy-canvas-0.2.2.tgz#33fd4976724169a1eda5015f515a2a1302d1ec91"
+  integrity sha512-50qi8xA0QkHbjmb8h7XQ6k2fvD7y/yMfiUw9YTarJ7rWrq6o5/3CCXPouYk+XSLASvvxtjyiQLRBFt3qkE3oyA==
+
 fraction.js@^4.0.13:
   version "4.0.13"
   resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.0.13.tgz#3c1c315fa16b35c85fffa95725a36fa729c69dfe"
@@ -534,6 +539,13 @@ jsonfile@^6.0.1:
     universalify "^2.0.0"
   optionalDependencies:
     graceful-fs "^4.1.6"
+
+lightweight-charts@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/lightweight-charts/-/lightweight-charts-3.2.0.tgz#4b34f07bcb46940ef64393b58a65eb2a08287184"
+  integrity sha512-MLyg87IQITC7vSd14/MaHi0cJFkzNEtHy2t5ZcgxeM4stglz7ceCIQn56iNWAE06J8Lsxb5lMTF9eEk86XUeLA==
+  dependencies:
+    fancy-canvas "0.2.2"
 
 loader-utils@^1.1.0:
   version "1.4.0"
