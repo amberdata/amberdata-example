@@ -1,10 +1,26 @@
 export default {
+  // CONSTS cuz im lazzy
+  baseApiUrl: state => state.baseApiUrl,
+
+  // Settings
   apiKey: state => state.apiKey,
   authenticated: state => state.authenticated,
   wsActive: state => state.wsActive,
-  wsBlocks: state => state.wsBlocks,
-  wsPendingTransactions: state => state.wsPendingTransactions,
-  block: state => state.block,
-  pending_transaction: state => state.pending_transaction,
+  settingsPanelActive: state => state.settingsPanelActive,
+  tradesActive: state => state.tradesActive,
+  exchangesActive: state => state.exchangesActive,
+  ohlcvActive: state => state.ohlcvActive,
+  vwapActive: state => state.vwapActive,
+  orderEventsActive: state => state.orderEventsActive,
+  orderSnapshotsActive: state => state.orderSnapshotsActive,
+
+  // External data
+  asset: state => state.asset,
+  price: state => state.price,
+  trades: state => state.trades,
   exchanges: state => state.exchanges,
+  ohlcv: state => state.ohlcv,
+  vwap: state => state.vwap,
+  orderEvents: state => state.orderEvents,
+  orderSnapshots: state => state.orderSnapshots,
 }

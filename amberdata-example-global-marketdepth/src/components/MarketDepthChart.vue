@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 const initCharts = async (api_key) => {
   am4core.ready(function () {
     // Create chart instance
@@ -17,7 +19,7 @@ const initCharts = async (api_key) => {
         value: api_key,
       },
     ];
-    chart.dataSource.url = `https://web3api.io/api/v2/market/orders/eth_btc?exchange=gdax&timestamp=${
+    chart.dataSource.url = `https://web3api.io/api/v2/market/spot/order-book-snapshots/btc_usd/historical?exchange=bitfinex&timestamp=${
       new Date().getTime() - 3600000.0
     }`;
     chart.dataSource.adapter.add("parsedData", function (data) {
@@ -190,8 +192,12 @@ export default {
     };
   },
 
+  computed: {
+    ...mapGetters(["apiKey"]),
+  },
+
   mounted() {
-    initCharts("");
+    initCharts(this.apiKey);
   },
 };
 </script>

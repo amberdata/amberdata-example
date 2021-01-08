@@ -3,19 +3,45 @@ export default {
   UPDATE(state, { key, value }) {
     state[key] = value
   },
-  WS_ACTIVE(state, bool) {
-    state.wsActive = bool
-  },
-  SOCKET_UPDATE(state, data) {
-    console.log('[WS] internal event', data.type, data.result);
 
-    switch (data.type) {
-      case 'block':
-        state.block = data.result
-        break;
-      case 'pending_transaction':
-        state.pending_transaction = data.result
-        break;
-    }
+  UPDATEALL(state, obj) {
+    Object.keys(obj).forEach(k => {
+      state[k] = obj[k]
+    })
+  },
+
+  PUSH(state, { key, value }) {
+    if (!state[key] || !Array.isArray(state[key])) return
+    state[key].push(value)
+  },
+
+  UNSHIFT(state, { key, value }) {
+    if (!state[key] || !Array.isArray(state[key])) return
+    state[key] = state[key].unshift(value)
+  },
+
+  SHIFT(state, { key, value }) {
+    if (!state[key] || !Array.isArray(state[key])) return
+    state[key] = state[key].shift(value)
+  },
+
+  DELETE(state, { key, idx }) {
+    if (!state[key] || !Array.isArray(state[key])) return
+    state[key].splice(idx, 1)
+  },
+
+  ADDSUBITEM(state, { key, subKey, value }) {
+    if (!state[key]) return
+    // flush cache
+    delete state[key][subKey]
+    // next tick
+    setTimeout(() => {
+      state[key][subKey] = value
+    }, 100)
+  },
+
+  REMOVESUBITEM(state, { key, subKey }) {
+    if (!state[key]) return
+    delete state[key][subKey]
   },
 }

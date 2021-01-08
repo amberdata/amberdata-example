@@ -5,11 +5,7 @@
         <div class="flex items-center justify-between h-10">
           <div class="flex items-center">
             <div class="flex-shrink-0">
-              <img
-                class="h-6"
-                src="../public/logo_terminal_assets.svg"
-                alt=""
-              />
+              <img class="h-6" src="/logo_terminal_assets.svg" alt="" />
             </div>
             <div class="hidden md:block">
               <div class="ml-10 flex items-baseline space-x-4">
@@ -31,7 +27,7 @@
           <div class="hidden md:block">
             <div class="ml-4 flex items-center md:ml-6">
               <!-- Profile dropdown -->
-              <div class="ml-3 relative">
+              <div @click.prevent="openPanel" class="ml-3 relative">
                 <div>
                   <svg
                     class="w-5 h5 text-gray-300 stroke-current"
@@ -193,5 +189,25 @@
     <main class="h-full bg-gray-1100">
       <router-view />
     </main>
+
+    <Settings />
   </div>
 </template>
+
+<script>
+import { mapActions } from "vuex";
+import Settings from "./components/Settings.vue";
+
+export default {
+  components: {
+    Settings,
+  },
+  methods: {
+    ...mapActions(["update"]),
+    openPanel() {
+      console.log("HEREE");
+      this.update({ key: "settingsPanelActive", value: true });
+    },
+  },
+};
+</script>

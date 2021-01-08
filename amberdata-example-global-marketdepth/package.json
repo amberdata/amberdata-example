@@ -1,5 +1,5 @@
 {
-  "name": "vite2-vue3-tailwind2-starter",
+  "name": "digital-assets-terminal",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -7,9 +7,13 @@
     "build": "cross-env NODE_ENV=production vite build"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "lightweight-charts": "^3.2.0",
-    "vue": "^3.0.5",
-    "vue-router": "^4.0.2"
+    "luxon": "^1.25.0",
+    "vue": "^3.0.4",
+    "vue-axios": "^3.2.2",
+    "vue-router": "^4.0.2",
+    "vuex": "^4.0.0-rc.2"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.2.0",

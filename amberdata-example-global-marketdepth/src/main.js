@@ -1,10 +1,17 @@
 import { createApp } from 'vue'
+import { createStore } from 'vuex'
+import { createRouter, createWebHistory } from 'vue-router'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 import './tailwind.css'
 import App from './App.vue'
 import { routes } from './routes.js'
-import { createRouter, createWebHistory } from 'vue-router'
+import storage from './store'
+import web3data from './utils/web3data'
 
 let app = createApp(App)
+
+const store = createStore(storage)
 
 let router = createRouter({
   history: createWebHistory(),
@@ -29,4 +36,8 @@ if (import.meta.hot) {
 }
 
 app.use(router)
+app.use(store)
+app.use(VueAxios, axios)
+app.use(web3data, store)
+
 app.mount('#app')

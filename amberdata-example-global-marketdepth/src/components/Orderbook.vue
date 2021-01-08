@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 const orders = {
   asks: [
     { price: 42859.98, volume: 8.734322, total: 1298.734322 },
@@ -55,9 +56,18 @@ const orders = {
 export default {
   data() {
     return {
-      priceUSD: 42059.98,
+      // priceUSD: 42059.98,
       orders,
     };
+  },
+
+  computed: {
+    ...mapGetters(["price"]),
+    priceUSD() {
+      return this.price && this.price.price
+        ? parseFloat(this.price.price).toFixed(4)
+        : "-";
+    },
   },
 };
 </script>
