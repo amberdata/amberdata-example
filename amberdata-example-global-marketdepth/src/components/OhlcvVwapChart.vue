@@ -2,10 +2,10 @@
   <main class="h-full w-full">
     <div class="flex justify-start border-b border-gray-1000">
       <div
-        class="flex border-r border-gray-1000 text-xs text-gray-300 font-light p-2"
+        class="flex flex-0 border-r border-gray-1000 text-xs text-gray-300 font-light p-2"
       >
-        <span class="flex-0 mr-1">Global</span>
-        <span class="flex-1">BTC_USD</span>
+        <span class="flex-0 mr-1">Global VWAP</span>
+        <span class="flex-1 mr-1">BTC_USD</span>
         <svg
           class="flex-0 w-3 h-4 stroke-current"
           xmlns="http://www.w3.org/2000/svg"
@@ -20,6 +20,34 @@
             d="M19 9l-7 7-7-7"
           />
         </svg>
+      </div>
+      <div
+        class="w-full flex-1 flex justify-between text-1xs text-gray-700 font-light p-2"
+      >
+        <h4>
+          <span class="flex-0 mr-1">O:</span>
+          <span>{{ currentOHLCVTick.open }}</span>
+        </h4>
+        <h4>
+          <span class="flex-0 mr-1">H:</span>
+          <span>{{ currentOHLCVTick.high }}</span>
+        </h4>
+        <h4>
+          <span class="flex-0 mr-1">L:</span>
+          <span>{{ currentOHLCVTick.low }}</span>
+        </h4>
+        <h4>
+          <span class="flex-0 mr-1">C:</span>
+          <span>{{ currentOHLCVTick.close }}</span>
+        </h4>
+        <h4>
+          <span class="flex-0 mr-1">V:</span>
+          <span>{{ currentOHLCVTick.volume }}</span>
+        </h4>
+        <h4>
+          <!-- <span class="flex-0 mr-1">H:</span> -->
+          <span>{{ currentOHLCVTick.percentChange }}</span>
+        </h4>
       </div>
     </div>
     <div id="ohlcv_vwap" class="p-0"></div>
@@ -90,6 +118,14 @@ export default {
   data() {
     return {
       priceUSD: 42059.98,
+      currentOHLCVTick: {
+        open: 40059.98,
+        high: 43609.98,
+        low: 39059.98,
+        close: 41137.98,
+        volume: "374.98k",
+        percentChange: "+3.02%",
+      },
     };
   },
 

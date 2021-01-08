@@ -1,89 +1,197 @@
 <template>
-  <div id="market_depth">
-    <div>
-      <select v-model="exchangeSelected" v-on:change="onNewExchange($event)">
-        <option v-for="exchange in exchangeNames" v-bind:value="exchange">{{ exchange }}</option>
-      </select>
-      <select v-model="pairSelected" v-on:change="onNewPair($event)">
-        <option v-for="pair in pairNames" v-bind:value="pair">{{ pair }}</option>
-      </select>
-    </div>
-    <div v-bind:id="chartName"></div>
-    <button v-on:click="refreshChart()">Refresh Chart</button>
-    <button v-on:click="refreshData()">Refresh Pair Data</button>
-  </div>
+  <div id="chart--depth" class="w-full h-full"></div>
 </template>
 
 <script>
-  import Vue from 'vue'
-  import * as api from '../utils/api'
-  import * as charts from '../utils/charts'
-  import * as market from '../utils/marketHandler'
+const initCharts = async (api_key) => {
+  am4core.ready(function () {
+    // Create chart instance
+    var chart = am4core.create("chart--depth", am4charts.XYChart);
+    // remove dumb logo
+    chart.logo.group.node.innerHTML = null;
 
-  export default {
-    name: 'MarketDepthChart',
-    props: ['exchanges'],
-
-    computed: {
-      exchangeNames() {
-        return market.filterExchanges(this.exchanges, market.METRIC_ORDER_BOOK);
+    // Add data
+    chart.dataSource.requestOptions.requestHeaders = [
+      {
+        key: "x-api-key",
+        value: api_key,
       },
-      pairNames() {
-        return market.filterPairs(this.exchanges, this.exchangeSelected, market.METRIC_ORDER_BOOK);
-      },
-    },
-    data () {
-      return {
-        // Chart data
-        chart: null,
-        chartName: 'chartdiv',
+    ];
+    chart.dataSource.url = `https://web3api.io/api/v2/market/orders/eth_btc?exchange=gdax&timestamp=${
+      new Date().getTime() - 3600000.0
+    }`;
+    chart.dataSource.adapter.add("parsedData", function (data) {
+      // Function to process (sort and calculate cumulative volume)
+      function processData(list, type, desc) {
+        // Convert to data points
+        for (var i = 0; i < list.length; i++) {
+          list[i] = {
+            value: Number(list[i][0]),
+            volume: Number(list[i][1]),
+          };
+        }
 
-        // Market data
-        exchangeSelected: null,
-        pairSelected: null,
+        // Sort list just in case
+        list.sort(function (a, b) {
+          if (a.value > b.value) {
+            return 1;
+          } else if (a.value < b.value) {
+            return -1;
+          } else {
+            return 0;
+          }
+        });
+
+        // Calculate cummulative volume
+        if (desc) {
+          for (var i = list.length - 1; i >= 0; i--) {
+            if (i < list.length - 1) {
+              list[i].totalvolume = list[i + 1].totalvolume + list[i].volume;
+            } else {
+              list[i].totalvolume = list[i].volume;
+            }
+            var dp = {};
+            dp["value"] = list[i].value;
+            dp[type + "volume"] = list[i].volume;
+            dp[type + "totalvolume"] = list[i].totalvolume;
+            res.unshift(dp);
+          }
+        } else {
+          for (var i = 0; i < list.length; i++) {
+            if (i > 0) {
+              list[i].totalvolume = list[i - 1].totalvolume + list[i].volume;
+            } else {
+              list[i].totalvolume = list[i].volume;
+            }
+            var dp = {};
+            dp["value"] = list[i].value;
+            dp[type + "volume"] = list[i].volume;
+            dp[type + "totalvolume"] = list[i].totalvolume;
+            res.push(dp);
+          }
+        }
       }
-    },
-    methods: {
-      onNewExchange(event) {
-        this.pairSelected = this.pairNames[0];
-        this.refreshData();
-      },
-      onNewPair(event) {
-        this.refreshData();
-      },
-      refreshChart: function () {
-        charts.refresh(this.chart);
-      },
-      async refreshData() {
-        // Default values
-        if (this.exchangeSelected === market.DEFAULT_EXCHANGE) this.exchangeSelected = this.exchangeNames[0];
-        if (this.pairSelected === market.DEFAULT_PAIR) this.pairSelected = this.pairNames[0];
 
-        // Refresh data
-        if (!market.isPairReady(this.exchangeSelected, this.pairSelected)) return;
+      // Init
+      var res = [];
+      console.log(data.payload.data);
+      processData(data.payload.data.bid, "bids", true);
+      processData(data.payload.data.ask, "asks", false);
 
-        const orders = await this.$w3d.market.getOrders(this.pairSelected, [this.exchangeSelected])
-        const result = charts.createMarketDepthChart(this.chartName, orders);
-        this.chart = result.chart;
-      },
-    },
+      window.data = res;
+      return res;
+    });
 
-    created() {
-      this.exchangeSelected = market.DEFAULT_EXCHANGE;
-      this.pairSelected = market.DEFAULT_PAIR;
-    },
-    mounted() {
-      this.refreshData();
-    },
-    beforeDestroy() {
-      charts.dispose(this.chart);
-    },
-  }
+    // Set up precision for numbers
+    chart.numberFormatter.numberFormat = "#,###.####";
+    chart.padding(0, 0, 0, 0);
+
+    chart.titles.template.fontSize = 7;
+    chart.titles.template.textAlign = "left";
+    chart.titles.template.isMeasured = false;
+
+    // Create axes
+    var xAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+    xAxis.title.text = null;
+    xAxis.dataFields.category = "value";
+    xAxis.renderer.minGridDistance = 0;
+    xAxis.renderer.inside = true;
+    xAxis.renderer.maxLabelPosition = 0;
+    // xAxis.renderer.labels.template.dy = -20;
+    // xAxis.renderer.labels.template.dx = -20;
+    xAxis.renderer.labels.template.fill = am4core.color("#514c51");
+
+    var yAxis = chart.xAxes.push(new am4charts.ValueAxis());
+    // yAxis.title.text = "Volume";
+    yAxis.title.text = null;
+    yAxis.renderer.inversed = true;
+    yAxis.renderer.inside = true;
+    yAxis.renderer.maxLabelPosition = 0.99;
+    yAxis.renderer.labels.template.dx = -20;
+    // yAxis.renderer.labels.template.fill = am4core.color("#514c51");
+    // yAxis.renderer.labels.template.fill = am4core.color("#000");
+    yAxis.renderer.labels.template.display = "none";
+
+    // Create series
+    var series = chart.series.push(new am4charts.StepLineSeries());
+    // series.dataFields.categoryX = "value";
+    // series.dataFields.valueY = "bidstotalvolume";
+    series.dataFields.categoryY = "value";
+    series.dataFields.valueX = "bidstotalvolume";
+    series.strokeWidth = 1;
+    series.stroke = am4core.color("#00aa40");
+    series.fill = series.stroke;
+    series.fillOpacity = 0.2;
+    // series.tooltipText =
+    //   "Bid: [bold]{categoryX}[/]\nTotal volume: [bold]{valueX}[/]\nVolume: [bold]{bidsvolume}[/]";
+    // series.interpolationDuration = 500;
+    // series.sequencedInterpolation = true;
+    // series.sequencedInterpolationDelay = 100;
+
+    var series2 = chart.series.push(new am4charts.StepLineSeries());
+    // series2.dataFields.categoryX = "value";
+    // series2.dataFields.valueY = "askstotalvolume";
+    series2.dataFields.categoryY = "value";
+    series2.dataFields.valueX = "askstotalvolume";
+    series2.strokeWidth = 1;
+    series2.stroke = am4core.color("#e8093a");
+    series2.fill = series2.stroke;
+    series2.fillOpacity = 0.2;
+    // series2.tooltipText =
+    //   "Ask: [bold]{categoryX}[/]\nTotal volume: [bold]{valueX}[/]\nVolume: [bold]{asksvolume}[/]";
+    // series2.interpolationDuration = 500;
+    // series2.sequencedInterpolation = true;
+    // series2.sequencedInterpolationDelay = 100;
+
+    var series3 = chart.series.push(new am4charts.ColumnSeries());
+    // series3.dataFields.categoryX = "value";
+    // series3.dataFields.valueY = "bidsvolume";
+    series3.dataFields.categoryY = "value";
+    series3.dataFields.valueX = "bidsvolume";
+    series3.strokeWidth = 0;
+    series3.fill = am4core.color("#f9f9f9");
+    series3.fillOpacity = 0.5;
+    // series3.interpolationDuration = 500;
+
+    var series4 = chart.series.push(new am4charts.ColumnSeries());
+    // series4.dataFields.categoryX = "value";
+    // series4.dataFields.valueY = "asksvolume";
+    series4.dataFields.categoryY = "value";
+    series4.dataFields.valueX = "asksvolume";
+    series4.strokeWidth = 0;
+    series4.fill = am4core.color("#f9f9f9");
+    series4.fillOpacity = 0.5;
+    // series4.interpolationDuration = 500;
+
+    // Add cursor
+    chart.cursor = new am4charts.XYCursor();
+    console.log(chart);
+
+    // chart sizing
+    chart.leftAxesContainer = "none";
+    // chart.width = 400;
+    // chart.height = 400;
+    // window.chart = chart;
+  });
+};
+
+export default {
+  name: "MarketDepthChart",
+
+  data() {
+    return {
+      // Chart data
+      chart: null,
+      chartName: "chartdiv",
+
+      // Market data
+      exchangeSelected: null,
+      pairSelected: null,
+    };
+  },
+
+  mounted() {
+    initCharts("");
+  },
+};
 </script>
-
-<style scoped lang="scss">
-  #chartdiv {
-    width: 100%;
-    height:600px;
-  }
-</style>
