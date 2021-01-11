@@ -76,7 +76,7 @@ const initCharts = async (api_key) => {
 
       // Init
       var res = [];
-      console.log(data.payload.data);
+      // console.log(data.payload.data);
       processData(data.payload.data.bid, "bids", true);
       processData(data.payload.data.ask, "asks", false);
 
@@ -167,7 +167,6 @@ const initCharts = async (api_key) => {
 
     // Add cursor
     chart.cursor = new am4charts.XYCursor();
-    console.log(chart);
 
     // chart sizing
     chart.leftAxesContainer = "none";

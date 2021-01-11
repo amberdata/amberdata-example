@@ -156,7 +156,6 @@ export default {
   mounted() {
     this.loadApiKeyFromCache();
     this.tmpApiKey = this.apiKey;
-    // this.loadW3DConnection(window.localStorage.apiKey || this.tmpApiKey);
   },
 };
 </script>

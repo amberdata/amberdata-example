@@ -53,7 +53,7 @@ export default {
 
   methods: {
     ...mapActions(["update"]),
-    async getTrades() {
+    async getData() {
       const pair = this.asset && this.asset.pair ? this.asset.pair : "btc_usd";
       const now = DateTime.utc();
       const end = now.toISO();
@@ -95,7 +95,7 @@ export default {
   },
 
   mounted() {
-    this.getTrades();
+    this.getData();
     if (this.timer) clearInterval(this.timer);
 
     this.timer = setInterval(this.setCurrentTime, 1000);

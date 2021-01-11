@@ -56,18 +56,28 @@ const orders = {
 export default {
   data() {
     return {
-      // priceUSD: 42059.98,
       orders,
+      prevPrice: "-",
+      timer: null,
     };
   },
 
   computed: {
-    ...mapGetters(["price"]),
+    ...mapGetters(["baseApiUrl", "apiKey", "price", "asset"]),
     priceUSD() {
-      return this.price && this.price.price
-        ? parseFloat(this.price.price).toFixed(4)
-        : "-";
+      if (this.price && this.price.price) {
+        this.prevPrice = parseFloat(this.price.price).toFixed(2);
+      }
+      return this.prevPrice;
     },
+  },
+
+  mounted() {
+    if (this.timer) clearInterval(this.timer);
+    this.timer = setInterval(() => {
+      if (this.priceUSD !== "-")
+        document.title = `${this.priceUSD} BTC_USD | Global Digital Asset Markets - by Amberdata.io`;
+    }, 2000);
   },
 };
 </script>

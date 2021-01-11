@@ -186,7 +186,7 @@
       </div>
     </nav>
 
-    <main class="h-full bg-gray-1100">
+    <main class="h-full bg-gray-1100" style="height: calc(100vh - 2.5rem)">
       <router-view />
     </main>
 

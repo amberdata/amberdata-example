@@ -20,8 +20,8 @@ export default {
     commit('DELETE', { key, idx })
   },
 
-  addSubItem({ commit }, { key, subKey, value }) {
-    commit('ADDSUBITEM', { key, subKey, value })
+  addSubItem({ commit }, { key, subKey, value, extend }) {
+    commit('ADDSUBITEM', { key, subKey, value, extend })
   },
 
   removeSubItem({ commit }, { key, subKey }) {
@@ -38,5 +38,9 @@ export default {
     if (apiKey) {
       commit('UPDATE', { key: 'apiKey', value: apiKey })
     }
+  },
+
+  addExchangePrice({ commit }, { exchange, price, price24hr, timestamp, volume }) {
+    commit('ADDEXCHANGEPRICE', { exchange, price, price24hr, timestamp, volume })
   },
 }

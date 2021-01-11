@@ -9,7 +9,6 @@ class Websockets {
     this.subscriptions = {};
 
     this.objects = {
-      // trades: { name: 'trades', args: ['market:trades', { pair: 'btc_usd', exchange: 'gdax' }], subscription: null, object: null },
       // ohlcv: { name: 'ohlcv', args: ["market:ohlcv", { pair: "btc_usd", exchange: "gdax" }], subscription: null, object: null },
       price: { name: 'price', args: ["market:prices:updates", { pair: "btc_usd" }], subscription: null, object: null },
       // orderEvents: { name: 'orderEvents', args: ["market:order:events", { pair: "btc_usd" }], subscription: null, object: null },
@@ -87,15 +86,32 @@ class Websockets {
 
         if (vm.subscriptions[subscription] && vm.store) {
           const key = vm.objects[vm.subscriptions[subscription]].name;
+          // console.log(key);
+          const lag = 30 * 1000;
+          const now = +new Date() - lag;
           let value = res
+          let subKey
 
           switch (key) {
             case 'trades':
               const item = res[0]
-              const isOld = +new Date() - 60 * 1000 > item[2]
-              value = [item[0], item[2], item[3], item[7], item[5], item[6], item[4]]
-              if (!isOld) vm.store.dispatch('pushItem', { key, value })
+              if (!(now > +new Date(item[2]))) {
+                // all trades
+                // Trade event data ordering is diff than REST
+                const trade = [item[0], item[2], item[3], item[7], parseFloat(item[5]).toFixed(2), parseFloat(item[6]).toFixed(8), item[4]]
+                vm.store.dispatch('pushItem', { key, value: trade })
+                // update per-exchange
+                vm.store.dispatch('addExchangePrice', { exchange: trade[0], price: parseFloat(trade[4]).toFixed(2), timestamp: trade[1] })
+                // update global price value
+                vm.store.dispatch('addSubItem', { key: 'price', subKey: 'price', value: parseFloat(trade[4]).toFixed(2) })
+              }
               break;
+            // case 'orderEvents':
+            //   const item = res[0]
+            //   subKey = item.exchange
+            //   value = {}
+            //   if (!(now > item.timestamp)) vm.store.dispatch('addSubItem', { key: 'tickers', subKey, value })
+            //   break;
             case 'price':
               vm.store.dispatch('update', { key, value })
               break;
@@ -117,7 +133,6 @@ class Websockets {
 
 export default {
   install: (app, store) => {
-    console.log(app)
     if (window && window.web3data) {
       // TODO: Add back if needed
       // app.config.globalProperties.$w3d = { ...window.web3data }
