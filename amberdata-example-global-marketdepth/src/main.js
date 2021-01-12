@@ -8,6 +8,7 @@ import App from './App.vue'
 import { routes } from './routes.js'
 import storage from './store'
 import web3data from './utils/web3data'
+import OrderBook from './utils/orderbook'
 
 let app = createApp(App)
 
@@ -39,5 +40,6 @@ app.use(router)
 app.use(store)
 app.use(VueAxios, axios)
 app.use(web3data, store)
+app.use(OrderBook)
 
 app.mount('#app')

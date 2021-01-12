@@ -205,7 +205,6 @@ export default {
   methods: {
     ...mapActions(["update"]),
     openPanel() {
-      console.log("HEREE");
       this.update({ key: "settingsPanelActive", value: true });
     },
   },

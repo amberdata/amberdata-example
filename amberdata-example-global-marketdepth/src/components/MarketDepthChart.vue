@@ -6,7 +6,7 @@
 import { mapGetters } from "vuex";
 
 const initCharts = async (api_key) => {
-  am4core.ready(function () {
+  return am4core.ready(function () {
     // Create chart instance
     var chart = am4core.create("chart--depth", am4charts.XYChart);
     // remove dumb logo
@@ -173,6 +173,8 @@ const initCharts = async (api_key) => {
     // chart.width = 400;
     // chart.height = 400;
     // window.chart = chart;
+
+    return chart;
   });
 };
 
@@ -192,11 +194,23 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["apiKey"]),
+    ...mapGetters(["apiKey", "orderbook"]),
+  },
+
+  methods: {
+    fullOrderbook() {
+      console.log("fullOrderbook", this.orderbook);
+      if (!this.orderbook.bids || !this.orderbook.bids) return [];
+      this.chart.data = this.orderbook.bids.concat(this.orderbook.asks);
+    },
   },
 
   mounted() {
-    initCharts(this.apiKey);
+    this.chart = initCharts(this.apiKey);
+  },
+
+  $watch: {
+    orderbook: ["fullOrderbook"],
   },
 };
 </script>

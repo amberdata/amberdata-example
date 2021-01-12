@@ -22,7 +22,7 @@ export default {
   tickers: {},
   exchanges: {},
   ohlcv: [],
-  orderEvents: {},
-  orderSnapshots: {},
+  orderbook: {},
+  orderbookBucketed: {},
   vwap: [],
 }

@@ -113,6 +113,7 @@ class Websockets {
             //   if (!(now > item.timestamp)) vm.store.dispatch('addSubItem', { key: 'tickers', subKey, value })
             //   break;
             case 'price':
+              document.title = `${parseFloat(value.price).toFixed(2)} BTC_USD | Global Digital Asset Markets - by Amberdata.io`;
               vm.store.dispatch('update', { key, value })
               break;
           }

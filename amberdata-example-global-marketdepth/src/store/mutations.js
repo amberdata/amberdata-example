@@ -48,6 +48,8 @@ export default {
 
   ADDEXCHANGEPRICE(state, { exchange, timestamp, price, price24hr, volume }) {
     if (!exchange) return
+    // TODO: Remove once ftx is fixed
+    if (exchange === 'ftx') return
     const data = state.exchanges && state.exchanges[exchange] ? state.exchanges[exchange] : {}
     let base = { ...data }
     // flush cache

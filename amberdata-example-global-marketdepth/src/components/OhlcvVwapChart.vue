@@ -121,6 +121,7 @@ const getFormattedVwap = (arr) =>
 export default {
   data() {
     return {
+      refreshAll: null,
       chart: null,
       candleSeries: null,
       volumeSeries: null,
@@ -283,15 +284,23 @@ export default {
     this.getVwapData();
     this.getOHLCVData();
 
-    // connect WS stuffs
-    setTimeout(() => {
-      this.connectWs();
-    }, 3000);
+    // TODO: Add WS stuff!!!!!!!!!!!!
+    // // connect WS stuffs
+    // setTimeout(() => {
+    //   this.connectWs();
+    // }, 3000);
+
+    // make sure we're in sync every minute
+    if (this.refreshAll) clearInterval(this.refreshAll);
+    this.refreshAll = setInterval(() => {
+      this.getVwapData();
+      this.getOHLCVData();
+    }, 60 * 1000);
   },
 
   $watch: {
     // ohlcv: ["computeOhlcv"],
-    asset: ["disconnectWs", "connectWs"],
+    // asset: ["disconnectWs", "connectWs"],
   },
 };
 </script>

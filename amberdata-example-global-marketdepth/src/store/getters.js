@@ -23,6 +23,6 @@ export default {
   exchanges: state => state.exchanges,
   ohlcv: state => state.ohlcv,
   vwap: state => state.vwap,
-  orderEvents: state => state.orderEvents,
-  orderSnapshots: state => state.orderSnapshots,
+  orderbook: state => state.orderbook,
+  orderbookBucketed: state => state.orderbookBucketed,
 }
