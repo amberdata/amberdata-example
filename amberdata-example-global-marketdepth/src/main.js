@@ -36,10 +36,11 @@ if (import.meta.hot) {
   })
 }
 
+// NOTE: The order matters!
 app.use(router)
 app.use(store)
 app.use(VueAxios, axios)
-app.use(web3data, store)
 app.use(OrderBook)
+app.use(web3data)
 
 app.mount('#app')

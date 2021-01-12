@@ -10,8 +10,10 @@
         class="flex justify-between col-span-1 text-1xs"
       >
         <span class="flex-1 w-1/3 text-cerise-600">{{ a.price }}</span>
-        <span class="flex-1 w-1/3 text-gray-300 text-left">{{ a.volume }}</span>
-        <span class="flex-1 w-1/3 text-gray-300 text-right">{{
+        <span class="flex-1 w-1/3 text-gray-300 text-left truncate">{{
+          a.volume
+        }}</span>
+        <span class="flex-1 w-1/3 text-gray-300 text-right truncate">{{
           a.totalVolume
         }}</span>
       </div>
@@ -29,8 +31,10 @@
         class="flex justify-between col-span-1 text-1xs"
       >
         <span class="flex-1 w-1/3 text-limegreen-600">{{ b.price }}</span>
-        <span class="flex-1 w-1/3 text-gray-300 text-left">{{ b.volume }}</span>
-        <span class="flex-1 w-1/3 text-gray-300 text-right">{{
+        <span class="flex-1 w-1/3 text-gray-300 text-left truncate">{{
+          b.volume
+        }}</span>
+        <span class="flex-1 w-1/3 text-gray-300 text-right truncate">{{
           b.totalVolume
         }}</span>
       </div>
@@ -87,6 +91,7 @@ export default {
       "orderSnapshotsActive",
       "price",
       "asset",
+      "assetExchanges",
     ]),
     priceUSD() {
       if (this.price && this.price.price) {
@@ -124,9 +129,8 @@ export default {
     },
     async getAllData() {
       const pair = this.asset && this.asset.pair ? this.asset.pair : "btc_usd";
+      const exchanges = this.assetExchanges;
       const p = [];
-      // const exchanges = ["bitfinex"];
-      const exchanges = ["bitfinex", "bitstamp", "gdax", "gemini", "kraken"];
       let allBids = [];
       let allAsks = [];
 
@@ -139,8 +143,6 @@ export default {
         allBids = allBids.concat(book.bids);
         allAsks = allAsks.concat(book.asks);
       });
-      console.log("allBids", allBids);
-      console.log("allAsks", allAsks);
 
       const ob = new this.$OrderBook().initializePoints({
         bids: allBids.map((b) => normalizeRestOrders(b, true, { pair })),
@@ -153,78 +155,47 @@ export default {
         value: ob.getOrderbookBucketed(this.bucketSize) || [],
       });
     },
-    async getData() {
-      const pair = this.asset && this.asset.pair ? this.asset.pair : "btc_usd";
-      const now = DateTime.utc();
-      const timestamp = now.minus({ minutes: 1 }).toMillis();
-      const start = now.minus({ minutes: 3 }).toMillis();
-      const end = now.minus({ minutes: 1 }).toMillis();
-      const exchange = "bitfinex";
-      const url = `${this.baseApiUrl}market/spot/order-book-snapshots/${pair}/historical?timestamp=${timestamp}&exchange=${exchange}&timeFormat=ms`;
-      // const url = `${this.baseApiUrl}market/spot/order-book-snapshots/${pair}/historical?startDate=${start}&endDate=${end}&exchange=${exchange}&timeFormat=ms`;
-      const options = { headers: { "x-api-key": this.apiKey } };
-      const { data } = await this.$http.get(url, options);
-
-      if (
-        data.payload &&
-        data.payload.data &&
-        Object.keys(data.payload.data).length
-      ) {
-        const { bid, ask } = data.payload.data;
-        const ob = new this.$OrderBook().initializePoints({
-          bids: bid.map((b) =>
-            normalizeRestOrders(b, true, { exchange, pair })
-          ),
-          asks: ask.map((a) =>
-            normalizeRestOrders(a, false, { exchange, pair })
-          ),
-        });
-        this.orderbookRaw = ob;
-        this.update({ key: "orderbook", value: ob.getOrderbook() || [] });
-        this.update({
-          key: "orderbookBucketed",
-          value: ob.getOrderbookBucketed(this.bucketSize) || [],
-        });
-      }
-    },
     getFormatedTs(utcMs) {
       if (!utcMs) return "00:00:00";
       return DateTime.fromMillis(utcMs).toFormat("HH:mm:ss");
     },
-    // connectWs() {
-    //   if (!this.tradesActive) return;
-    //   if (!this.$w3s || !this.$w3s._subscribe || !this.$w3s.objects) return;
-    //   const evt = {
-    //     name: "trades",
-    //     args: ["market:trades", { ...this.asset }],
-    //     subscription: null,
-    //     object: null,
-    //   };
-    //   this.$w3s.objects.trades = evt;
-    //   this.$w3s._subscribe(evt.name, evt.args);
-    // },
-    // disconnectWs() {
-    //   if (!this.$w3s) return;
-    //   this.$w3s._unsubscribe("trades");
-    // },
+    connectWs() {
+      if (!this.$w3s || !this.$w3s._subscribe || !this.$w3s.objects) return;
+      if (this.orderSnapshotsActive) {
+        const snapshots = {
+          name: "snapshots",
+          args: ["market:order:snapshots", { ...this.asset }],
+          subscription: null,
+          object: null,
+        };
+        this.$w3s.objects.snapshots = snapshots;
+        this.$w3s._subscribe(snapshots.name, snapshots.args);
+      }
+      if (this.orderEventsActive) {
+        const events = {
+          name: "events",
+          args: ["market:order:events", { ...this.asset }],
+          subscription: null,
+          object: null,
+        };
+        this.$w3s.objects.events = events;
+        this.$w3s._subscribe(events.name, events.args);
+      }
+    },
+    disconnectWs() {
+      if (!this.$w3s) return;
+      this.$w3s._unsubscribe("trades");
+    },
   },
 
   mounted() {
-    this.getData();
     if (this.timer) clearInterval(this.timer);
     this.timer = setInterval(this.updateTabPrice, 1000);
-    // // connect WS stuffs
-    // setTimeout(() => {
-    //   this.connectWs();
-    // }, 3000);
-    // setInterval(() => {
-    //   this.getData();
-    // }, 60 * 1000);
+    // connect WS stuffs
+    setTimeout(() => {
+      this.connectWs();
+    }, 3000);
     this.getAllData();
   },
-
-  // $watch: {
-  //   asset: ["disconnectWs", "connectWs"],
-  // },
 };
 </script>

@@ -17,6 +17,7 @@ export default {
 
   // External data
   asset: state => state.asset,
+  assetExchanges: state => state.assetExchanges,
   price: state => state.price,
   trades: state => state.trades,
   tickers: state => state.tickers,

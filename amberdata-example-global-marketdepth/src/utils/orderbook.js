@@ -124,18 +124,6 @@ function processData(list, type, desc) {
   return res
 }
 
-const formatTypeItem = (type, item) => {
-  const f = {
-    price: item.price,
-    value: item.price,
-    volume: item.volume,
-    [`${type}volume`]: item.volume,
-    [`${type}totalvolume`]: item.totalVolume,
-  }
-  console.log('formatTypeItem', f)
-  return f
-}
-
 export class Point {
   constructor(item) {
     // NOTE: This has been standardized to:
@@ -217,8 +205,8 @@ export class OrderBook {
     return this.inBids(point.price) && this.inAsks(point.price)
   }
 
-  addPoint(item) {
-    const p = new Point(item)
+  addPoint(item, isAlreadyPoint) {
+    const p = isAlreadyPoint ? item : new Point(item)
     let prev
 
     // add to the raw items
@@ -239,8 +227,8 @@ export class OrderBook {
     return this
   }
 
-  removePoint(item) {
-    const p = new Point(item)
+  removePoint(item, isAlreadyPoint) {
+    const p = isAlreadyPoint ? item : new Point(item)
 
     // add to the raw items
     const arrRaw = this[`${p.type}Raw`]

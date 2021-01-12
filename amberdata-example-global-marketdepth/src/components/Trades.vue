@@ -23,7 +23,7 @@
           }"
           >{{ t[4] }}</span
         >
-        <span class="w-1/3 text-left text-gray-500">{{ t[5] }}</span>
+        <span class="w-1/3 text-left text-gray-500 truncate">{{ t[5] }}</span>
         <span class="w-1/3 text-right text-gray-500">{{
           getFormatedTs(t[1])
         }}</span>
