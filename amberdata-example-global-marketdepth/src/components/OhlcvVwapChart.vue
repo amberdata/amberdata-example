@@ -236,12 +236,12 @@ export default {
 
       // { time: { year: 2018, month: 9, day: 22 }, value: 25.531816900940186 },
       this.vwapSeries = this.chart.addLineSeries({
-        color: "#b5f6eb",
+        color: "#378fea",
         // color: "#26a69a",
         // priceFormat: {
         //   type: "vwap",
         // },
-        lineWidth: 1,
+        lineWidth: 2,
         priceScaleId: "right",
       });
 

@@ -12,78 +12,6 @@ const initCharts = async (api_key) => {
     // remove dumb logo
     chart.logo.group.node.innerHTML = null;
 
-    // Add data
-    chart.dataSource.requestOptions.requestHeaders = [
-      {
-        key: "x-api-key",
-        value: api_key,
-      },
-    ];
-    chart.dataSource.url = `https://web3api.io/api/v2/market/spot/order-book-snapshots/btc_usd/historical?exchange=bitfinex&timestamp=${
-      new Date().getTime() - 3600000.0
-    }`;
-    chart.dataSource.adapter.add("parsedData", function (data) {
-      // Function to process (sort and calculate cumulative volume)
-      function processData(list, type, desc) {
-        // Convert to data points
-        for (var i = 0; i < list.length; i++) {
-          list[i] = {
-            value: Number(list[i][0]),
-            volume: Number(list[i][1]),
-          };
-        }
-
-        // Sort list just in case
-        list.sort(function (a, b) {
-          if (a.value > b.value) {
-            return 1;
-          } else if (a.value < b.value) {
-            return -1;
-          } else {
-            return 0;
-          }
-        });
-
-        // Calculate cummulative volume
-        if (desc) {
-          for (var i = list.length - 1; i >= 0; i--) {
-            if (i < list.length - 1) {
-              list[i].totalvolume = list[i + 1].totalvolume + list[i].volume;
-            } else {
-              list[i].totalvolume = list[i].volume;
-            }
-            var dp = {};
-            dp["value"] = list[i].value;
-            dp[type + "volume"] = list[i].volume;
-            dp[type + "totalvolume"] = list[i].totalvolume;
-            res.unshift(dp);
-          }
-        } else {
-          for (var i = 0; i < list.length; i++) {
-            if (i > 0) {
-              list[i].totalvolume = list[i - 1].totalvolume + list[i].volume;
-            } else {
-              list[i].totalvolume = list[i].volume;
-            }
-            var dp = {};
-            dp["value"] = list[i].value;
-            dp[type + "volume"] = list[i].volume;
-            dp[type + "totalvolume"] = list[i].totalvolume;
-            res.push(dp);
-          }
-        }
-      }
-
-      // Init
-      var res = [];
-      // console.log(data.payload.data);
-      processData(data.payload.data.bid, "bids", true);
-      processData(data.payload.data.ask, "asks", false);
-
-      window.data = res;
-      return res;
-    });
-
     // Set up precision for numbers
     chart.numberFormatter.numberFormat = "#,###.####";
     chart.padding(0, 0, 0, 0);
@@ -170,9 +98,7 @@ const initCharts = async (api_key) => {
 
     // chart sizing
     chart.leftAxesContainer = "none";
-    // chart.width = 400;
-    // chart.height = 400;
-    // window.chart = chart;
+    window.chart = chart;
 
     return chart;
   });
@@ -197,20 +123,14 @@ export default {
     ...mapGetters(["apiKey", "orderbook"]),
   },
 
-  methods: {
-    fullOrderbook() {
-      console.log("fullOrderbook", this.orderbook);
-      if (!this.orderbook.bids || !this.orderbook.bids) return [];
-      this.chart.data = this.orderbook.bids.concat(this.orderbook.asks);
-    },
-  },
-
   mounted() {
     this.chart = initCharts(this.apiKey);
   },
 
-  $watch: {
-    orderbook: ["fullOrderbook"],
+  watch: {
+    orderbook: (newV) => {
+      window.chart.data = newV.bids.concat(newV.asks);
+    },
   },
 };
 </script>

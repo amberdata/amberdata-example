@@ -40,7 +40,7 @@ import { DateTime } from "luxon";
 const exchangeNames = {
   bitfinex: "Bitfinex",
   bitstamp: "Bitstamp",
-  ftx: "Ftx",
+  ftx: "FTX",
   gdax: "Coinbase Pro",
   gemini: "Gemini",
   kraken: "Kraken",
@@ -107,7 +107,7 @@ export default {
       const pair = this.asset && this.asset.pair ? this.asset.pair : "btc_usd";
       const now = DateTime.utc();
       const end = now.toMillis();
-      const start = now.minus({ days: 1 }).toMillis();
+      const start = now.minus({ days: 2 }).toMillis();
       const url = `${this.baseApiUrl}market/spot/ohlcv/${pair}/historical?startDate=${start}&endDate=${end}&timeInterval=days`;
       const options = { headers: { "x-api-key": this.apiKey } };
       const { data } = await this.$http.get(url, options);

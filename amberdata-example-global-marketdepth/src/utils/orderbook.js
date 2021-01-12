@@ -71,6 +71,71 @@
 //   ...  // contains the complete snapshot
 // ]
 
+function processData(list, type, desc) {
+  const res = []
+  // Convert to data points
+  for (var i = 0; i < list.length; i++) {
+    list[i] = {
+      value: Number(list[i].price),
+      volume: Number(list[i].volume),
+    };
+  }
+
+  // Sort list just in case
+  list.sort(function (a, b) {
+    if (a.value > b.value) {
+      return 1;
+    } else if (a.value < b.value) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
+
+  // Calculate cummulative volume
+  if (desc) {
+    for (var i = list.length - 1; i >= 0; i--) {
+      if (i < list.length - 1) {
+        list[i].totalvolume = list[i + 1].totalvolume + list[i].volume;
+      } else {
+        list[i].totalvolume = list[i].volume;
+      }
+      var dp = {};
+      dp["value"] = list[i].value;
+      dp[type + "volume"] = list[i].volume;
+      dp[type + "totalvolume"] = list[i].totalvolume;
+      res.unshift(dp);
+    }
+  } else {
+    for (var i = 0; i < list.length; i++) {
+      if (i > 0) {
+        list[i].totalvolume = list[i - 1].totalvolume + list[i].volume;
+      } else {
+        list[i].totalvolume = list[i].volume;
+      }
+      var dp = {};
+      dp["value"] = list[i].value;
+      dp[type + "volume"] = list[i].volume;
+      dp[type + "totalvolume"] = list[i].totalvolume;
+      res.push(dp);
+    }
+  }
+
+  return res
+}
+
+const formatTypeItem = (type, item) => {
+  const f = {
+    price: item.price,
+    value: item.price,
+    volume: item.volume,
+    [`${type}volume`]: item.volume,
+    [`${type}totalvolume`]: item.totalVolume,
+  }
+  console.log('formatTypeItem', f)
+  return f
+}
+
 export class Point {
   constructor(item) {
     // NOTE: This has been standardized to:
@@ -155,7 +220,6 @@ export class OrderBook {
   addPoint(item) {
     const p = new Point(item)
     let prev
-    // console.log(p, item);
 
     // add to the raw items
     this[`${p.type}Raw`].push(p)
@@ -171,7 +235,6 @@ export class OrderBook {
     } else {
       this[p.type].set(p.price, p)
     }
-    // console.log(p.type, this[p.type]);
 
     return this
   }
@@ -208,8 +271,8 @@ export class OrderBook {
   // Returns cumulative set
   getOrderbook() {
     return {
-      bids: [...this.bids.values()],
-      asks: [...this.asks.values()],
+      bids: processData([...this.bids.values()], "bids", true),
+      asks: processData([...this.asks.values()], "asks", false),
     }
   }
 
@@ -248,24 +311,21 @@ export class OrderBook {
     // Lastly, tally all the cumulative volumes the farther from a specific starting point
     allBids.forEach((val, key) => {
       // get total volume of all items below for trade ladder
-      const totalVolumeF = [...Array.from(allBids)]
-        .filter(i => i.price > key)
-      const totalVolume = totalVolumeF.reduce((acc, cur) => (acc.volume + cur.volume), 0)
-      console.log('bid item', totalVolume, key, val, totalVolumeF);
-      bids.push({ ...val, totalVolume })
+      const totalVolume = [...Array.from(allBids.values())]
+        .filter(i => i.price >= key)
+        .reduce((acc, cur) => acc + cur.volume, 0)
+      bids.push({ ...val, totalVolume: parseFloat(totalVolume).toFixed(6) })
     })
     allAsks.forEach((val, key) => {
       // get total volume of all items below for trade ladder
-      const totalVolume = Array.from(allAsks)
+      const totalVolume = [...Array.from(allAsks.values())]
         .filter(i => i.price <= key)
-        .reduce((acc, cur) => (acc.volume + cur.volume), 0)
-      asks.push({ ...val, totalVolume })
+        .reduce((acc, cur) => acc + cur.volume, 0)
+      asks.unshift({ ...val, totalVolume: parseFloat(totalVolume).toFixed(6) })
     })
 
-    console.log('getOrderbookBucketed', { bids, asks });
-
     // return sorted arrays by type
-    return { bids, asks }
+    return { bids: bids.slice(0, 9), asks: asks.slice(0, 9) }
   }
 }
 

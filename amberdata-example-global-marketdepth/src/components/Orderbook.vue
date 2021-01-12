@@ -5,13 +5,15 @@
       v-if="orderbookBucketed && orderbookBucketed.asks"
     >
       <div
-        v-for="a in orderbookBucketed.asks.slice(0, 9)"
+        v-for="a in orderbookBucketed.asks"
         :key="a"
         class="flex justify-between col-span-1 text-1xs"
       >
-        <span class="text-cerise-700">{{ a.price }}</span>
-        <span class="text-gray-300">{{ a.volume }}</span>
-        <span class="text-gray-300">{{ a.totalVolume }}</span>
+        <span class="flex-1 w-1/3 text-cerise-600">{{ a.price }}</span>
+        <span class="flex-1 w-1/3 text-gray-300 text-left">{{ a.volume }}</span>
+        <span class="flex-1 w-1/3 text-gray-300 text-right">{{
+          a.totalVolume
+        }}</span>
       </div>
     </div>
     <div class="row-span-1 text-gray-200 font-extralight text-center">
@@ -22,13 +24,15 @@
       v-if="orderbookBucketed && orderbookBucketed.bids"
     >
       <div
-        v-for="b in orderbookBucketed.bids.slice(0, 9)"
+        v-for="b in orderbookBucketed.bids"
         :key="b"
         class="flex justify-between col-span-1 text-1xs"
       >
-        <span class="text-limegreen-600">{{ b.price }}</span>
-        <span class="text-gray-300">{{ b.volume }}</span>
-        <span class="text-gray-300">{{ b.totalVolume }}</span>
+        <span class="flex-1 w-1/3 text-limegreen-600">{{ b.price }}</span>
+        <span class="flex-1 w-1/3 text-gray-300 text-left">{{ b.volume }}</span>
+        <span class="flex-1 w-1/3 text-gray-300 text-right">{{
+          b.totalVolume
+        }}</span>
       </div>
     </div>
   </main>
@@ -98,6 +102,57 @@ export default {
       if (this.priceUSD !== "-")
         document.title = `${this.priceUSD} BTC_USD | Global Digital Asset Markets - by Amberdata.io`;
     },
+    async getDataByFilters(exchange, pair) {
+      const now = DateTime.utc();
+      const timestamp = now.minus({ minutes: 1 }).toMillis();
+      const start = now.minus({ minutes: 3 }).toMillis();
+      const end = now.minus({ minutes: 1 }).toMillis();
+      const url = `${this.baseApiUrl}market/spot/order-book-snapshots/${pair}/historical?timestamp=${timestamp}&exchange=${exchange}&timeFormat=ms`;
+      const options = { headers: { "x-api-key": this.apiKey } };
+      const { data } = await this.$http.get(url, options);
+      // console.log("getDataByFilters", exchange, pair, url, data);
+
+      if (
+        data.payload &&
+        data.payload.data &&
+        Object.keys(data.payload.data).length
+      ) {
+        const { bid, ask } = data.payload.data;
+        return { bids: bid, asks: ask };
+      }
+      return { bids: [], asks: [] };
+    },
+    async getAllData() {
+      const pair = this.asset && this.asset.pair ? this.asset.pair : "btc_usd";
+      const p = [];
+      // const exchanges = ["bitfinex"];
+      const exchanges = ["bitfinex", "bitstamp", "gdax", "gemini", "kraken"];
+      let allBids = [];
+      let allAsks = [];
+
+      const allOrderBooks = await Promise.all(
+        exchanges.map((exchange) => this.getDataByFilters(exchange, pair))
+      );
+
+      // combine all like-kind sets
+      allOrderBooks.forEach((book) => {
+        allBids = allBids.concat(book.bids);
+        allAsks = allAsks.concat(book.asks);
+      });
+      console.log("allBids", allBids);
+      console.log("allAsks", allAsks);
+
+      const ob = new this.$OrderBook().initializePoints({
+        bids: allBids.map((b) => normalizeRestOrders(b, true, { pair })),
+        asks: allAsks.map((a) => normalizeRestOrders(a, false, { pair })),
+      });
+      this.orderbookRaw = ob;
+      this.update({ key: "orderbook", value: ob.getOrderbook() || [] });
+      this.update({
+        key: "orderbookBucketed",
+        value: ob.getOrderbookBucketed(this.bucketSize) || [],
+      });
+    },
     async getData() {
       const pair = this.asset && this.asset.pair ? this.asset.pair : "btc_usd";
       const now = DateTime.utc();
@@ -109,10 +164,6 @@ export default {
       // const url = `${this.baseApiUrl}market/spot/order-book-snapshots/${pair}/historical?startDate=${start}&endDate=${end}&exchange=${exchange}&timeFormat=ms`;
       const options = { headers: { "x-api-key": this.apiKey } };
       const { data } = await this.$http.get(url, options);
-
-      // TODO: likely need to load data for several exchanges to start
-      console.log("ORDERBOOK", url, data.payload.data);
-      console.log("ORDERBOOK CLASS", this.$OrderBook);
 
       if (
         data.payload &&
@@ -166,6 +217,10 @@ export default {
     // setTimeout(() => {
     //   this.connectWs();
     // }, 3000);
+    // setInterval(() => {
+    //   this.getData();
+    // }, 60 * 1000);
+    this.getAllData();
   },
 
   // $watch: {
