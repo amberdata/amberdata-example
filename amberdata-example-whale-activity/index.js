@@ -21,6 +21,10 @@
       initWebSockets()
     })
 
+    const ETHEREUM_EXPLORER = 'https://etherscan.io/tx/'
+    const BITCOIN_EXPLORER = 'https://www.blockchain.com/btc/tx/'
+    const LITECOIN_EXPLORER = 'https://blockchair.com/litecoin/transaction/'
+
     const TWEET_TEXT = "Check out this large transaction I discovered using @Amberdataio&#39;s API!"
 
     const config = {
@@ -245,9 +249,9 @@
     }
 
     const blockchainLink = {
-      '1c9c969065fcd1cf': 'https://amberdata.io/dashboards/?hash=',
-      '408fa195a34b533de9ad9889f076045e': 'https://amberdata.io/dashboards/?hash=',
-      'f94be61fd9f4fa684f992ddfd4e92272': 'https://amberdata.io/dashboards/?hash='
+      '1c9c969065fcd1cf': ETHEREUM_EXPLORER,
+      '408fa195a34b533de9ad9889f076045e': BITCOIN_EXPLORER,
+      'f94be61fd9f4fa684f992ddfd4e92272': LITECOIN_EXPLORER
     }
 
     const round = (n, digits) => Number.parseFloat(n).toFixed(digits)
