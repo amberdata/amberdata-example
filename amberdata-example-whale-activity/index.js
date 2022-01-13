@@ -21,7 +21,7 @@
       initWebSockets()
     })
 
-    const ETHEREUM_EXPLORER = 'https:///etherscan.io/tx/'
+    const ETHEREUM_EXPLORER = 'https://etherscan.io/tx/'
     const BITCOIN_EXPLORER = 'https://www.blockchain.com/btc/tx/'
     const LITECOIN_EXPLORER = 'https://blockchair.com/litecoin/transaction/'
 
